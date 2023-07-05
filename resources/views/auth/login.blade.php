@@ -93,14 +93,11 @@
                                         </div>
                                     </div>
                                     <div class="d-grid gap-2 mt-3">
-                                        <input type="submit" href="{{route('register')}}" class="btn btn-lg btn-primary" value="Sign in">
+                                        <input type="submit" class="btn btn-lg btn-primary" value="Sign in">
                                     </div>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    <div class="text-center mb-3">
-                        Don't have an account? <a href="{{route('register')}}">Sign up</a>
                     </div>
                 </div>
             </div>
