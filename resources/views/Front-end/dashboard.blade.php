@@ -1,17 +1,12 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Front-end/dashboard.dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Front-end/dashboard.log in") }}
-                </div>
-            </div>
+@extends('layouts.master')
+@section('title','Dashboard')
+@section('css')
+    <link class="js-stylesheet" href="{{URL::asset('css/light.css')}}" rel="stylesheet">
+    @endsection
+@section('page-header')
+    <div class="row mb-2 mb-xl-3">
+        <div class="col-auto d-none d-sm-block">
+            <h3><strong>Analytics</strong> Dashboard</h3>
         </div>
     </div>
-</x-app-layout>
+@endsection

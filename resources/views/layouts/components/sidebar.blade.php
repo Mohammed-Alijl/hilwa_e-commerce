@@ -20,10 +20,11 @@
                         Administrator
                     </a>
                     <div class="dropdown-menu dropdown-menu-start">
-                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i> Settings</a>
+                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i>
+                            {{__('Front-end/sidebar.profile')}}</a>
+                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i> {{__('Front-end/sidebar.settings')}}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><i class="align-middle me-2" data-feather="log-out"></i> Log out</a>
+                        <a class="dropdown-item" href="#"><i class="align-middle me-2" data-feather="log-out"></i> {{__('Front-end/sidebar.logout')}}</a>
                     </div>
 
                     <div class="sidebar-user-subtitle">Administrator</div>
@@ -35,133 +36,133 @@
             <li class="sidebar-header"></li>
             <li class="sidebar-item active">
                 <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">{{__('Front-end/sidebar.dashboards')}}</span>
                 </a>
                 <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-                    <li class="sidebar-item active"><a class="sidebar-link" href="#">Dashboard 1</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Dashboard 2</a></li>
+                    <li class="sidebar-item active"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.dashboard.1')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.dashboard.2')}}</a></li>
                 </ul>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle me-2" data-feather="shopping-bag"></i> <span class="align-middle">Orders</span>
+                    <i class="align-middle me-2" data-feather="shopping-bag"></i> <span class="align-middle">{{__('Front-end/sidebar.orders')}}</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Customers</span>
+                    <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">{{__('Front-end/sidebar.customers')}}</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle me-2" data-feather="truck"></i> <span class="align-middle">Drivers</span>
+                    <i class="align-middle me-2" data-feather="truck"></i> <span class="align-middle">{{__('Front-end/sidebar.drivers')}}</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a data-bs-target="#multi" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i class="align-middle me-2" data-feather="file-text"></i> <span class="align-middle">Reports</span>
+                    <i class="align-middle me-2" data-feather="file-text"></i> <span class="align-middle">{{__('Front-end/sidebar.reports')}}</span>
                 </a>
                 <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a data-bs-target="#customers" data-bs-toggle="collapse" class="sidebar-link collapsed">Customers</a>
+                        <a data-bs-target="#customers" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.customers')}}</a>
                         <ul id="customers" class="sidebar-dropdown list-unstyled collapse">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Customer Location</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.customers.location')}}</a>
                             </li>
                         </ul>
                     </li>
 
                     <li class="sidebar-item">
-                        <a data-bs-target="#driver" data-bs-toggle="collapse" class="sidebar-link collapsed">Driver Report</a>
+                        <a data-bs-target="#driver" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.driver.reports')}}</a>
                         <ul id="driver" class="sidebar-dropdown list-unstyled collapse">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Active Driver</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.active.drivers')}}</a>
                             </li>
 
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Drivers Status</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.drivers.status')}}</a>
                             </li>
 
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Assign Driver Order</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.assign.driver.order')}}</a>
                             </li>
                         </ul>
                     </li>
 
                     <li class="sidebar-item">
-                        <a data-bs-target="#finance" data-bs-toggle="collapse" class="sidebar-link collapsed">Finance</a>
+                        <a data-bs-target="#finance" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.finance')}}</a>
                         <ul id="finance" class="sidebar-dropdown list-unstyled collapse">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Cash on hand</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.cash.on.hand')}}</a>
                             </li>
                         </ul>
                     </li>
 
                     <li class="sidebar-item">
-                        <a data-bs-target="#marketing" data-bs-toggle="collapse" class="sidebar-link collapsed">Marketing</a>
+                        <a data-bs-target="#marketing" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.marketing')}}</a>
                         <ul id="marketing" class="sidebar-dropdown list-unstyled collapse">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Abandoned Cart</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.abandoned.cart')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Campaings Summary</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.campaigns.summary')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Coupon Report</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.coupon.report')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Points Report</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.points.report')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Featured</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.featured')}}</a>
                             </li>
 
                         </ul>
                     </li>
 
                     <li class="sidebar-item">
-                        <a data-bs-target="#sales" data-bs-toggle="collapse" class="sidebar-link collapsed">Sales</a>
+                        <a data-bs-target="#sales" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.sales')}}</a>
                         <ul id="sales" class="sidebar-dropdown list-unstyled collapse">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Sales Report</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.sales.report')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Driver Daily Summary</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.driver.daily.summary')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Purchased Products</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.purchased.products')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Sales By Hour</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.sales.by.hour')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Sales Return</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.sales.return')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Top Customer Sales</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.top.customer.sales')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">One Time Customer</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.one.time.customer')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Products Stock Level</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.products.stock.level')}}</a>
                             </li>
 
                         </ul>
                     </li>
 
                     <li class="sidebar-item">
-                        <a data-bs-target="#others" data-bs-toggle="collapse" class="sidebar-link collapsed">Others</a>
+                        <a data-bs-target="#others" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.others')}}</a>
                         <ul id="others" class="sidebar-dropdown list-unstyled collapse">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Gift card usage</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.gift.card.usage')}}</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Timeslot</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.timeslots')}}</a>
                             </li>
                         </ul>
                     </li>
@@ -170,72 +171,72 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle me-2 fas fa-fw fa-address-card"></i> <span class="align-middle">Contact Request</span>
+                    <i class="align-middle me-2 fas fa-fw fa-address-card"></i> <span class="align-middle">{{__('Front-end/sidebar.contact.request')}}</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle me-2" data-feather="star"></i> <span class="align-middle">Driver Rating</span>
+                    <i class="align-middle me-2" data-feather="star"></i> <span class="align-middle">{{__('Front-end/sidebar.driver.rating')}}</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle me-2 fas fa-fw fa-list"></i> <span class="align-middle">Categories</span>
+                    <i class="align-middle me-2 fas fa-fw fa-list"></i> <span class="align-middle">{{__('Front-end/sidebar.categories')}}</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle me-2 fab fa-fw fa-product-hunt"></i> <span class="align-middle">Products</span>
+                    <i class="align-middle me-2 fab fa-fw fa-product-hunt"></i> <span class="align-middle">{{__('Front-end/sidebar.products')}}</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle me-2 fas fa-fw fa-align-center"></i> <span class="align-middle">Attribute</span>
+                    <i class="align-middle me-2 fas fa-fw fa-align-center"></i> <span class="align-middle">{{__('Front-end/sidebar.attribute')}}</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle me-2 fas fa-fw fa-comments"></i> <span class="align-middle">Comments</span>
+                    <i class="align-middle me-2 fas fa-fw fa-comments"></i> <span class="align-middle">{{__('Front-end/sidebar.comments')}}</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a data-bs-target="#ui" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i class="align-middle me-2" data-feather="target"></i> <span class="align-middle">Pre Sales</span>
+                    <i class="align-middle me-2" data-feather="target"></i> <span class="align-middle">{{__('Front-end/sidebar.pre.sales')}}</span>
                 </a>
                 <ul id="ui" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Customers</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.customers')}}</a></li>
                 </ul>
             </li>
             <li class="sidebar-item">
                 <a data-bs-target="#marketing" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i class="align-middle me-2" data-feather="target"></i> <span class="align-middle">Marketing</span>
+                    <i class="align-middle me-2" data-feather="target"></i> <span class="align-middle">{{__('Front-end/sidebar.marketing')}}</span>
                 </a>
                 <ul id="marketing" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Advertisement</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Marketing</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Gift Vouchers</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Coupons</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Rewards</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Notification</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.advertisement')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.marketing')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.gift.vouchers')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.coupons')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.rewards')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.notification')}}</a></li>
                 </ul>
             </li>
             <li class="sidebar-item">
                 <a data-bs-target="#definitions" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i class="align-middle me-2" data-feather="check-square"></i> <span class="align-middle">Definitions</span>
+                    <i class="align-middle me-2" data-feather="check-square"></i> <span class="align-middle">{{__('Front-end/sidebar.definitions')}}</span>
                 </a>
                 <ul id="definitions" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Users</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Roles</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Time Slots</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Units</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Stores</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.users')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.roles')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.timeslots')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.units')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.stores')}}</a></li>
                     <li class="sidebar-item">
-                        <a data-bs-target="#location" data-bs-toggle="collapse" class="sidebar-link collapsed">Location Management</a>
+                        <a data-bs-target="#location" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.location.management')}}</a>
                         <ul id="location" class="sidebar-dropdown list-unstyled collapse">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Zone</a>
+                                <a class="sidebar-link" href="#">{{__('Front-end/sidebar.zone')}}</a>
                             </li>
                         </ul>
                     </li>
@@ -243,22 +244,22 @@
             </li>
             <li class="sidebar-item">
                 <a data-bs-target="#system" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i class="align-middle me-2" data-feather="hard-drive"></i> <span class="align-middle">System</span>
+                    <i class="align-middle me-2" data-feather="hard-drive"></i> <span class="align-middle">{{__('Front-end/sidebar.system')}}</span>
                 </a>
                 <ul id="system" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Settings</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Logs</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Pages</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.settings')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.logs')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.pages')}}</a></li>
                 </ul>
             </li>
             <li class="sidebar-item">
                 <a data-bs-target="#system" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i class="align-middle me-2" data-feather="plus-square"></i> <span class="align-middle">Others</span>
+                    <i class="align-middle me-2" data-feather="plus-square"></i> <span class="align-middle">{{__('Front-end/sidebar.others')}}</span>
                 </a>
                 <ul id="system" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Payment Services</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Return Products</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Holidays</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.payment.services')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.return.products')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.holidays')}}</a></li>
                 </ul>
             </li>
         </ul>

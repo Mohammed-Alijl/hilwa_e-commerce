@@ -17,7 +17,7 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
                     <div class="dropdown-menu-header">
                         <div class="position-relative">
-                            4 New Messages
+                            4 {{__('Front-end/header.new.messages')}}
                         </div>
                     </div>
                     <div class="list-group">
@@ -36,7 +36,7 @@
 
                     </div>
                     <div class="dropdown-menu-footer">
-                        <a href="#" class="text-muted">Show all messages</a>
+                        <a href="#" class="text-muted">{{__('Front-end/header.messages.show.all')}}</a>
                     </div>
                 </div>
             </li>
@@ -67,11 +67,11 @@
                     <img src="{{URL::asset('img/avatars/avatar.png')}}" class="avatar img-fluid rounded" alt="Charles Hall" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i> {{__('Front-end/header.profile')}}</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i> Settings</a>
+                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i> {{__('Front-end/header.settings')}}</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-2" data-feather="log-out"></i> Log out</a>
+                    <a class="dropdown-item" href="#"><i class="align-middle me-2" data-feather="log-out"></i> {{__('Front-end/header.logout')}}</a>
                 </div>
             </li>
         </ul>
