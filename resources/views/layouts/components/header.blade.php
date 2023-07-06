@@ -42,17 +42,15 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-flag dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown">
-                    <img src="{{URL::asset('img/flags/us.png')}}" alt="English" />
+                    <img src="{{URL::asset('img/flags/'. \Illuminate\Support\Facades\App::getLocale() . '.png')}}" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-                    <a class="dropdown-item" href="#">
-                        <img src="{{URL::asset('img/flags/us.png')}}" alt="English" width="20" class="align-middle me-1" />
-                        <span class="align-middle">English</span>
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <a class="dropdown-item" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        <img src="{{URL::asset('img/flags/' . $localeCode . '.png')}}" alt="English" width="20" class="align-middle me-1" />
+                        <span class="align-middle">{{ $properties['native'] }}</span>
                     </a>
-                    <a class="dropdown-item" href="#">
-                        <img src="{{URL::asset('img/flags/sa.png')}}" alt="Arabic" width="20" class="align-middle me-1" />
-                        <span class="align-middle">Arabic</span>
-                    </a>
+                    @endforeach
                 </div>
             </li>
             <li class="nav-item">
