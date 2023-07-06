@@ -9,8 +9,11 @@
   data-sidebar-position: left (default), right
   data-sidebar-layout: default (default), compact
 -->
-
-<body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+@if(\Illuminate\Support\Facades\App::getLocale() == 'ar')
+<body data-theme="default" data-layout="fluid" data-sidebar-position="right" data-sidebar-layout="compact">
+@else
+    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="compact">
+    @endif
 <div class="wrapper">
     @include('layouts.components.sidebar')
     <div class="main">
