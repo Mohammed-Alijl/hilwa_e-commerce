@@ -103,8 +103,8 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a data-bs-target="#marketing" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.marketing')}}</a>
-                        <ul id="marketing" class="sidebar-dropdown list-unstyled collapse">
+                        <a data-bs-target="#marketing-reports" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.marketing')}}</a>
+                        <ul id="marketing-reports" class="sidebar-dropdown list-unstyled collapse">
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="#">{{__('Front-end/sidebar.abandoned.cart')}}</a>
                             </li>
@@ -253,10 +253,10 @@
                 </ul>
             </li>
             <li class="sidebar-item">
-                <a data-bs-target="#system" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                <a data-bs-target="#other" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2" data-feather="plus-square"></i> <span class="align-middle">{{__('Front-end/sidebar.others')}}</span>
                 </a>
-                <ul id="system" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                <ul id="other" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.payment.services')}}</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.return.products')}}</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.holidays')}}</a></li>
