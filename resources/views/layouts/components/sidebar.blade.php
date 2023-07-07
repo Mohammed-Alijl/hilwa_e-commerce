@@ -13,11 +13,11 @@
         <div class="sidebar-user">
             <div class="d-flex justify-content-center">
                 <div class="flex-shrink-0">
-                    <img src="{{URL::asset('img/avatars/avatar.png')}}" class="avatar img-fluid rounded me-1" alt="Administrator" />
+                    <img src="{{URL::asset('img/users/' . auth()->user()->image)}}" class="avatar img-fluid rounded me-1" alt="Administrator" />
                 </div>
                 <div class="flex-grow-1 ps-2">
                     <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                        Administrator
+                        {{auth()->user()->first_name . auth()->user()->last_name}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-start">
                         <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i>
@@ -27,7 +27,7 @@
                         <a class="dropdown-item" href="#"><i class="align-middle me-2" data-feather="log-out"></i> {{__('Front-end/sidebar.logout')}}</a>
                     </div>
 
-                    <div class="sidebar-user-subtitle">Administrator</div>
+                    <div class="sidebar-user-subtitle">{{auth()->user()->roles->pluck('name','name')->first()}}</div>
                 </div>
             </div>
         </div>
