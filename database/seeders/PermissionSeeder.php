@@ -122,6 +122,13 @@ class PermissionSeeder extends Seeder
             'users.edit',
             'users.delete',
 
+            //Roles
+            'Roles.view',
+            'Roles.add',
+            'Roles.edit',
+            'Roles.delete',
+
+
             //Zone
             'zone.view',
             'zone.add',
