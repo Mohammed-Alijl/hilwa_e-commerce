@@ -172,6 +172,13 @@ class PermissionSeeder extends Seeder
 
             //Payment Services
             'payment-services.view',
+
+            //Sidebar
+            'marketing-sidebar',
+            'definition',
+            'system',
+            'others'
+
         ];
 
         foreach ($permissions as $permission) {
