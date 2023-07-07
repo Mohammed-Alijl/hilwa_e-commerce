@@ -19,6 +19,7 @@ class CountrySeeder extends Seeder
         foreach ($names as $name){
             $country = new Country();
             $country->name = $name;
+            $country->save();
         }
     }
 }
