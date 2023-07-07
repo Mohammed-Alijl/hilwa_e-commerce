@@ -18,9 +18,11 @@ return new class extends Migration
             $table->bigInteger('mobile_number');
             $table->foreignId('city_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('code');
+            $table->string('image')->default('default.jpg');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->text('roles_name');
             $table->rememberToken();
             $table->timestamps();
         });
