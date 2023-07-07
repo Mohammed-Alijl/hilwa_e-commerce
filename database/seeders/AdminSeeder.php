@@ -21,7 +21,7 @@ class AdminSeeder extends Seeder
         $user->email = 'admin@admin.com';
         $user->mobile_number = 69997391;
         $user->password = bcrypt('123456789');
-        $user->image = 'default.jpg';
+        $user->image = 'default.png';
         $user->code = 'Mohammed';
         $user->roles_name = ['Admin'];
         $user->city_id = 1;

@@ -26,7 +26,7 @@ class DestroyRequest extends FormRequest
             $user = User::find($this->id);
             if (!$user)
                 return redirect()->back()->withErrors(__('failed_messages.user.notFound'));
-            if ($user->image != 'default.jpg')
+            if ($user->image != 'default.png')
                 $this->delete_attachment('img/users/' . $user->image);
             if ($user->delete()) {
                 return redirect()->back()->withErrors(__('success_messages.user.destroy'));

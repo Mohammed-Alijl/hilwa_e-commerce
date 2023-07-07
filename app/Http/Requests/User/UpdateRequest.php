@@ -49,7 +49,7 @@ class UpdateRequest extends FormRequest
             if($this->filled('code'))
                 $user->code = $this->code;
             if ($files = $this->file('pic')) {
-                if($user->image != 'default.jpg')
+                if($user->image != 'default.png')
                 $this->delete_attachment('img/users/' . $user->image);
                 $imageName = $this->save_attachment($files, "img/users");
                 $user->image = $imageName;

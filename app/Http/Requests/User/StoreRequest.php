@@ -35,9 +35,9 @@ class StoreRequest extends FormRequest
             $user->code = $this->code;
 
             if ($files = $this->file('pic')) {
-                $imageName = $this->save_attachment($files, "assets/img/users");
+                $imageName = $this->save_attachment($files, "img/users");
             }else
-                $imageName = 'default.jpg';
+                $imageName = 'default.png';
             $user->image = $imageName;
             $user->save();
 
