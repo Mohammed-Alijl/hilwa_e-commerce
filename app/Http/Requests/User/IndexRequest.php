@@ -18,8 +18,9 @@ class IndexRequest extends FormRequest
     }
 
     public function run(){
-        $data = User::orderBy('id','DESC')->get();
-        return view('Front-end.users.index',compact('data'))
+        $users = User::orderBy('id','DESC')->get();
+        $rowNumber = 1;
+        return view('Front-end.users.index',compact('users','rowNumber'))
             ->with('i', ($this->input('page', 1) - 1) * 5);
     }
 

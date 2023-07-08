@@ -29,7 +29,7 @@ class DestroyRequest extends FormRequest
             if ($user->image != 'default.png')
                 $this->delete_attachment('img/users/' . $user->image);
             if ($user->delete()) {
-                return redirect()->back()->withErrors(__('success_messages.user.destroy'));
+                return redirect()->back()->with('success-message',__('success_messages.user.destroy'));
             }
             else
                 return redirect()->back()->withErrors(__('failed_messages.failed'));

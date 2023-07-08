@@ -233,7 +233,7 @@
                     <i class="align-middle me-2" data-feather="check-square"></i> <span class="align-middle">{{__('Front-end/sidebar.definitions')}}</span>
                 </a>
                 <ul id="definitions" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.users')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('users.index')}}">{{__('Front-end/sidebar.users')}}</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.roles')}}</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.timeslots')}}</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.units')}}</a></li>

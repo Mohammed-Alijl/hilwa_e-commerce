@@ -48,4 +48,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'roles_name'=>'array'
     ];
+
+
+    //=======================================================
+    //==================RELATIONSHIPS========================
+    //=======================================================
+    public function city(){
+        return $this->belongsTo(City::class,'city_id');
+    }
 }
