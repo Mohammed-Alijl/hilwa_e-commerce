@@ -24,7 +24,7 @@
                         <a href="#" class="list-group-item">
                             <div class="row g-0 align-items-center">
                                 <div class="col-2">
-                                    <img src="{{URL::asset('img/avatars/avatar-5.jpg')}}" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
+                                    <img src="{{URL::asset('img/users/' . auth()->user()->image)}}" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
                                 </div>
                                 <div class="col-10 ps-2">
                                     <div class="text-dark">Vanessa Tucker</div>
@@ -69,7 +69,13 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i> {{__('Front-end/header.settings')}}</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-2" data-feather="log-out"></i> {{__('Front-end/header.logout')}}</a>
+                    <form  method="post" action="{{route('logout')}}">
+                        @csrf
+                        <button type="submit" class="dropdown-item">
+                            <i class="align-middle me-2" data-feather="log-out"></i>
+                            {{__('Front-end/sidebar.logout')}}
+                        </button>
+                    </form>
                 </div>
             </li>
         </ul>

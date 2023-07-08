@@ -13,21 +13,27 @@
         <div class="sidebar-user">
             <div class="d-flex justify-content-center">
                 <div class="flex-shrink-0">
-                    <img src="{{URL::asset('img/avatars/avatar.png')}}" class="avatar img-fluid rounded me-1" alt="Administrator" />
+                    <img src="{{URL::asset('img/users/' . auth()->user()->image)}}" class="avatar img-fluid rounded me-1" alt="Administrator" />
                 </div>
                 <div class="flex-grow-1 ps-2">
                     <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                        Administrator
+                        {{auth()->user()->first_name . auth()->user()->last_name}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-start">
                         <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i>
                             {{__('Front-end/sidebar.profile')}}</a>
                         <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i> {{__('Front-end/sidebar.settings')}}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><i class="align-middle me-2" data-feather="log-out"></i> {{__('Front-end/sidebar.logout')}}</a>
+                        <form  method="post" action="{{route('logout')}}">
+                            @csrf
+                            <button type="submit" class="dropdown-item">
+                            <i class="align-middle me-2" data-feather="log-out"></i>
+                            {{__('Front-end/sidebar.logout')}}
+                            </button>
+                        </form>
                     </div>
 
-                    <div class="sidebar-user-subtitle">Administrator</div>
+                    <div class="sidebar-user-subtitle">{{auth()->user()->roles->pluck('name','name')->first()}}</div>
                 </div>
             </div>
         </div>
@@ -227,7 +233,7 @@
                     <i class="align-middle me-2" data-feather="check-square"></i> <span class="align-middle">{{__('Front-end/sidebar.definitions')}}</span>
                 </a>
                 <ul id="definitions" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.users')}}</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('users.index')}}">{{__('Front-end/sidebar.users')}}</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.roles')}}</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.timeslots')}}</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.units')}}</a></li>

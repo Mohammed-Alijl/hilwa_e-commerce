@@ -24,6 +24,7 @@
     <!-- Remove this after purchasing -->
     <link class="js-stylesheet" href="{{URL::asset('css/light.css')}}" rel="stylesheet">
     <script src="{{URL::asset('js/settings.js')}}"></script>
+    <script src="{{URL::asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
     <style>
         body {
             opacity: 0;
