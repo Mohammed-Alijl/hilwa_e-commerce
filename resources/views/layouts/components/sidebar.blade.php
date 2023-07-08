@@ -24,7 +24,13 @@
                             {{__('Front-end/sidebar.profile')}}</a>
                         <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i> {{__('Front-end/sidebar.settings')}}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><i class="align-middle me-2" data-feather="log-out"></i> {{__('Front-end/sidebar.logout')}}</a>
+                        <form  method="post" action="{{route('logout')}}">
+                            @csrf
+                            <button type="submit" class="dropdown-item">
+                            <i class="align-middle me-2" data-feather="log-out"></i>
+                            {{__('Front-end/sidebar.logout')}}
+                            </button>
+                        </form>
                     </div>
 
                     <div class="sidebar-user-subtitle">{{auth()->user()->roles->pluck('name','name')->first()}}</div>
