@@ -21,11 +21,8 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth']
     ], function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
 
-    Route::get('/dashboard',[\App\Http\Controllers\DashboardController::class,'create'])->name('dashboard');
+    Route::get('/',[\App\Http\Controllers\DashboardController::class,'create'])->name('dashboard');
 
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
