@@ -84,7 +84,7 @@
                 showCancelButton: false,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: '{{__('Front-end/pages/users.not.able.delete')}}Delete!'
+                confirmButtonText: '{{__('Front-end/pages/users.delete')}}'
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Perform the delete operation here
