@@ -10,9 +10,11 @@
         <div class="col-auto d-none d-sm-block">
             <h3><strong>{{__('Front-end/pages/users.definitions')}}</strong> {{__('Front-end/pages/users.users')}}</h3>
         </div>
-        <div class="col-auto ms-auto text-end mt-n1">
-            <a href="{{route('users.create')}}" class="btn btn-primary">{{__('Front-end/pages/users.add.user')}}</a>
-        </div>
+        @can('users.add')
+            <div class="col-auto ms-auto text-end mt-n1">
+                <a href="{{route('users.create')}}" class="btn btn-primary">{{__('Front-end/pages/users.add.user')}}</a>
+            </div>
+        @endcan
     </div>
 @endsection
 @section('content')
@@ -49,8 +51,9 @@
                                                                                data-feather="edit-2"></i></a>
                             @endcan
                             @can('users.delete')
-                                    <a href="#" onclick="deletes({{ $user->id }})"><i class="align-middle" data-feather="trash"></i></a>
-                                @endcan
+                                <a href="#" onclick="deletes({{ $user->id }})"><i class="align-middle"
+                                                                                  data-feather="trash"></i></a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -58,7 +61,6 @@
             </table>
         </div>
     </div>
-
 
 @endsection
 @section('scripts')
@@ -112,12 +114,12 @@
         }
     </script>
     @if(\Illuminate\Support\Facades\Session::has('success-message'))
-    <script>
-        Swal.fire(
-            '{{__('deleted')}}',
-            '{{\Illuminate\Support\Facades\Session::get('success-message')}}',
-            'success'
-        )
-    </script>
+        <script>
+            Swal.fire(
+                '{{__('deleted')}}',
+                '{{\Illuminate\Support\Facades\Session::get('success-message')}}',
+                'success'
+            )
+        </script>
     @endif
 @endsection
