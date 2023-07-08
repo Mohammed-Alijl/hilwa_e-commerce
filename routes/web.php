@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -23,6 +24,7 @@ Route::group(
     ], function () {
 
     Route::get('/',[\App\Http\Controllers\DashboardController::class,'create'])->name('dashboard');
+    Route::resource('user',UserController::class);
 
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
