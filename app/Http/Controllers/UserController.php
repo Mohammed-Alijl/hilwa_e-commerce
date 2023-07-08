@@ -14,10 +14,10 @@ class UserController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:users-list', ['only' => ['index,show']]);
-        $this->middleware('permission:add-user', ['only' => ['create','store']]);
-        $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
-        $this->middleware('permission:delete-user', ['only' => ['destroy']]);
+        $this->middleware('permission:users.view', ['only' => ['index,show']]);
+        $this->middleware('permission:users.add', ['only' => ['create','store']]);
+        $this->middleware('permission:users.edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:users.edit', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
