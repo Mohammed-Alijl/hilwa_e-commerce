@@ -22,13 +22,19 @@
 
     <!-- BEGIN SETTINGS -->
     <!-- Remove this after purchasing -->
+    @if(\Illuminate\Support\Facades\App::getLocale() == 'ar')
+    <link class="js-stylesheet" href="{{URL::asset('css/app.rtl.css')}}" rel="stylesheet">
+    @else
     <link class="js-stylesheet" href="{{URL::asset('css/light.css')}}" rel="stylesheet">
+        <style>
+            body {
+                opacity: 0;
+            }
+        </style>
     <script src="{{URL::asset('js/settings.js')}}"></script>
-    <script src="{{URL::asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
-    <style>
-        body {
-            opacity: 0;
-        }
-    </style>
+    @endif
+
+
     <!-- END SETTINGS -->
+    <script src="{{URL::asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 </head>

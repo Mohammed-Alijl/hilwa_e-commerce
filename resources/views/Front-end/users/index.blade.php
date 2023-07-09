@@ -1,7 +1,12 @@
 @extends('layouts.master')
 @section('title',__('Front-end/pages/users.title'))
 @section('css')
-    <link class="js-stylesheet" href="{{URL::asset('css/light.css')}}" rel="stylesheet">
+    @if(\Illuminate\Support\Facades\App::getLocale() == 'ar')
+        <link class="js-stylesheet" href="{{URL::asset('css/app.rtl.css')}}" rel="stylesheet">
+        @else
+        <link class="js-stylesheet" href="{{URL::asset('css/light.css')}}" rel="stylesheet">
+        @endif
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
