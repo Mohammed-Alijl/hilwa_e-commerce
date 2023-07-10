@@ -16,4 +16,18 @@ return [
     'not.able.revert' => 'لن تكون قادرًا على التراجع عن هذا',
     'deleted' => 'تم الحذف',
     'delete' => 'حذف',
+    'add.title'=>'إضافة مستخدم',
+    'add'=>'إضافة',
+    'add.description'=>'إضافة مستخدم جديد من هنا!',
+    'first.name'=>'الاسم الأول',
+    'last.name'=>'الاسم الأخير',
+    'password'=>'كلمة المرور',
+    'password.confirm'=>'تأكيد كلمة المرور',
+    'address'=>'العنوان',
+    'choose'=>'اختيار...',
+    'country'=>'البلد',
+    'limit.access.state'=>'تحديد الوصول للولاية',
+    'profile.image'=>'صورة الملف الشخصي',
+    'submit'=>'إرسال',
+
 ];

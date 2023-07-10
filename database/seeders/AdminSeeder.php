@@ -23,8 +23,10 @@ class AdminSeeder extends Seeder
         $user->password = bcrypt('123456789');
         $user->image = 'default.png';
         $user->code = 'Mohammed';
+        $user->address = 'Aljala';
         $user->roles_name = ['Admin'];
         $user->city_id = 1;
+        $user->limit_state = true;
         $user->save();
 
         $role = Role::create(['name' => 'Admin']);

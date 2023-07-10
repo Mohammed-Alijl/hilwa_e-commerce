@@ -33,7 +33,8 @@ class StoreRequest extends FormRequest
             $user->roles_name = $this->roles_name;
             $user->city_id = $this->city_id;
             $user->code = $this->code;
-
+            $user->address = $this->address;
+            $user->limit_state = $this->has('limit_state');
             if ($files = $this->file('pic')) {
                 $imageName = $this->save_attachment($files, "img/users");
             }else
@@ -63,12 +64,13 @@ class StoreRequest extends FormRequest
             'last_name' => 'required|max:255|string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles_name' => 'array|required|exists:roles,name',
-            'pic'=>'mimes:jpeg,jpg,png,svg|max:5000',
-            'code'=>'required|string|size:8',
+            'roles_name' => 'required|exists:roles,name',
+            'pic' => 'nullable|file|mimes:jpeg,jpg,png,svg|max:5000',
+            'code'=>'required|string|size:8||unique:users,code',
             'mobile_number'=>'required|string|regex:/^\d{8}$/',
-            'city_id'=>'required|numeric|exists:cities,id'
-        ];
+            'city_id'=>'required|numeric|exists:cities,id',
+            'address'=>'string|max:255',
+            ];
     }
 
     public function messages()
@@ -83,7 +85,6 @@ class StoreRequest extends FormRequest
             'email.unique'=>__('failed_messages.user.email.unique'),
             'password.required'=>__('failed_messages.user.password.required'),
             'password.same'=>__('failed_messages.user.password.same'),
-            'roles_name.array'=>__('failed_messages.user.roles_name.array'),
             'roles_name.required'=>__('failed_messages.user.roles_name.required'),
             'roles_name.exists'=>__('failed_messages.user.roles_name.exists'),
             'pic.mimes'=>__('failed_messages.user.pic.mimes'),

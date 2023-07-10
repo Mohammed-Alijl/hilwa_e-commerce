@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\Models\State;
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\Permission\Models\Role;
 
@@ -19,7 +20,8 @@ class CreateRequest extends FormRequest
 
     public function run(){
         $roles = Role::all();
-        return view('Front-end.users.create',compact('roles'));
+        $states = State::get();
+        return view('Front-end.users.create',compact('roles','states'));
     }
 
     /**

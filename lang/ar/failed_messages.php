@@ -31,7 +31,6 @@ return [
     'user.email.unique'=>'هذا البريد الالكتروني مستخدم بالفعل',
     'user.password.required'=>'الرجاء ادخال كلمة السر',
     'user.password.same'=>'كلمة السر وتأكيدها غير متطابقان الرجاء المحاولة مرة اخرى',
-    'user.roles_name.array'=>'حدث خطأ ما الرجاء المحاولة مرة اخرى',
     'user.roles_name.required'=>'حدث خطأ ما الرجاء المحاولة مرة اخرى',
     'user.roles_name.exists'=>'حدث خطأ ما الرجاء المحاولة مرة أخرى',
     'user.pic.mimes'=>'يجب اختيار صورة منا امتداد: jpeg, jpg, png, svg',

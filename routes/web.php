@@ -25,9 +25,17 @@ Route::group(
 
     Route::get('/',[\App\Http\Controllers\DashboardController::class,'create'])->name('dashboard');
     Route::resource('users',UserController::class);
+    Route::get('cities/{id}',[\App\Http\Controllers\CityController::class,'index']);
 
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+
+
+    Route::post('/check-email', [UserController::class, 'checkEmail']);
+    Route::post('/check-mobile', [UserController::class, 'checkMobile']);
+    Route::post('/check-code', [UserController::class, 'checkCode']);
 });
