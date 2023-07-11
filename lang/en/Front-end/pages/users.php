@@ -53,4 +53,7 @@ return [
     'user.profile.invalid'=>'Please Select A Image From Type jpg, jpeg, png, svg',
     'user.code.valid'=>'Code Is Valid',
     'user.code.invalid'=>'Please Select A Valid Code With 8 char',
+    'user.show.title'=>'User Details',
+    'user.info'=>'User Info',
+    'user.all.details'=>'All User Details',
 ];

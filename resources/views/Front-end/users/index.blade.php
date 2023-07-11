@@ -43,7 +43,16 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{$rowNumber++}}</td>
-                        <td>{{$user->first_name . ' ' .$user->last_name}}</td>
+
+                        <td>
+                            @can('users.view')
+                                <a href="{{ route('users.show', $user->id) }}">
+                                    {{ $user->first_name . ' ' . $user->last_name }}
+                                </a>
+                            @else
+                                {{ $user->first_name . ' ' . $user->last_name }}
+                            @endcan
+                        </td>
                         <td>{{$user->email}}</td>
                         <td>05{{$user->mobile_number}}</td>
                         <td>{{$user->city->state->name}}</td>
