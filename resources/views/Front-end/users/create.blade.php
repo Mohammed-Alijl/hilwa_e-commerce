@@ -35,12 +35,15 @@
                 <h6 class="card-subtitle text-muted">{{__('Front-end/pages/users.add.description')}}</h6>
             </div>
             <div class="card-body">
-                <form action="{{route('users.store')}}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-                @csrf
+                <form action="{{route('users.store')}}" method="post" enctype="multipart/form-data"
+                      class="needs-validation" novalidate>
+                    @csrf
                     <div class="row">
                         <div class="mb-3 col-md-6">
-                            <label class="form-label" for="first_name">{{__('Front-end/pages/users.first.name')}}</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name"  placeholder="{{__('Front-end/pages/users.first.name')}}" autocomplete="off" required>
+                            <label class="form-label"
+                                   for="first_name">{{__('Front-end/pages/users.first.name')}}</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name"
+                                   placeholder="{{__('Front-end/pages/users.first.name')}}" autocomplete="off" required>
                             <div class="valid-feedback">
                                 {{__('Front-end/pages/users.user.first_name.valid')}}
                             </div>
@@ -51,7 +54,8 @@
 
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="last_name">{{__('Front-end/pages/users.last.name')}}</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="{{__('Front-end/pages/users.last.name')}}" autocomplete="off" required>
+                            <input type="text" class="form-control" id="last_name" name="last_name"
+                                   placeholder="{{__('Front-end/pages/users.last.name')}}" autocomplete="off" required>
                             <div class="valid-feedback">
                                 {{__('Front-end/pages/users.user.last_name.valid')}}
                             </div>
@@ -60,23 +64,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" >
+                    <div class="row">
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="email">{{__('Front-end/pages/users.email')}}</label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="{{__('Front-end/pages/users.email')}}" required>
+                            <input type="email" class="form-control" name="email" id="email"
+                                   placeholder="{{__('Front-end/pages/users.email')}}" required>
                             <div class="valid-feedback">
                                 {{__('Front-end/pages/users.user.email.valid')}}
                             </div>
                             <div class="invalid-feedback">
                                 {{__('Front-end/pages/users.user.email.invalid')}}
                             </div>
-                                <div id="email-validation-feedback"></div>
+                            <div id="email-validation-feedback"></div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="mobile_number" class="form-label">{{__('Front-end/pages/users.mobile')}}</label>
                             <div class="input-group">
                                 <span class="input-group-text" id="mobile_number">05</span>
-                                <input type="number" class="form-control" id="mobile_number" aria-describedby="inputGroupPrepend" name="mobile_number" autocomplete="off" placeholder="{{__('Front-end/pages/users.mobile')}}"
+                                <input type="number" class="form-control" id="mobile_number"
+                                       aria-describedby="inputGroupPrepend" name="mobile_number" autocomplete="off"
+                                       placeholder="{{__('Front-end/pages/users.mobile')}}"
                                        required maxlength="8" minlength="8">
                                 <div id="mobile-validation-feedback"></div>
 
@@ -92,8 +99,11 @@
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-6">
-                            <label class="form-label" for="inputPassword">{{__('Front-end/pages/users.password')}}</label>
-                            <input type="password" class="form-control" name="password" id="inputPassword" placeholder="{{__('Front-end/pages/users.password')}}" autocomplete="off" required minlength="8">
+                            <label class="form-label"
+                                   for="inputPassword">{{__('Front-end/pages/users.password')}}</label>
+                            <input type="password" class="form-control" name="password" id="inputPassword"
+                                   placeholder="{{__('Front-end/pages/users.password')}}" autocomplete="off" required
+                                   minlength="8">
                             <div class="valid-feedback">
                                 {{__('Front-end/pages/users.user.password.valid')}}
                             </div>
@@ -102,8 +112,12 @@
                             </div>
                         </div>
                         <div class="mb-3 col-md-6">
-                            <label class="form-label" for="inputPasswordConfirm">{{__('Front-end/pages/users.password.confirm')}}</label>
-                            <input type="password" class="form-control" id="inputPasswordConfirm" name="confirm-password" placeholder="{{__('Front-end/pages/users.password.confirm')}}" autocomplete="off" required>
+                            <label class="form-label"
+                                   for="inputPasswordConfirm">{{__('Front-end/pages/users.password.confirm')}}</label>
+                            <input type="password" class="form-control" id="inputPasswordConfirm"
+                                   name="confirm-password"
+                                   placeholder="{{__('Front-end/pages/users.password.confirm')}}" autocomplete="off"
+                                   required>
                             <div class="valid-feedback">
                                 {{__('Front-end/pages/users.user.password.confirm.valid')}}
                             </div>
@@ -114,7 +128,8 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="inputAddress">{{__('Front-end/pages/users.address')}}</label>
-                        <input type="text" class="form-control" name="address" id="inputAddress" autocomplete="off" placeholder="1234 Main St" maxlength="255">
+                        <input type="text" class="form-control" name="address" id="inputAddress" autocomplete="off"
+                               placeholder="1234 Main St" maxlength="255">
                         <div class="valid-feedback">
                             {{__('Front-end/pages/users.user.address.valid')}}
                         </div>
@@ -126,7 +141,8 @@
                         <div class="mb-3 col-md-4">
                             <label class="form-label" for="inputCountry">{{__('Front-end/pages/users.country')}}</label>
                             <select id="inputCountry" class="form-control" disabled>
-                                <option selected>{{__('Front-end/country.' . \App\Models\Country::first()->name)}}</option>
+                                <option
+                                    selected>{{__('Front-end/country.' . \App\Models\Country::first()->name)}}</option>
                             </select>
                         </div>
                         <div class="mb-3 col-md-4">
@@ -169,7 +185,7 @@
                             <select name="roles_name" id="inputRole" class="form-control" required>
                                 <option disabled value="" selected>{{__('Front-end/pages/users.choose')}}</option>
                                 @foreach($roles as $role)
-                                    <option value="{{$role->name}}" >{{$role->name}}</option>
+                                    <option value="{{$role->name}}">{{$role->name}}</option>
                                 @endforeach
                             </select>
                             <div class="valid-feedback">
@@ -180,8 +196,10 @@
                             </div>
                         </div>
                         <div class="mb-3 col-md-6">
-                            <label class="form-label" for="inputEmail4">{{__('Front-end/pages/users.profile.image')}}</label>
-                            <input type="file" class="form-control" id="inputEmail4" name="pic" autocomplete="off" accept=".jpg, .jpeg, .png, .svg">
+                            <label class="form-label"
+                                   for="inputEmail4">{{__('Front-end/pages/users.profile.image')}}</label>
+                            <input type="file" class="form-control" id="inputEmail4" name="pic" autocomplete="off"
+                                   accept=".jpg, .jpeg, .png, .svg">
                             <div class="valid-feedback">
                                 {{__('Front-end/pages/users.user.profile.valid')}}
                             </div>
@@ -193,7 +211,9 @@
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="code">{{__('Front-end/pages/users.code')}}</label>
-                            <input type="text" class="form-control" id="code" name="code" placeholder="{{__('Front-end/pages/users.code')}}" autocomplete="off" required minlength="8" maxlength="8">
+                            <input type="text" class="form-control" id="code" name="code"
+                                   placeholder="{{__('Front-end/pages/users.code')}}" autocomplete="off" required
+                                   minlength="8" maxlength="8">
                             <div class="valid-feedback">
                                 {{__('Front-end/pages/users.user.code.valid')}}
                             </div>
@@ -204,7 +224,8 @@
 
                         </div>
                     </div>
-                    <button id="save_user" type="submit" class="btn btn-primary">{{__('Front-end/pages/users.submit')}}</button>
+                    <button id="save_user" type="submit"
+                            class="btn btn-primary">{{__('Front-end/pages/users.submit')}}</button>
                 </form>
             </div>
         </div>
@@ -212,17 +233,17 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function() {
-            $('#inputZone').on('change', function() {
+        $(document).ready(function () {
+            $('#inputZone').on('change', function () {
                 var ZoneId = $(this).val();
                 if (ZoneId) {
                     $.ajax({
                         url: "{{ URL::to('cities') }}/" + ZoneId,
                         type: "GET",
                         dataType: "json",
-                        success: function(data) {
+                        success: function (data) {
                             $('select[name="city_id"]').empty();
-                            $.each(data, function(key, value) {
+                            $.each(data, function (key, value) {
                                 $('select[name="city_id"]').append('<option value="' +
                                     key + '">' + value + '</option>');
                             });
@@ -275,8 +296,8 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            $('form').on('submit', function(event) {
+        $(document).ready(function () {
+            $('form').on('submit', function (event) {
                 event.preventDefault(); // Prevent the default form submission
 
                 var form = $(this);
@@ -302,12 +323,12 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        success: function(response) {
+                        success: function (response) {
                             // Handle the success response
                             console.log('Form submitted successfully');
                             window.location.href = response.redirect; // Redirect to the specified URL
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             // Handle the error response
                             console.error('Error submitting the form');
                         }
@@ -316,19 +337,19 @@
             });
 
             // Email validation
-            $('#email').on('blur', function() {
+            $('#email').on('blur', function () {
                 var email = $(this).val();
                 validateEmail(email);
             });
 
             // Mobile number validation
-            $('#mobile_number').on('blur', function() {
+            $('#mobile_number').on('blur', function () {
                 var mobileNumber = $(this).val();
                 validateMobileNumber(mobileNumber);
             });
 
             // Code validation
-            $('#code').on('blur', function() {
+            $('#code').on('blur', function () {
                 var code = $(this).val();
                 validateCode(code);
             });
@@ -343,14 +364,14 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.exists) {
                             $('#email-validation-feedback').html('<div style="color: red;font-size: 10px">Email is already in use.</div>').show();
                         } else {
                             $('#email-validation-feedback').html('<div class="valid-feedback">Email is available.</div>').show();
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error('Error checking email availability');
                     }
                 });
@@ -366,14 +387,14 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.exists) {
                             $('#mobile-validation-feedback').html('<div style="color: red;font-size: 10px">Mobile number is already in use.</div>').show();
                         } else {
                             $('#mobile-validation-feedback').html('<div class="valid-feedback">Mobile number is available.</div>').show();
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error('Error checking mobile number availability');
                     }
                 });
@@ -389,14 +410,14 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.exists) {
                             $('#code-validation-feedback').html('<div style="color: red;font-size: 10px">Code is already in use.</div>').show();
                         } else {
                             $('#code-validation-feedback').html('<div class="valid-feedback">Code is available.</div>').show();
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error('Error checking code availability');
                     }
                 });
