@@ -10,14 +10,14 @@ class City extends Model
     use HasFactory;
     protected $fillable = [
       'name',
-      'state_id'
+      'zone_id'
     ];
 
     //===============================================================
     //========================== RELATIONSHips ======================
     //===============================================================
-    public function state(){
-        return $this->belongsTo(State::class,'state_id');
+    public function zone(){
+        return $this->belongsTo(Zone::class,'zone_id');
     }
     public function users(){
         return $this->hasMany(User::class,'city_id');

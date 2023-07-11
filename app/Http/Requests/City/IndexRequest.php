@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\City;
 
-use App\Models\State;
+use App\Models\Zone;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexRequest extends FormRequest
@@ -17,8 +17,8 @@ class IndexRequest extends FormRequest
 
 
     public function run($id){
-        $state = State::find($id);
-        $cities = $state->cities->pluck('name','id');
+        $zone = Zone::find($id);
+        $cities = $zone->cities->pluck('name','id');
         return json_encode($cities);
     }
 

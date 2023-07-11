@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\State;
+use App\Models\Zone;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class StateSeeder extends Seeder
+class ZoneSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -29,10 +29,10 @@ class StateSeeder extends Seeder
             'Najran Province',
         ];
         foreach ($names as $name){
-            $state = new State();
-            $state->name = $name;
-            $state->country_id = 1;
-            $state->save();
+            $zone = new Zone();
+            $zone->name = $name;
+            $zone->country_id = 1;
+            $zone->save();
         }
     }
 }
