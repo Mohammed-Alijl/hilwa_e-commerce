@@ -70,20 +70,20 @@
                                         </div>
                                         <div class="row">
                                             <div class="mb-3 col-md-4">
-                                                <label class="form-label" for="inputState">{{__('Front-end/pages/users.country')}}</label>
-                                                <select id="inputState" class="form-control" disabled>
-                                                    <option selected>{{__('Front-end/country.' . $user->city->state->country->name)}}</option>
+                                                <label class="form-label" for="inputZone">{{__('Front-end/pages/users.country')}}</label>
+                                                <select id="inputZone" class="form-control" disabled>
+                                                    <option selected>{{__('Front-end/country.' . $user->city->zone->country->name)}}</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3 col-md-4">
-                                                <label class="form-label" for="inputState">{{__('Front-end/pages/users.state')}}</label>
-                                                <select id="inputState" class="form-control" disabled>
-                                                    <option selected>{{__('Front-end/states.' . $user->city->state->name)}}</option>
+                                                <label class="form-label" for="inputZone">{{__('Front-end/pages/users.zone')}}</label>
+                                                <select id="inputZone" class="form-control" disabled>
+                                                    <option selected>{{__('Front-end/zones.' . $user->city->zone->name)}}</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3 col-md-4">
-                                                <label class="form-label" for="inputState">{{__('Front-end/pages/users.state')}}</label>
-                                                <select id="inputState" class="form-control" disabled>
+                                                <label class="form-label" for="inputZone">{{__('Front-end/pages/users.zone')}}</label>
+                                                <select id="inputZone" class="form-control" disabled>
                                                     <option selected>{{$user->city->name}}</option>
                                                 </select>
                                             </div>
