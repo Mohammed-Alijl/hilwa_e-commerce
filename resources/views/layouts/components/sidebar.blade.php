@@ -44,8 +44,8 @@
                 <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">{{__('Front-end/sidebar.dashboards')}}</span>
                 </a>
-                <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-                    <li class="sidebar-item active"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.dashboard.1')}}</a></li>
+                <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse {{ hasActiveChild(['dashboard']) ? ' show' : '' }}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{ request()->route()->named("dashboard") ? "active" : '' }}"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.dashboard.1')}}</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.dashboard.2')}}</a></li>
                 </ul>
             </li>
@@ -232,12 +232,12 @@
                 <a data-bs-target="#definitions" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2" data-feather="check-square"></i> <span class="align-middle">{{__('Front-end/sidebar.definitions')}}</span>
                 </a>
-                <ul id="definitions" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('users.index')}}">{{__('Front-end/sidebar.users')}}</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.roles')}}</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.timeslots')}}</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.units')}}</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.stores')}}</a></li>
+                <ul id="definitions" class="sidebar-dropdown list-unstyled collapse{{ hasActiveChild(['users.index', 'roles.index']) ? ' show' : '' }}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{ request()->route()->named("users.index") ? "active" : '' }}" {{ request()->route()->named("users.index") ? "active" : '' }}><a class="sidebar-link" href="{{route('users.index')}}">{{__('Front-end/sidebar.users')}}</a></li>
+                    <li class="sidebar-item {{ request()->route()->named("roles.index") ? "active" : '' }}"><a class="sidebar-link" href="{{route('roles.index')}}">{{__('Front-end/sidebar.roles')}}</a></li>
+                    <li class="sidebar-item "><a class="sidebar-link" href="#">{{__('Front-end/sidebar.timeslots')}}</a></li>
+                    <li class="sidebar-item "><a class="sidebar-link" href="#">{{__('Front-end/sidebar.units')}}</a></li>
+                    <li class="sidebar-item "><a class="sidebar-link" href="#">{{__('Front-end/sidebar.stores')}}</a></li>
                     <li class="sidebar-item">
                         <a data-bs-target="#location" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.location.management')}}</a>
                         <ul id="location" class="sidebar-dropdown list-unstyled collapse">
