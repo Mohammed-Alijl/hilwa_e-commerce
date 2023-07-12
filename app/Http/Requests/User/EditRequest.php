@@ -20,16 +20,19 @@ class EditRequest extends FormRequest
         return true;
     }
 
-    public function run($id){
+    public function run($id)
+    {
         try {
             $user = User::find($id);
-            if(!$user)
+            if (!$user)
                 return redirect()->back()->withErrors(__('failed_messages.user.notFound'));
-            $roles = Role::pluck('name','name')->all();
-            $userRole = $user->roles->pluck('name','name')->all();
+//            if ($user->roles->pluck('name', 'name')->first() == "Admin")
+//                abort(403);
+            $roles = Role::pluck('name', 'name')->all();
+            $userRole = $user->roles->pluck('name', 'name')->all();
             $zones = Zone::get();
-            return view('Front-end.users.edit',compact('user','roles','userRole','zones'));
-        }catch (Exception $ex){
+            return view('Front-end.users.edit', compact('user', 'roles', 'userRole', 'zones'));
+        } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
     }

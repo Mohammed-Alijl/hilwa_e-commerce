@@ -106,12 +106,12 @@
                                                        class="form-label">{{__('Front-end/pages/users.mobile')}}</label>
                                                 <div class="input-group">
                                                     <span class="input-group-text" id="mobile_number_label">05</span>
-                                                    <input type="number" class="form-control" id="mobile_number_input"
-                                                           value="{{$user->mobile_number}}"
-                                                           aria-describedby="mobile_number_label" name="mobile_number"
-                                                           autocomplete="off"
-                                                           placeholder="{{__('Front-end/pages/users.mobile')}}"
-                                                           required maxlength="8" minlength="8">
+                                                    <input type="text" class="form-control" id="mobile_number"
+                                                           aria-describedby="inputGroupPrepend" name="mobile_number" autocomplete="off"
+                                                           placeholder="{{__('Front-end/pages/users.mobile')}}" value="{{$user->mobile_number}}"
+                                                           required maxlength="8" pattern=".{8,8}"
+                                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                                    >
                                                     <div id="mobile-validation-feedback"></div>
 
                                                     <div class="valid-feedback">

@@ -13,7 +13,7 @@
 @section('page-header')
     <div class="row mb-2 mb-xl-3">
         <div class="col-auto d-none d-sm-block">
-            <h3><strong>{{__('Front-end/pages/users.definitions')}}</strong> {{__('Front-end/pages/users.users')}}</h3>
+            <h3><strong>{{__('Front-end/pages/users.definitions')}}</strong> / {{__('Front-end/pages/users.users')}}</h3>
         </div>
         @can('users.add')
             <div class="col-auto ms-auto text-end mt-n1">
@@ -60,6 +60,7 @@
                         <td>{{$user->roles->pluck('name','name')->first()}}</td>
                         <td>{{$user->code}}</td>
                         <td>
+{{--                            @if($user->roles->pluck('name','name')->first() != 'Admin')--}}
                             @can('users.edit')
                                 <a href="{{route('users.edit',$user->id)}}"><i class="align-middle"
                                                                                data-feather="edit-2"></i></a>
@@ -68,6 +69,7 @@
                                 <a href="#" onclick="deletes({{ $user->id }})"><i class="align-middle"
                                                                                   data-feather="trash"></i></a>
                             @endcan
+{{--                            @endif--}}
                         </td>
                     </tr>
                 @endforeach
