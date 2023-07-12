@@ -13,5 +13,7 @@ return [
     */
     'user.add.success'=>'User was added successfully',
     'user.destroy'=>'User was deleted successfully',
-    'user.edit'=>'User data was updated'
+    'user.edit'=>'User data was updated',
+    'password.change'=>'Password was changed',
+    'data.edit'=>'User data has been modified successfully',
 ];

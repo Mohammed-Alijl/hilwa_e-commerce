@@ -67,7 +67,7 @@ class StoreRequest extends FormRequest
             'roles_name' => 'required|exists:roles,name',
             'pic' => 'nullable|file|mimes:jpeg,jpg,png,svg|max:5000',
             'code'=>'required|string|size:8||unique:users,code',
-            'mobile_number'=>'required|string|regex:/^\d{8}$/',
+            'mobile_number' => 'required|size:8|unique:users,mobile_number',
             'city_id'=>'required|numeric|exists:cities,id',
             'address'=>'string|max:255',
             ];

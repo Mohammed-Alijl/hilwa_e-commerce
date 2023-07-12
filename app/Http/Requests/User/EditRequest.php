@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use App\Models\User;
+use App\Models\Zone;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\Permission\Models\Role;
@@ -26,8 +27,8 @@ class EditRequest extends FormRequest
                 return redirect()->back()->withErrors(__('failed_messages.user.notFound'));
             $roles = Role::pluck('name','name')->all();
             $userRole = $user->roles->pluck('name','name')->all();
-
-            return view('Front-end.users.edit',compact('user','roles','userRole'));
+            $zones = Zone::get();
+            return view('Front-end.users.edit',compact('user','roles','userRole','zones'));
         }catch (Exception $ex){
             return redirect()->back()->withErrors($ex->getMessage());
         }

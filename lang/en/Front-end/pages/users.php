@@ -56,4 +56,11 @@ return [
     'user.show.title'=>'User Details',
     'user.info'=>'User Info',
     'user.all.details'=>'All User Details',
+    'user.edit.title'=>'Edit User',
+    'user.edit'=>'Edit',
+    'user.settings'=>'User Settings',
+    'account.details'=>'Account Details',
+    'new.password'=>'New Password ',
+    'password.change'=>'Change Password ',
+    'edited'=>'Edited!'
 ];

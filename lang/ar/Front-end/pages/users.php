@@ -56,4 +56,11 @@ return [
     'user.show.title'=>'تفاصيل المستخدم',
     'user.info'=>'معلومات المستخدم',
     'user.all.details'=>'جميع معلومات المستخدم',
+    'user.edit.title'=>'تعديل المستخدم',
+    'user.edit'=>'تعديل',
+    'user.settings'=>'اعدادات المستخدم',
+    'account.details'=>'تفاصيل المستخدم',
+    'password.change'=>'تغيير كلمة المرور',
+    'new.password'=>'كلمة المرور الجديدة',
+    'edited'=>'تم التعديل'
 ];

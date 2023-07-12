@@ -17,15 +17,15 @@
 @endsection
 @section('content')
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+            <div class="alert-message">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
     @endif
     <div class="col-md-12">
@@ -277,25 +277,46 @@
                 });
         })();
     </script>
+
     <script>
-        var passwordInput = document.getElementById('inputPassword');
-        var confirmPasswordInput = document.getElementById('inputPasswordConfirm');
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the form element
+            const form = document.getElementById("change_password");
 
-        function validatePassword() {
-            if (passwordInput.value !== confirmPasswordInput.value) {
-                passwordInput.setCustomValidity('Passwords do not match.');
-                confirmPasswordInput.setCustomValidity('Passwords do not match.');
-            } else {
-                passwordInput.setCustomValidity('');
-                confirmPasswordInput.setCustomValidity('');
-            }
-        }
+            // Event listener for form submission
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
 
-        passwordInput.addEventListener('input', validatePassword);
-        confirmPasswordInput.addEventListener('input', validatePassword);
+                // Get password input and confirm password input
+                const passwordInput = document.getElementById("change_password_inputPassword");
+                const confirmPasswordInput = document.getElementById("change_password_inputPasswordConfirm");
+
+                // Check password length
+                if (passwordInput.value.length < 8) {
+                    passwordInput.classList.add("is-invalid");
+                    passwordInput.classList.remove("is-valid");
+                } else {
+                    passwordInput.classList.add("is-valid");
+                    passwordInput.classList.remove("is-invalid");
+                }
+
+                // Check confirm password
+                if (confirmPasswordInput.value !== passwordInput.value) {
+                    confirmPasswordInput.setCustomValidity("Passwords do not match");
+                } else {
+                    confirmPasswordInput.setCustomValidity("");
+                }
+
+                // Trigger Bootstrap form validation
+                form.classList.add("was-validated");
+            });
+        });
     </script>
 
-{{--    <script>--}}
+
+
+
+    {{--    <script>--}}
 {{--        $(document).ready(function () {--}}
 {{--            $('#save_user').click(function(event) {--}}
 {{--                // event.preventDefault(); // Prevent the default form submission--}}
