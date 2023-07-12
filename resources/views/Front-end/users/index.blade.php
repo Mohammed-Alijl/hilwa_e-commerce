@@ -130,8 +130,17 @@
     @if(\Illuminate\Support\Facades\Session::has('success-message'))
         <script>
             Swal.fire(
-                '{{__('deleted')}}',
+                '{{__('Front-end/pages/users.deleted')}}',
                 '{{\Illuminate\Support\Facades\Session::get('success-message')}}',
+                'success'
+            )
+        </script>
+    @endif
+    @if(\Illuminate\Support\Facades\Session::has('add-success'))
+        <script>
+            Swal.fire(
+                '{{__('Front-end/pages/users.user.add')}}',
+                '{{\Illuminate\Support\Facades\Session::get('add-success')}}',
                 'success'
             )
         </script>

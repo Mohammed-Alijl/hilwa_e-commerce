@@ -62,5 +62,6 @@ return [
     'account.details'=>'Account Details',
     'new.password'=>'New Password ',
     'password.change'=>'Change Password ',
-    'edited'=>'Edited!'
+    'edited'=>'Edited!',
+    'user.add'=>'User Added!',
 ];

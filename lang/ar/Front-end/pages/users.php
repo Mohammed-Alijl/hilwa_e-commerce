@@ -62,5 +62,6 @@ return [
     'account.details'=>'تفاصيل المستخدم',
     'password.change'=>'تغيير كلمة المرور',
     'new.password'=>'كلمة المرور الجديدة',
-    'edited'=>'تم التعديل'
+    'edited'=>'تم التعديل',
+    'user.add'=>'تم اضافة المستخدم',
 ];

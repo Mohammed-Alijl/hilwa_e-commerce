@@ -45,7 +45,7 @@ class StoreRequest extends FormRequest
             $user->assignRole($this->roles_name);
 
             return redirect()->route('users.index')
-                ->with('success',__('success_messages.user.add.success'));
+                ->with('add-success',__('success_messages.user.add.success'));
         }catch (Exception $ex){
             return redirect()->back()->withErrors('failed',$ex->getMessage());
         }
