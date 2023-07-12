@@ -65,6 +65,15 @@
         </div>
     </div>
     @section('scripts')
+        <script src="{{URL::asset('js/datatables.js')}}"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Datatables Responsive
+                $("#datatables-reponsive").DataTable({
+                    responsive: true
+                });
+            });
+        </script>
         <script>
             function deletes(roleId) {
                 Swal.fire({
