@@ -18,7 +18,7 @@
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <div class="alert-message">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -35,7 +35,7 @@
                 <h6 class="card-subtitle text-muted">{{__('Front-end/pages/users.add.description')}}</h6>
             </div>
             <div class="card-body">
-                <form action="{{route('users.store')}}" method="post" enctype="multipart/form-data"
+                <form action="{{route('users.store')}}" method="post" enctype="multipart/form-data" id="create_user"
                       class="needs-validation" novalidate>
                     @csrf
                     <div class="row">
@@ -81,10 +81,12 @@
                             <label for="mobile_number" class="form-label">{{__('Front-end/pages/users.mobile')}}</label>
                             <div class="input-group">
                                 <span class="input-group-text" id="mobile_number">05</span>
-                                <input type="number" class="form-control" id="mobile_number"
+                                <input type="text" class="form-control" id="mobile_number"
                                        aria-describedby="inputGroupPrepend" name="mobile_number" autocomplete="off"
                                        placeholder="{{__('Front-end/pages/users.mobile')}}"
-                                       required maxlength="8" minlength="8">
+                                       required maxlength="8" pattern=".{8,8}"
+                                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                >
                                 <div id="mobile-validation-feedback"></div>
 
                                 <div class="valid-feedback">
@@ -183,7 +185,7 @@
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="inputRole">{{__('Front-end/pages/users.role')}}</label>
                             <select name="roles_name" id="inputRole" class="form-control" required>
-                                <option disabled value="" selected>{{__('Front-end/pages/users.choose')}}</option>
+                                <option selected disabled value="">{{__('Front-end/pages/users.choose')}}</option>
                                 @foreach($roles as $role)
                                     <option value="{{$role->name}}">{{$role->name}}</option>
                                 @endforeach
@@ -281,35 +283,46 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Get the form element
-            const form = document.getElementById("change_password");
+            const form = document.getElementById("create_user");
+
+            // Get password input and confirm password input
+            const passwordInput = document.getElementById("inputPassword");
+            const confirmPasswordInput = document.getElementById("inputPasswordConfirm");
+
+            // Event listener for password input change
+            passwordInput.addEventListener("input", function () {
+                validatePassword();
+                validateConfirmPassword();
+            });
+
+            // Event listener for confirm password input change
+            confirmPasswordInput.addEventListener("input", validateConfirmPassword);
 
             // Event listener for form submission
             form.addEventListener("submit", function (event) {
-                event.preventDefault();
+                validatePassword();
+                validateConfirmPassword();
 
-                // Get password input and confirm password input
-                const passwordInput = document.getElementById("change_password_inputPassword");
-                const confirmPasswordInput = document.getElementById("change_password_inputPasswordConfirm");
-
-                // Check password length
-                if (passwordInput.value.length < 8) {
-                    passwordInput.classList.add("is-invalid");
-                    passwordInput.classList.remove("is-valid");
-                } else {
-                    passwordInput.classList.add("is-valid");
-                    passwordInput.classList.remove("is-invalid");
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
                 }
-
-                // Check confirm password
-                if (confirmPasswordInput.value !== passwordInput.value) {
-                    confirmPasswordInput.setCustomValidity("Passwords do not match");
-                } else {
-                    confirmPasswordInput.setCustomValidity("");
-                }
-
-                // Trigger Bootstrap form validation
-                form.classList.add("was-validated");
             });
+
+            // Function to validate the password
+            function validatePassword() {
+                const isPasswordValid = passwordInput.value.length >= 8;
+                passwordInput.classList.toggle("is-valid", isPasswordValid);
+                passwordInput.classList.toggle("is-invalid", !isPasswordValid);
+            }
+
+            // Function to validate the confirm password
+            function validateConfirmPassword() {
+                const doPasswordsMatch = confirmPasswordInput.value === passwordInput.value;
+                confirmPasswordInput.classList.toggle("is-valid", doPasswordsMatch);
+                confirmPasswordInput.classList.toggle("is-invalid", !doPasswordsMatch);
+                confirmPasswordInput.setCustomValidity(doPasswordsMatch ? "" : "Passwords do not match");
+            }
         });
     </script>
 
