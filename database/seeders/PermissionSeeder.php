@@ -38,8 +38,6 @@ class PermissionSeeder extends Seeder
             //Contact Request
             'contact-request.view',
             'contact-request.add',
-            'contact-request.edit',
-            'contact-request.delete',
 
             //Review
             'review.view',
@@ -93,16 +91,16 @@ class PermissionSeeder extends Seeder
             'coupons.delete',
 
             //Unit
-            'unit.view',
-            'unit.add',
-            'unit.edit',
-            'unit.delete',
+            'units.view',
+            'units.add',
+            'units.edit',
+            'units.delete',
 
             //Store
-            'store.view',
-            'store.add',
-            'store.edit',
-            'store.delete',
+            'stores.view',
+            'stores.add',
+            'stores.edit',
+            'stores.delete',
 
             //Setting
             'settings.view',
@@ -110,11 +108,11 @@ class PermissionSeeder extends Seeder
             'settings.edit',
             'settings.delete',
 
-            //Driver Timeslot
-            'driver-timeslots.view',
-            'driver-timeslots.add',
-            'driver-timeslots.edit',
-            'driver-timeslots.delete',
+            //Timeslot
+            'timeslots.view',
+            'timeslots.add',
+            'timeslots.edit',
+            'timeslots.delete',
 
             //Users
             'users.view',
@@ -128,30 +126,23 @@ class PermissionSeeder extends Seeder
             'Roles.edit',
             'Roles.delete',
 
+            //Zones
+            'zones.view',
+            'zones.add',
+            'zones.edit',
+            'zones.delete',
 
-            //Zone
-            'zone.view',
-            'zone.add',
-            'zone.edit',
-            'zone.delete',
+            //Logs
+            'logs.view',
+            'logs.add',
+            'logs.edit',
+            'logs.delete',
 
-            //Driver Order
-            'driver-order.view',
-            'driver-order.add',
-            'driver-order.edit',
-            'driver-order.delete',
-
-            //Log
-            'log.view',
-            'log.add',
-            'log.edit',
-            'log.delete',
-
-            //Reward
-            'reward.view',
-            'reward.add',
-            'reward.edit',
-            'reward.delete',
+            //Rewards
+            'rewards.view',
+            'rewards.add',
+            'rewards.edit',
+            'rewards.delete',
 
             //Cms Pages
             'cms-pages.view',
@@ -159,14 +150,14 @@ class PermissionSeeder extends Seeder
             'cms-pages.edit',
             'cms-pages.delete',
 
-            //Holiday
-            'holiday.view',
-            'holiday.add',
-            'holiday.edit',
-            'holiday.delete',
+            //Holidays
+            'holidays.view',
+            'holidays.add',
+            'holidays.edit',
+            'holidays.delete',
 
-            //Chat
-            'chat.view',
+            //Chats
+            'chats.view',
 
             //Order Status
             'order-status.view',
@@ -179,12 +170,6 @@ class PermissionSeeder extends Seeder
 
             //Payment Services
             'payment-services.view',
-
-            //Sidebar
-            'marketing-sidebar',
-            'definition',
-            'system',
-            'others'
 
         ];
 
