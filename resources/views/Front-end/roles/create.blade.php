@@ -31,7 +31,7 @@
     <form action="{{route('roles.store')}}" method="post" class="needs-validation" novalidate id="myForm">
         @csrf
     <div class="row">
-        <input class="form-control form-control-lg mb-3" type="text" placeholder="Role Name" name="name" required autocomplete="">
+        <input class="form-control form-control-lg mb-3" type="text" placeholder="{{__('Front-end/pages/roles.role.name')}}" name="name" required autocomplete="">
     </div>
         @php
             $index = 1;
