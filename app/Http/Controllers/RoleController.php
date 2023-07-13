@@ -120,7 +120,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permission'));
 
         return redirect()->route('roles.index')
-            ->with('add-success',__('success_messages.role.edit'));
+            ->with('edit-success',__('success_messages.role.edit'));
     }
     /**
      * Remove the specified resource from storage.
