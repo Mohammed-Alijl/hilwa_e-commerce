@@ -471,141 +471,142 @@
 
 
 
-    <script>
-        $(document).ready(function () {
-            var form = $('form');
+{{--    <script>--}}
+{{--        $(document).ready(function () {--}}
+{{--            var form = $('form');--}}
 
-            form.on('submit', function (event) {
-                event.preventDefault(); // Prevent default form submission
+{{--            form.on('submit', function (event) {--}}
+{{--                event.preventDefault(); // Prevent default form submission--}}
 
-                var email = $('#email').val();
-                var mobileNumber = $('#mobile_number').val();
-                var code = $('#code').val();
+{{--                var email = $('#email').val();--}}
+{{--                var mobileNumber = $('#mobile_number').val();--}}
+{{--                var code = $('#code').val();--}}
 
-                // Perform the validation checks
-                var emailPromise = validateEmail(email);
-                var mobilePromise = validateMobileNumber(mobileNumber);
-                var codePromise = validateCode(code);
+{{--                // Perform the validation checks--}}
+{{--                var emailPromise = validateEmail(email);--}}
+{{--                var mobilePromise = validateMobileNumber(mobileNumber);--}}
+{{--                var codePromise = validateCode(code);--}}
 
-                // Initialize validationFailed flag
-                var validationFailed = false;
+{{--                // Initialize validationFailed flag--}}
+{{--                var validationFailed = false;--}}
 
-                // Wait for all AJAX requests to complete
-                Promise.all([emailPromise, mobilePromise, codePromise])
-                    .then(function (results) {
-                        var isEmailValid = results[0];
-                        var isMobileValid = results[1];
-                        var isCodeValid = results[2];
+{{--                // Wait for all AJAX requests to complete--}}
+{{--                Promise.all([emailPromise, mobilePromise, codePromise])--}}
+{{--                    .then(function (results) {--}}
+{{--                        var isEmailValid = results[0];--}}
+{{--                        var isMobileValid = results[1];--}}
+{{--                        var isCodeValid = results[2];--}}
 
-                        // Check if any validation check failed
-                        if (!isEmailValid || !isMobileValid || !isCodeValid) {
-                            validationFailed = true;
-                        }
+{{--                        // Check if any validation check failed--}}
+{{--                        if (!isEmailValid || !isMobileValid || !isCodeValid) {--}}
+{{--                            validationFailed = true;--}}
+{{--                        }--}}
 
-                        // If validation failed, prevent form submission
-                        if (validationFailed) {
-                            event.preventDefault();
-                        } else {
-                            // Validation passed, submit the form
-                            form.off('submit').submit();
-                        }
-                    })
-                    .catch(function (error) {
-                        console.error('Error during form submission:', error);
-                        event.preventDefault(); // Prevent form submission in case of an error
-                    });
-            });
+{{--                        // If validation failed, prevent form submission--}}
+{{--                        if (validationFailed) {--}}
+{{--                            event.preventDefault();--}}
+{{--                        } else {--}}
+{{--                            // Validation passed, submit the form--}}
+{{--                            form.off('submit').submit();--}}
+{{--                        }--}}
+{{--                    })--}}
+{{--                    .catch(function (error) {--}}
+{{--                        console.error('Error during form submission:', error);--}}
+{{--                        event.preventDefault(); // Prevent form submission in case of an error--}}
+{{--                    });--}}
+{{--            });--}}
 
-            // Email validation
-            function validateEmail(email) {
-                return new Promise(function (resolve, reject) {
-                    $.ajax({
-                        url: '/laravel/hilwa/public/check-email',
-                        method: 'POST',
-                        data: {
-                            email: email
-                        },
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function (response) {
-                            if (response.exists) {
-                                $('#email-validation-feedback').html('<div style="color: red;font-size: 10px">Email is already in use.</div>').show();
-                                resolve(false);
-                            } else {
-                                $('#email-validation-feedback').html('<div class="valid-feedback">Email is available.</div>').show();
-                                resolve(true);
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Error checking email availability');
-                            reject(error);
-                        }
-                    });
-                });
-            }
+{{--            // Email validation--}}
+{{--            function validateEmail(email) {--}}
+{{--                return new Promise(function (resolve, reject) {--}}
+{{--                    $.ajax({--}}
+{{--                        url: '/laravel/hilwa/public/check-email',--}}
+{{--                        method: 'POST',--}}
+{{--                        data: {--}}
+{{--                            email: email--}}
+{{--                        },--}}
+{{--                        headers: {--}}
+{{--                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--                        },--}}
+{{--                        success: function (response) {--}}
+{{--                            if (response.exists) {--}}
+{{--                                $('#email-validation-feedback').html('<div style="color: red;font-size: 10px">Email is already in use.</div>').show();--}}
+{{--                                resolve(false);--}}
+{{--                            } else {--}}
+{{--                                $('#email-validation-feedback').html('<div class="valid-feedback">Email is available.</div>').show();--}}
+{{--                                resolve(true);--}}
+{{--                            }--}}
+{{--                        },--}}
+{{--                        error: function (xhr, status, error) {--}}
+{{--                            console.error('Error checking email availability');--}}
+{{--                            reject(error);--}}
+{{--                        }--}}
+{{--                    });--}}
+{{--                });--}}
+{{--            }--}}
 
-            // Mobile number validation
-            function validateMobileNumber(mobileNumber) {
-                return new Promise(function (resolve, reject) {
-                    $.ajax({
-                        url: '/laravel/hilwa/public/check-mobile',
-                        method: 'POST',
-                        data: {
-                            mobile_number: mobileNumber
-                        },
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function (response) {
-                            if (response.exists) {
-                                $('#mobile-validation-feedback').html('<div style="color: red;font-size: 10px">Mobile number is already in use.</div>').show();
-                                resolve(false);
-                            } else {
-                                $('#mobile-validation-feedback').html('<div class="valid-feedback">Mobile number is available.</div>').show();
-                                resolve(true);
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Error checking mobile number availability');
-                            reject(error);
-                        }
-                    });
-                });
-            }
+{{--            // Mobile number validation--}}
+{{--            function validateMobileNumber(mobileNumber) {--}}
+{{--                return new Promise(function (resolve, reject) {--}}
+{{--                    $.ajax({--}}
+{{--                        url: '/laravel/hilwa/public/check-mobile',--}}
+{{--                        method: 'POST',--}}
+{{--                        data: {--}}
+{{--                            mobile_number: mobileNumber--}}
+{{--                        },--}}
+{{--                        headers: {--}}
+{{--                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--                        },--}}
+{{--                        success: function (response) {--}}
+{{--                            if (response.exists) {--}}
+{{--                                $('#mobile-validation-feedback').html('<div style="color: red;font-size: 10px">Mobile number is already in use.</div>').show();--}}
+{{--                                resolve(false);--}}
+{{--                            } else {--}}
+{{--                                $('#mobile-validation-feedback').html('<div class="valid-feedback">Mobile number is available.</div>').show();--}}
+{{--                                resolve(true);--}}
+{{--                            }--}}
+{{--                        },--}}
+{{--                        error: function (xhr, status, error) {--}}
+{{--                            console.error('Error checking mobile number availability');--}}
+{{--                            reject(error);--}}
+{{--                        }--}}
+{{--                    });--}}
+{{--                });--}}
+{{--            }--}}
 
-            // Code validation
-            function validateCode(code) {
-                return new Promise(function (resolve, reject) {
-                    $.ajax({
-                        url: '/laravel/hilwa/public/check-code',
-                        method: 'POST',
-                        data: {
-                            code: code
-                        },
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function (response) {
-                            if (response.exists) {
-                                $('#code-validation-feedback').html('<div style="color: red;font-size: 10px">Code is already in use.</div>').show();
-                                resolve(false);
-                            } else {
-                                $('#code-validation-feedback').html('<div class="valid-feedback">Code is available.</div>').show();
-                                resolve(true);
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Error checking code availability');
-                            reject(error);
-                        }
-                    });
-                });
-            }
-        });
+{{--            // Code validation--}}
+{{--            function validateCode(code) {--}}
+{{--                return new Promise(function (resolve, reject) {--}}
+{{--                    $.ajax({--}}
+{{--                        url: '/laravel/hilwa/public/check-code',--}}
+{{--                        method: 'POST',--}}
+{{--                        data: {--}}
+{{--                            code: code--}}
+{{--                        },--}}
+{{--                        headers: {--}}
+{{--                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--                        },--}}
+{{--                        success: function (response) {--}}
+{{--                            if (response.exists) {--}}
+{{--                                $('#code-validation-feedback').html('<div style="color: red;font-size: 10px">Code is already in use.</div>').show();--}}
+{{--                                resolve(false);--}}
+{{--                            } else {--}}
+{{--                                $('#code-validation-feedback').html('<div class="valid-feedback">Code is available.</div>').show();--}}
+{{--                                resolve(true);--}}
+{{--                            }--}}
+{{--                        },--}}
+{{--                        error: function (xhr, status, error) {--}}
+{{--                            console.error('Error checking code availability');--}}
+{{--                            reject(error);--}}
+{{--                        }--}}
+{{--                    });--}}
+{{--                });--}}
+{{--            }--}}
+{{--        });--}}
 
 
-    </script>
+{{--    </script>--}}
+
 
 
 
