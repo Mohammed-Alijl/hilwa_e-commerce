@@ -16,7 +16,7 @@ class RoleController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:Roles.view', ['only' => ['index,show']]);
+        $this->middleware('permission:Roles.view', ['only' => ['index','show']]);
         $this->middleware('permission:Roles.add', ['only' => ['create','store']]);
         $this->middleware('permission:Roles.edit', ['only' => ['edit','update']]);
         $this->middleware('permission:Roles.delete', ['only' => ['destroy']]);
@@ -90,6 +90,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        if($id == 1){
+            return redirect()->back();
+        }
         $role = Role::find($id);
         $permissions = Permission::get();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
