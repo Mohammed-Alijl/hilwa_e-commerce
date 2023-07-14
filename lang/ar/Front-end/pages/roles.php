@@ -44,4 +44,5 @@ return [
     'order_status' => 'حالة الطلبات',
     'pre_sales_customer' => 'عميل قبل البيع',
     'payment_services' => 'خدمات الدفع',
+    'select.all' => 'اختر الكل',
 ];

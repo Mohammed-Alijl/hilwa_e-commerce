@@ -33,6 +33,13 @@
     <div class="row">
         <input class="form-control form-control-lg mb-3" type="text" placeholder="{{__('Front-end/pages/roles.role.name')}}" name="name" required autocomplete="off">
     </div>
+        <div class="row">
+            <div class="list-group-item">
+            <input type="checkbox" id="checkAll" name="checkAll">
+            <label for="checkAll">{{__('Front-end/pages/roles.select.all')}}</label>
+            </div>
+        </div>
+        <br>
         @php
             $index = 1;
         @endphp
@@ -766,6 +773,17 @@
                         }, false);
                     });
             })();
+        </script>
+        <script>
+            // Add event listener to "checkAll" checkbox
+            document.getElementById("checkAll").addEventListener("click", function () {
+                // Select all checkboxes except the "checkAll" checkbox
+                var checkboxes = document.querySelectorAll('input[name="permission[]"]:not(#checkAll)');
+                // Set the "checked" property of each checkbox to the value of the "checkAll" checkbox
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.checked = document.getElementById("checkAll").checked;
+                });
+            });
         </script>
     @endsection
 @endsection

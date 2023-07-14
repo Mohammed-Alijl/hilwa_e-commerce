@@ -44,4 +44,5 @@ return [
     'order_status'=>'Order Status',
     'pre_sales_customer'=>'Pre Sales Customer',
     'payment_services'=>'Payment Services',
+    'select.all'=>'Select All',
 ];
