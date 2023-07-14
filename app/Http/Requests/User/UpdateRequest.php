@@ -35,7 +35,7 @@ class UpdateRequest extends FormRequest
             if($this->filled('password')){
                 $user->password = Hash::make($this->password);
                 $user->save();
-                return redirect()->back()->with('success-message',__('success_messages.password.change'));
+                return redirect()->route('users.index')->with('edit-success',__('success_messages.password.change'));
             }
             if($this->filled('first_name'))
                 $user->first_name = $this->first_name;
@@ -58,7 +58,7 @@ class UpdateRequest extends FormRequest
             if($user->save()){
                 DB::table('model_has_roles')->where('model_id',$id)->delete();
                 $user->assignRole($this->roles_name);
-                return redirect()->back()->with('success-message',__('success_messages.data.edit'));
+                return redirect()->route('users.index')->with('edit-success',__('success_messages.data.edit'));
             }
             else
                 return redirect()->withErrors(__('failed_messages.failed'));
