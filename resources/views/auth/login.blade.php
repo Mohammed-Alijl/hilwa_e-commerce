@@ -81,9 +81,6 @@
                                     <div class="mb-3">
                                         <label class="form-label">Password</label>
                                         <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" />
-                                        <small>
-                                            <a href="{{route('password.request')}}">Forgot password?</a>
-                                        </small>
                                     </div>
                                     <div>
                                         <div class="form-check align-items-center">
