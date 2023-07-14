@@ -8,6 +8,13 @@
         <link class="js-stylesheet" href="{{URL::asset('css/light.css')}}" rel="stylesheet">
     @endif
 @endsection
+@section('page-header')
+    <div class="row mb-2 mb-xl-3">
+        <div class="col-auto d-none d-sm-block">
+            <h3><strong>{{__('Front-end/pages/users.users')}}</strong> / {{__('Front-end/pages/users.account.details')}}</h3>
+        </div>
+    </div>
+@endsection
 @section('content')
     <main class="content">
             <div class="row">
