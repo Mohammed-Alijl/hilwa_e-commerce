@@ -192,10 +192,8 @@
                                                 <label class="form-label"
                                                        for="inputRole">{{__('Front-end/pages/users.role')}}</label>
                                                 <select name="roles_name" id="inputRole" class="form-control" required>
-                                                    <option disabled value=""
-                                                            selected>{{__('Front-end/pages/users.choose')}}</option>
                                                     @foreach($roles as $role)
-                                                        <option selected value="{{$role}}">{{$role}}</option>
+                                                        <option {{ $role == $userRole ? 'selected' : '' }} value="{{$role}}">{{$role}}</option>
                                                     @endforeach
                                                 </select>
                                                 <div class="valid-feedback">

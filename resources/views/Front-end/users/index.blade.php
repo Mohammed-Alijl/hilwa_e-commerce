@@ -60,7 +60,7 @@
                         <td>{{$user->roles->pluck('name','name')->first()}}</td>
                         <td>{{$user->code}}</td>
                         <td>
-{{--                            @if($user->roles->pluck('name','name')->first() != 'Admin')--}}
+                            @if($user->roles->pluck('name','name')->first() != 'Admin')
                             @can('users.edit')
                                 <a href="{{route('users.edit',$user->id)}}"><i class="align-middle"
                                                                                data-feather="edit-2"></i></a>
@@ -69,7 +69,7 @@
                                 <a href="#" onclick="deletes({{ $user->id }})"><i class="align-middle"
                                                                                   data-feather="trash"></i></a>
                             @endcan
-{{--                            @endif--}}
+                            @endif
                         </td>
                     </tr>
                 @endforeach

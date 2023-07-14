@@ -26,10 +26,10 @@ class EditRequest extends FormRequest
             $user = User::find($id);
             if (!$user)
                 return redirect()->back()->withErrors(__('failed_messages.user.notFound'));
-//            if ($user->roles->pluck('name', 'name')->first() == "Admin")
-//                abort(403);
+            if ($user->roles->pluck('name', 'name')->first() == "Admin")
+                abort(403);
             $roles = Role::pluck('name', 'name')->all();
-            $userRole = $user->roles->pluck('name', 'name')->all();
+            $userRole = $user->roles->pluck('name', 'name')->first();
             $zones = Zone::get();
             return view('Front-end.users.edit', compact('user', 'roles', 'userRole', 'zones'));
         } catch (Exception $ex) {
