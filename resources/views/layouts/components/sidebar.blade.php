@@ -41,7 +41,7 @@
         <ul class="sidebar-nav">
             <li class="sidebar-header"></li>
             <li class="sidebar-item active">
-                <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link">
+                <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">{{__('Front-end/sidebar.dashboards')}}</span>
                 </a>
                 <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse {{ hasActiveChild(['dashboard']) ? ' show' : '' }}" data-bs-parent="#sidebar">
