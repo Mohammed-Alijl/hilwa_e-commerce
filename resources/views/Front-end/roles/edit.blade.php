@@ -744,7 +744,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">{{__('Front-end/pages/roles.add')}}</button>
+        <button type="submit" class="btn btn-primary">{{__('Front-end/pages/roles.edit')}}</button>
     </form>
     @section('scripts')
         <script>
