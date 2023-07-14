@@ -233,8 +233,12 @@
                     <i class="align-middle me-2" data-feather="check-square"></i> <span class="align-middle">{{__('Front-end/sidebar.definitions')}}</span>
                 </a>
                 <ul id="definitions" class="sidebar-dropdown list-unstyled collapse{{ hasActiveChild(['users.index', 'roles.index']) ? ' show' : '' }}" data-bs-parent="#sidebar">
+                    @can('users.view')
                     <li class="sidebar-item {{ request()->route()->named("users.index") ? "active" : '' }}" {{ request()->route()->named("users.index") ? "active" : '' }}><a class="sidebar-link" href="{{route('users.index')}}">{{__('Front-end/sidebar.users')}}</a></li>
+                    @endcan
+                    @can('Roles.view')
                     <li class="sidebar-item {{ request()->route()->named("roles.index") ? "active" : '' }}"><a class="sidebar-link" href="{{route('roles.index')}}">{{__('Front-end/sidebar.roles')}}</a></li>
+                    @endcan
                     <li class="sidebar-item "><a class="sidebar-link" href="#">{{__('Front-end/sidebar.timeslots')}}</a></li>
                     <li class="sidebar-item "><a class="sidebar-link" href="#">{{__('Front-end/sidebar.units')}}</a></li>
                     <li class="sidebar-item "><a class="sidebar-link" href="#">{{__('Front-end/sidebar.stores')}}</a></li>
