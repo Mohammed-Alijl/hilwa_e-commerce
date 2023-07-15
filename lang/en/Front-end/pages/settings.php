@@ -1,0 +1,23 @@
+<?php
+return [
+    'system'=>'System',
+    'settings'=>'Settings',
+    'add.setting'=>'Add Setting',
+    'edit.setting'=>'Edit Setting',
+    'show.setting'=>'Show Setting',
+    'display_name'=>'Display Name',
+    'namespace'=>'Namespace',
+    'key'=>'Key',
+    'type'=>'Type',
+    'select.type'=>'Select Type',
+    'value'=>'Value',
+    'actions'=>'Actions',
+    'close'=>'Close',
+    'add'=>'Add',
+    'edit'=>'Edit',
+    'display_name.invalid'=>'Display Name is required',
+    'namespace.invalid'=>'Namespace is required',
+    'key.invalid'=>'Key is required',
+    'type.invalid'=>'Type is required',
+    'value.invalid'=>'Please enter the value based on the type you selected',
+];

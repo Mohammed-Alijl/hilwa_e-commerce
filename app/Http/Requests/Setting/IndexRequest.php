@@ -17,7 +17,8 @@ class IndexRequest extends FormRequest
 
     public function run(){
         $settings = Setting::get();
-        return view('Front-end.settings.index',compact('settings'));
+        $setting = new Setting();
+        return view('Front-end.settings.index',compact('settings','setting'));
     }
 
     /**

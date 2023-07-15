@@ -47,12 +47,25 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $settingId = $this->route('setting');
         return [
             'display_name' => 'nullable|string',
             'namespace' => 'nullable|string',
-            'key' => 'nullable|string|unique:settings',
+            'key' => 'nullable|string|unique:settings,key,' . $settingId,
             'type' => 'nullable|in:string,integer,float,boolean,color',
             'value' => 'nullable|required_with:type',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'display_name.string' => __('failed_messages.setting.display_name.string'),
+            'namespace.string' => __('failed_messages.setting.namespace.string'),
+            'key.string' => __('failed_messages.setting.key.string'),
+            'key.unique' => __('failed_messages.setting.key.unique'),
+            'type.in' => __('failed_messages.setting.type.in'),
+            'value.required' => __('failed_messages.setting.value.required'),
         ];
     }
 }

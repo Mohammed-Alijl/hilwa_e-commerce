@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Setting\DestroyRequest;
 use App\Http\Requests\Setting\IndexRequest;
+use App\Http\Requests\Setting\StoreRequest;
 use App\Http\Requests\Setting\UpdateRequest;
 use Illuminate\Http\Request;
 
@@ -27,9 +29,9 @@ class SettingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        return $request->run();
     }
 
     /**
@@ -59,8 +61,8 @@ class SettingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DestroyRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 }
