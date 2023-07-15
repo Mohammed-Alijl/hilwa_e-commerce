@@ -43,5 +43,20 @@ return [
     'user.mobile_number.regex' => 'The mobile number must consist of 10 digits.',
     'user.city_id.required' => 'Please select the city.',
     'user.city_id.numeric' => 'An error occurred. Please try again.',
-    'user.city_id.exists' => 'An error occurred. Please try again.'
+    'user.city_id.exists' => 'An error occurred. Please try again.',
+
+
+    //===================================================================================
+    // SETTINGS==========================================================================
+    //===================================================================================
+    'setting.display_name.required'=>'Display name is required',
+    'setting.display_name.string'=>'Some thing wrong please try again',
+    'setting.namespace.required'=>'Namespace is required',
+    'setting.namespace.string'=>'Some thing wrong please try again',
+    'setting.key.required'=>'Key is required',
+    'setting.key.string'=>'Some thing wrong please try again',
+    'setting.key.unique'=>'Key is already exists',
+    'setting.type.required'=>'Please select the type of value',
+    'setting.type.in'=>'Please select the type of value',
+    'setting.value.required'=>'Value is required',
 ];

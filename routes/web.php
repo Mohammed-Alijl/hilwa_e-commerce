@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -27,6 +28,7 @@ Route::group(
     Route::get('/',[\App\Http\Controllers\DashboardController::class,'create'])->name('dashboard');
     Route::resource('users',UserController::class);
     Route::resource('roles',RoleController::class);
+    Route::resource('settings',SettingController::class);
     Route::get('cities/{id}',[\App\Http\Controllers\CityController::class,'index']);
 
 

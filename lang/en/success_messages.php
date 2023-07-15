@@ -27,4 +27,9 @@ return [
     'role.add'=>'Role added successfully',
     'role.edit'=>'Role modified successfully',
     'role.destroy'=>'Role was deleted successfully',
+
+    //===================================================================================
+    // SETTINGS==========================================================================
+    //===================================================================================
+    'setting.delete'=>'Setting was deleted successfully',
 ];
