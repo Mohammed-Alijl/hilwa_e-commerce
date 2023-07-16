@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             PermissionSeeder::class,
             AdminSeeder::class,
+            StaticSettingSeeder::class
         ]);
     }
 }

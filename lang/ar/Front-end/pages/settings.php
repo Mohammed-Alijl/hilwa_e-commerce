@@ -23,5 +23,10 @@ return [
     'serving_area' => 'منطقة الخدمة',
     'add.zip_code' => 'إضافة رمز بريدي',
     'enter.zip_code' => 'أدخل الرمز البريدي',
+    'function_setting' => 'الاعدادت الوظيفية',
+    'update.open.cash.order' => 'تحديث طلب النقد المفتوح',
+    'confirm.place.order' => 'تأكيد طلب المكان',
+    'create.new.order.back.office' => 'إنشاء طلب جديد من مكتب الخلفية',
+    'show.unavailable.offers' => 'اظهار العروض غير المتوفرة',
 
 ];

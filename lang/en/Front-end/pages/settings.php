@@ -23,4 +23,9 @@ return [
     'serving_area'=>'Serving Area',
     'add.zip_code'=>'Add Zip Code',
     'enter.zip_code'=>'Enter Zip Code',
+    'function_setting'=>'Function Setting',
+    'update.open.cash.order'=>'Update Open Cash Order',
+    'confirm.place.order'=>'Confirm Place Order',
+    'create.new.order.back.office'=>'Create New Order from Back Office',
+    'show.unavailable.offers'=>'Show Unavailable Offers',
 ];

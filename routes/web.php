@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FunctionSettingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -32,6 +33,7 @@ Route::group(
     Route::resource('settings',SettingController::class);
     Route::get('cities/{id}',[\App\Http\Controllers\CityController::class,'index']);
     Route::post('/zip-codes', [ZipCodeController::class,'store'])->name('zip-codes.store');
+    Route::put('/static-settings', [FunctionSettingController::class,'staticSetting'])->name('staticSetting.update');
 
 
 

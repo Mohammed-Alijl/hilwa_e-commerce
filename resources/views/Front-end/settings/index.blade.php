@@ -33,7 +33,9 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addZipCodeModal">
                     {{__('Front-end/pages/settings.serving_area')}}
                 </button>
-
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#function_setting">
+                    {{__('Front-end/pages/settings.function_setting')}}
+                </button>
             </div>
         @endcan
 
@@ -337,6 +339,51 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Function Setting Form -->
+        @php $staticSetting = \App\Models\StaticSetting::first(); @endphp
+            <!-- Function Setting Form -->
+        <div class="modal fade" id="function_setting" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <form action="{{ route('staticSetting.update') }}" method="post" class="needs-validation" novalidate>
+                @csrf
+                @method('put')
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">{{ __('Front-end/pages/settings.function_setting') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Update Open Cash Order -->
+                            <div class="mb-3">
+                                <label class="form-label" for="update_open">{{ __('Front-end/pages/settings.update.open.cash.order') }}</label>
+                                <input type="checkbox" class="form-check-input" id="update_open" name="update_open" @if($staticSetting->update_open) checked @endif>
+                            </div>
+                            <!-- Confirm Place Order -->
+                            <div class="mb-3">
+                                <label class="form-label" for="confirm_place_order">{{ __('Front-end/pages/settings.confirm.place.order') }}</label>
+                                <input type="checkbox" class="form-check-input" id="confirm_place_order" name="confirm_place_order" @if($staticSetting->confirm_place_order) checked @endif>
+                            </div>
+                            <!-- Create New Order from Back Office -->
+                            <div class="mb-3">
+                                <label class="form-label" for="create_new_order_back_office">{{ __('Front-end/pages/settings.create.new.order.back.office') }}</label>
+                                <input type="checkbox" class="form-check-input" id="create_new_order_back_office" name="create_new_order_back_office" @if($staticSetting->create_new_order_back_office) checked @endif>
+                            </div>
+                            <!-- Show Unavailable Offers -->
+                            <div class="mb-3">
+                                <label class="form-label" for="show_unavailable_offers">{{ __('Front-end/pages/settings.show.unavailable.offers') }}</label>
+                                <input type="checkbox" class="form-check-input" id="show_unavailable_offers" name="show_unavailable_offers" @if($staticSetting->show_unavailable_offers) checked @endif>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- Submit & Close buttons -->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Front-end/pages/settings.close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Front-end/pages/settings.edit') }}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
 
 
