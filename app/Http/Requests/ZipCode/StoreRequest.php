@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Setting;
+namespace App\Http\Requests\ZipCode;
 
-use App\Models\Setting;
 use App\Models\ZipCode;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,10 +16,11 @@ class IndexRequest extends FormRequest
     }
 
     public function run(){
-        $settings = Setting::get();
-        $setting = new Setting();
-        $zipCodes  = ZipCode::get();
-        return view('Front-end.settings.index',compact('settings','setting','zipCodes'));
+        $zipCode = new ZipCode();
+        $zipCode->zip_code = $this->input('zip_code');
+        $zipCode->save();
+
+        return response()->json(['zip_code' => $zipCode->zip_code]);
     }
 
     /**
@@ -31,7 +31,7 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'zip_code' => 'required|numeric|unique:zip_codes,zip_code',
         ];
     }
 }

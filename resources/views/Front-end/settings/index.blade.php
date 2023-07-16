@@ -8,6 +8,15 @@
     @endif
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        .zip-code-item {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 15px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+    </style>
 @endsection
 
 @section('page-header')
@@ -21,8 +30,13 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
                     {{__('Front-end/pages/settings.add.setting')}}
                 </button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addZipCodeModal">
+                    {{__('Front-end/pages/settings.serving_area')}}
+                </button>
+
             </div>
         @endcan
+
     </div>
 @endsection
 @section('content')
@@ -294,6 +308,40 @@
             </div>
         </div>
 
+        <!-- Add Zip Code Modal -->
+        <div class="modal fade" id="addZipCodeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">{{__('Front-end/pages/settings.add.zip_code')}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Zip Code Input and Add Button -->
+                        <div class="input-group mb-3">
+                            <input type="text" id="inputZipCode" class="form-control" placeholder="{{__('Front-end/pages/settings.enter.zip_code')}}" aria-label="Enter Zip Code" aria-describedby="addZipCodeBtn" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required>
+                            <button class="btn btn-primary" type="button" id="addZipCodeBtn">{{__('Front-end/pages/settings.add')}}</button>
+                        </div>
+
+                        <!-- Redesigned Existing Zip Codes -->
+                        <div id="existingZipCodes" class="d-flex flex-wrap">
+                            @foreach($zipCodes as $zipCode)
+                                <div class="zip-code-item ">
+                                    {{ $zipCode->zip_code }}
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Front-end/pages/settings.close')}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
     </div>
     @section('scripts')
         <script src="{{URL::asset('js/datatables.js')}}"></script>
@@ -465,6 +513,43 @@
             });
         </script>
 
+        <script>
+            $(document).ready(function() {
+                const addZipCodeBtn = $('#addZipCodeBtn');
+                const inputZipCode = $('#inputZipCode');
+                const existingZipCodes = $('#existingZipCodes');
+
+                addZipCodeBtn.on('click', function() {
+                    const zipCode = inputZipCode.val();
+
+                    // Perform validation if needed (e.g., non-empty value)
+                    if (!zipCode) {
+                        alert('Please enter a valid zip code.');
+                        return;
+                    }
+
+                    // Send the zip code to the server using AJAX
+                    $.ajax({
+                        url: '{{route('zip-codes.store')}}',
+                        type: 'POST',
+                        data: { zip_code: zipCode },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            // Handle success response, e.g., display the new zip code in the list
+                            const zipCodeItem = $('<div class="zip-code-item"></div>');
+                            zipCodeItem.text(response.zip_code);
+                            existingZipCodes.append(zipCodeItem);
+                            inputZipCode.val(''); // Clear the input field
+                        },
+                        error: function(error) {
+                            console.log(error); // Log the error to the console
+                        }
+                    });
+                });
+            });
+        </script>
 
 
 

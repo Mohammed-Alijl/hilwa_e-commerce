@@ -20,4 +20,7 @@ return [
     'key.invalid'=>'Key is required',
     'type.invalid'=>'Type is required',
     'value.invalid'=>'Please enter the value based on the type you selected',
+    'serving_area'=>'Serving Area',
+    'add.zip_code'=>'Add Zip Code',
+    'enter.zip_code'=>'Enter Zip Code',
 ];

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ZipCodeController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -30,9 +31,11 @@ Route::group(
     Route::resource('roles',RoleController::class);
     Route::resource('settings',SettingController::class);
     Route::get('cities/{id}',[\App\Http\Controllers\CityController::class,'index']);
+    Route::post('/zip-codes', [ZipCodeController::class,'store'])->name('zip-codes.store');
 
 
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
