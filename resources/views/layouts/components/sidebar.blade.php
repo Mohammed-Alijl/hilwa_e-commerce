@@ -256,8 +256,10 @@
                 <a data-bs-target="#system" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2" data-feather="hard-drive"></i> <span class="align-middle">{{__('Front-end/sidebar.system')}}</span>
                 </a>
-                <ul id="system" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.settings')}}</a></li>
+                <ul id="system" class="sidebar-dropdown list-unstyled collapse {{ hasActiveChild(['settings.index']) ? ' show' : '' }}" data-bs-parent="#sidebar">
+                    @can('settings.view')
+                    <li class="sidebar-item {{ request()->route()->named("settings.index") ? "active" : '' }}"><a class="sidebar-link" href="{{route('settings.index')}}">{{__('Front-end/sidebar.settings')}}</a></li>
+                    @endcan
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.logs')}}</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.pages')}}</a></li>
                 </ul>
