@@ -4,6 +4,7 @@ use App\Http\Controllers\FunctionSettingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\StateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZipCodeController;
 use Illuminate\Support\Facades\Route;
@@ -31,7 +32,7 @@ Route::group(
     Route::resource('users',UserController::class);
     Route::resource('roles',RoleController::class);
     Route::resource('settings',SettingController::class);
-    Route::get('cities/{id}',[\App\Http\Controllers\CityController::class,'index']);
+    Route::get('state-cities/{id}',[StateController::class,'getStateCities']);
     Route::post('/zip-codes', [ZipCodeController::class,'store'])->name('zip-codes.store');
     Route::put('/static-settings', [FunctionSettingController::class,'staticSetting'])->name('staticSetting.update');
 

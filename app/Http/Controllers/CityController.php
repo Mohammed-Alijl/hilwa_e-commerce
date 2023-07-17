@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
-    public function index(IndexRequest $request,$id){
-        return $request->run($id);
+    public function getStateCities(IndexRequest $request){
     }
 }

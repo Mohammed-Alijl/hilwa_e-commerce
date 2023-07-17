@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\User;
 
+use App\Models\State;
 use App\Models\User;
-use App\Models\Zone;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\Permission\Models\Role;
@@ -30,8 +30,8 @@ class EditRequest extends FormRequest
                 abort(403);
             $roles = Role::pluck('name', 'name')->all();
             $userRole = $user->roles->pluck('name', 'name')->first();
-            $zones = Zone::get();
-            return view('Front-end.users.edit', compact('user', 'roles', 'userRole', 'zones'));
+            $states = State::get();
+            return view('Front-end.users.edit', compact('user', 'roles', 'userRole', 'states'));
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }

@@ -32,7 +32,7 @@
                     <th>{{__('Front-end/pages/users.name')}}</th>
                     <th>{{__('Front-end/pages/users.email')}}</th>
                     <th>{{__('Front-end/pages/users.mobile')}}</th>
-                    <th>{{__('Front-end/pages/users.zone')}}</th>
+                    <th>{{__('Front-end/pages/users.state')}}</th>
                     <th>{{__('Front-end/pages/users.city')}}</th>
                     <th>{{__('Front-end/pages/users.role')}}</th>
                     <th>{{__('Front-end/pages/users.code')}}</th>
@@ -55,13 +55,13 @@
                         </td>
                         <td>{{$user->email}}</td>
                         <td>05{{$user->mobile_number}}</td>
-                        <td>{{$user->city->zone->name}}</td>
+                        <td>{{$user->city->state->name}}</td>
                         <td>{{$user->city->name}}</td>
                         <td>{{$user->roles->pluck('name','name')->first()}}</td>
                         <td>{{$user->code}}</td>
                         <td>
                             @if($user->roles->pluck('name','name')->first() != 'Admin')
-                            @can('users.edit')
+                            @can('edit_user')
                                 <a href="{{route('users.edit',$user->id)}}"><i class="align-middle"
                                                                                data-feather="edit-2"></i></a>
                             @endcan

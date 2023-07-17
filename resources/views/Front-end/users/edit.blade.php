@@ -148,20 +148,20 @@
                                             </div>
                                             <div class="mb-3 col-md-4">
                                                 <label class="form-label"
-                                                       for="inputZone">{{__('Front-end/pages/users.zone')}}</label>
-                                                <select id="inputZone" class="form-control" required>
+                                                       for="inputState">{{__('Front-end/pages/users.state')}}</label>
+                                                <select id="inputState" class="form-control" required>
                                                     <option selected
-                                                            value="{{$user->city->zone->id}}">{{__('Front-end/zones.' . $user->city->zone->name)}}</option>
-                                                    @foreach($zones as $zone)
+                                                            value="{{$user->city->state->id}}">{{__('Front-end/states.' . $user->city->state->name)}}</option>
+                                                    @foreach($states as $state)
                                                         <option
-                                                            value="{{$zone->id}}">{{__('Front-end/zones.' . $zone->name)}}</option>
+                                                            value="{{$state->id}}">{{__('Front-end/states.' . $state->name)}}</option>
                                                     @endforeach
                                                 </select>
                                                 <div class="valid-feedback">
-                                                    {{__('Front-end/pages/users.user.zone.valid')}}
+                                                    {{__('Front-end/pages/users.user.state.valid')}}
                                                 </div>
                                                 <div class="invalid-feedback">
-                                                    {{__('Front-end/pages/users.user.zone.invalid')}}
+                                                    {{__('Front-end/pages/users.user.state.invalid')}}
                                                 </div>
                                             </div>
                                             <div class="mb-3 col-md-4">
@@ -182,9 +182,9 @@
                                         <div class="mb-3">
                                             <label class="form-label" class="form-check m-0">
                                                 <input type="checkbox" class="form-check-input"
-                                                       name="limit_zone" {{ $user->limit_state ? 'checked' : '' }}>
+                                                       name="limit_state" {{ $user->limit_state ? 'checked' : '' }}>
                                                 <span
-                                                    class="form-check-label">{{__('Front-end/pages/users.limit.access.zone')}}</span>
+                                                    class="form-check-label">{{__('Front-end/pages/users.limit.access.state')}}</span>
                                             </label>
                                         </div>
                                         <div class="row">
@@ -294,11 +294,11 @@
     @section('scripts')
         <script>
             $(document).ready(function () {
-                $('#inputZone').on('change', function () {
-                    var ZoneId = $(this).val();
-                    if (ZoneId) {
+                $('#inputState').on('change', function () {
+                    var StateId = $(this).val();
+                    if (StateId) {
                         $.ajax({
-                            url: "{{ URL::to('cities') }}/" + ZoneId,
+                            url: "{{ URL::to('state-cities') }}/" + StateId,
                             type: "GET",
                             dataType: "json",
                             success: function (data) {

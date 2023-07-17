@@ -77,52 +77,25 @@
                                         </div>
                                         <div class="row">
                                             <div class="mb-3 col-md-4">
-                                                <label class="form-label" for="inputZone">{{__('Front-end/pages/users.country')}}</label>
-                                                <select id="inputZone" class="form-control" disabled>
-                                                    <option selected>{{__('Front-end/country.' . $user->city->zone->country->name)}}</option>
+                                                <label class="form-label" for="inputState">{{__('Front-end/pages/users.country')}}</label>
+                                                <select id="inputState" class="form-control" disabled>
+                                                    <option selected>{{__('Front-end/country.' . $user->city->state->country->name)}}</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3 col-md-4">
-                                                <label class="form-label" for="inputZone">{{__('Front-end/pages/users.zone')}}</label>
-                                                <select id="inputZone" class="form-control" disabled>
-                                                    <option selected>{{__('Front-end/zones.' . $user->city->zone->name)}}</option>
+                                                <label class="form-label" for="inputState">{{__('Front-end/pages/users.state')}}</label>
+                                                <select id="inputState" class="form-control" disabled>
+                                                    <option selected>{{__('Front-end/states.' . $user->city->state->name)}}</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3 col-md-4">
-                                                <label class="form-label" for="inputZone">{{__('Front-end/pages/users.zone')}}</label>
-                                                <select id="inputZone" class="form-control" disabled>
+                                                <label class="form-label" for="inputState">{{__('Front-end/pages/users.state')}}</label>
+                                                <select id="inputState" class="form-control" disabled>
                                                     <option selected>{{$user->city->name}}</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="tab-pane fade" id="password" role="tabpanel">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Password</h5>
-
-                                    <form>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="inputPasswordCurrent">Current password</label>
-                                            <input type="password" class="form-control" id="inputPasswordCurrent">
-                                            <small><a href="#">Forgot your password?</a></small>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="inputPasswordNew">New password</label>
-                                            <input type="password" class="form-control" id="inputPasswordNew">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="inputPasswordNew2">Verify password</label>
-                                            <input type="password" class="form-control" id="inputPasswordNew2">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </form>
-
                                 </div>
                             </div>
                         </div>
