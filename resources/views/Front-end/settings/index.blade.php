@@ -25,7 +25,7 @@
             <h3><strong>{{__('Front-end/pages/settings.system')}}</strong> / {{__('Front-end/pages/settings.settings')}}
             </h3>
         </div>
-        @can('settings.add')
+        @can('add_settings')
             <div class="col-auto ms-auto text-end mt-n1">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
                     {{__('Front-end/pages/settings.add.setting')}}
@@ -86,7 +86,7 @@
                         <td>{{$setting->key}}</td>
                         <td>{{$setting->value}}</td>
                         <td>
-                            @can('settings.edit')
+                            @can('edit_settings')
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#edit"
                                    data-setting-id="{{ $setting->id }}"
                                    data-setting-display-name="{{ $setting->display_name }}"
@@ -98,7 +98,7 @@
                                 </a>
 
                             @endcan
-                            @can('settings.delete')
+                            @can('delete_settings')
                                 <a href="#" onclick="deletes({{ $setting->id }})"><i class="align-middle"
                                                                                      data-feather="trash"></i></a>
                             @endcan</td>

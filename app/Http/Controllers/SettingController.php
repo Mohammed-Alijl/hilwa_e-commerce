@@ -6,16 +6,15 @@ use App\Http\Requests\Setting\DestroyRequest;
 use App\Http\Requests\Setting\IndexRequest;
 use App\Http\Requests\Setting\StoreRequest;
 use App\Http\Requests\Setting\UpdateRequest;
-use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:settings.view', ['only' => ['index','show']]);
-        $this->middleware('permission:settings.add', ['only' => ['create','store']]);
-        $this->middleware('permission:settings.edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:settings.delete', ['only' => ['destroy']]);
+        $this->middleware('permission:view_settings', ['only' => ['index','show']]);
+        $this->middleware('permission:add_settings', ['only' => ['create','store']]);
+        $this->middleware('permission:edit_settings', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete_settings', ['only' => ['destroy']]);
     }
 
     /**
