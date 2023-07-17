@@ -13,26 +13,41 @@ class ZoneSeeder extends Seeder
      */
     public function run(): void
     {
-        $names = [
-            'Eastern Province',
-            'Al Bahah Province',
-            'Al Jawf Province',
-            'Northern Borders Province',
-            'Riyadh Province',
-            'Qassim Province',
-            'Al Madinah Province',
-            'Tabuk Province',
-            'Jazan Province',
-            'Hail Province',
-            'Asir Province',
-            'Makkah Province',
-            'Najran Province',
+        $zones = [
+            [
+                'name' => 'zone1',
+                'city_id' => 1,
+            ],
+            [
+                'name' => 'zone2',
+                'city_id' => 1,
+            ],
+            [
+                'name' => 'zone3',
+                'city_id' => 1,
+            ],
+            [
+                'name' => 'zone4',
+                'city_id' => 2,
+            ],
+            [
+                'name' => 'zone5',
+                'city_id' => 2,
+            ],
+            [
+                'name' => 'zone6',
+                'city_id' => 3,
+            ],
+            [
+                'name' => 'zone7',
+                'city_id' => 3,
+            ],
         ];
-        foreach ($names as $name){
-            $zone = new Zone();
-            $zone->name = $name;
-            $zone->country_id = 1;
-            $zone->save();
+        foreach ($zones as $zone){
+            Zone::create([
+                'name'=>$zone['name'],
+                'city_id'=>$zone['city_id']
+            ]);
         }
     }
 }
