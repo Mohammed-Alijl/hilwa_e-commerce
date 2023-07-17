@@ -15,7 +15,7 @@ class Country extends Model
     //===============================================================
     //========================== RELATIONSHips ======================
     //===============================================================
-    public function zones(){
-        return $this->hasMany(Zone::class,'country_id');
+    public function states(){
+        return $this->hasMany(State::class,'country_id');
     }
 }

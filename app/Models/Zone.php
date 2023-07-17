@@ -10,17 +10,14 @@ class Zone extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'country_id'
+        'city_id'
     ];
 
     //===============================================================
     //========================== RELATIONSHips ======================
     //===============================================================
-    public function cities(){
-        return $this->hasMany(City::class,'zone_id');
-    }
-    public function country(){
-        return $this->belongsTo(Country::class,'country_id');
+    public function city(){
+        return $this->belongsTo(City::class,'city_id');
     }
 
 }
