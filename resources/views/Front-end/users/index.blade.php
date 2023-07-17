@@ -15,7 +15,7 @@
         <div class="col-auto d-none d-sm-block">
             <h3><strong>{{__('Front-end/pages/users.definitions')}}</strong> / {{__('Front-end/pages/users.users')}}</h3>
         </div>
-        @can('users.add')
+        @can('add_user')
             <div class="col-auto ms-auto text-end mt-n1">
                 <a href="{{route('users.create')}}" class="btn btn-primary">{{__('Front-end/pages/users.add.user')}}</a>
             </div>
@@ -45,7 +45,7 @@
                         <td>{{$rowNumber++}}</td>
 
                         <td>
-                            @can('users.view')
+                            @can('view_user')
                                 <a href="{{ route('users.show', $user->id) }}">
                                     {{ $user->first_name . ' ' . $user->last_name }}
                                 </a>
@@ -65,7 +65,7 @@
                                 <a href="{{route('users.edit',$user->id)}}"><i class="align-middle"
                                                                                data-feather="edit-2"></i></a>
                             @endcan
-                            @can('users.delete')
+                            @can('delete_user')
                                 <a href="#" onclick="deletes({{ $user->id }})"><i class="align-middle"
                                                                                   data-feather="trash"></i></a>
                             @endcan
