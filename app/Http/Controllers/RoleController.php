@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\DB;
+
+use App\Http\Requests\Role\CreateRequest;
+use App\Http\Requests\Role\DestroyRequest;
+use App\Http\Requests\Role\EditRequest;
+use App\Http\Requests\Role\IndexRequest;
+use App\Http\Requests\Role\ShowRequest;
+use App\Http\Requests\Role\StoreRequest;
+use App\Http\Requests\Role\UpdateRequest;
 
 class RoleController extends Controller
 {
@@ -16,10 +19,25 @@ class RoleController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:Roles.view', ['only' => ['index','show']]);
-        $this->middleware('permission:Roles.add', ['only' => ['create','store']]);
-        $this->middleware('permission:Roles.edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:Roles.delete', ['only' => ['destroy']]);
+        $this->middleware('permission:view_role', ['only' => ['index', 'show']]);
+        $this->middleware('permission:add_role', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit_role', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete_role', ['only' => ['destroy']]);
+    }
+
+    protected $methods = ['view', 'add', 'edit', 'delete'];
+    protected $models = ['dashboard', 'order', 'customer', 'driver', 'contact-request', 'review', 'category', 'product',
+        'attribute', 'return', 'comment', 'advertisement', 'marketing', 'coupon', 'unit', 'store', 'setting', 'timeslot', 'user',
+        'role', 'zone', 'log', 'reward', 'cms-page', 'holiday', 'chat', 'order-status', 'pre-sales-customer', 'payment-services'];
+
+    public function getMethods()
+    {
+        return $this->methods;
+    }
+
+    public function getModels()
+    {
+        return $this->models;
     }
 
     /**
@@ -27,12 +45,9 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(IndexRequest $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        $rowNumber = 1;
-        return view('Front-end.roles.index',compact('roles','rowNumber'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return $request->run();
     }
 
     /**
@@ -40,101 +55,65 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CreateRequest $request)
     {
-        $permission = Permission::get();
-        return view('Front-end.roles.create',compact('permission'));
+        return $request->run($this->getMethods(), $this->getModels());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
-        ]);
-
-        $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
-
-        return redirect()->route('roles.index')
-            ->with('add-success',__('success_messages.role.add'));
+        return $request->run();
     }
+
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ShowRequest $request, $id)
     {
-        $role = Role::find($id);
-
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-            ->all();
-
-        return view('Front-end.roles.show',compact('role','rolePermissions'));
+        return $request->run($id, $this->getMethods(), $this->getModels());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(EditRequest $request, $id)
     {
-        if($id == 1){
-            return redirect()->back();
-        }
-        $role = Role::find($id);
-        $permissions = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-            ->all();
-
-        return view('Front-end.roles.edit',compact('role','permissions','rolePermissions'));
+        return $request->run($id, $this->getMethods(), $this->getModels());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'permission' => 'required',
-        ]);
+        return $request->run($id);
 
-        $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
-
-        $role->syncPermissions($request->input('permission'));
-
-        return redirect()->route('roles.index')
-            ->with('edit-success',__('success_messages.role.edit'));
     }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(DestroyRequest $request)
     {
-        DB::table("roles")->where('id',$request->id)->delete();
-        return redirect()->route('roles.index')
-            ->with('delete-success',__('success_messages.role.destroy'));
+        return $request->run();
     }
 }

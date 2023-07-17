@@ -16,160 +16,160 @@ class PermissionSeeder extends Seeder
         $permissions = [
 
             //Dashboards
-            'dashboards.view',
+            'view_dashboard',
 
             //Orders
-            'orders.view',
-            'orders.add',
-            'orders.edit',
+            'view_order',
+            'add_order',
+            'edit_order',
 
             //Customers
-            'customers.view',
-            'customers.add',
-            'customers.edit',
-            'customers.delete',
+            'view_customer',
+            'add_customer',
+            'edit_customer',
+            'delete_customer',
 
             //Drivers
-            'drivers.view',
-            'drivers.add',
-            'drivers.edit',
-            'drivers.delete',
+            'view_driver',
+            'add_driver',
+            'edit_driver',
+            'delete_driver',
 
             //Contact Request
-            'contact-request.view',
-            'contact-request.add',
+            'view_contact-request',
+            'add_contact-request',
 
             //Review
-            'review.view',
-            'review.add',
-            'review.edit',
-            'review.delete',
+            'view_review',
+            'add_review',
+            'edit_review',
+            'delete_review',
 
             //Category
-            'category.view',
-            'category.add',
-            'category.edit',
-            'category.delete',
+            'view_category',
+            'add_category',
+            'edit_category',
+            'delete_category',
 
             //Product
-            'product.view',
-            'product.add',
-            'product.edit',
-            'product.delete',
+            'view_product',
+            'add_product',
+            'edit_product',
+            'delete_product',
 
             //Attribute
-            'attribute.view',
-            'attribute.add',
-            'attribute.edit',
-            'attribute.delete',
+            'view_attribute',
+            'add_attribute',
+            'edit_attribute',
+            'delete_attribute',
 
             //Returns
-            'returns.view',
-            'returns.add',
-            'returns.edit',
-            'returns.delete',
+            'view_return',
+            'add_return',
+            'edit_return',
+            'delete_return',
 
             //Comment
-            'comment.view',
+            'view_comment',
 
             //Advertisement
-            'advertisement.view',
-            'advertisement.add',
-            'advertisement.edit',
-            'advertisement.delete',
+            'view_advertisement',
+            'add_advertisement',
+            'edit_advertisement',
+            'delete_advertisement',
 
             //Marketing
-            'marketing.view',
-            'marketing.add',
-            'marketing.edit',
-            'marketing.delete',
+            'view_marketing',
+            'add_marketing',
+            'edit_marketing',
+            'delete_marketing',
 
             //Coupons
-            'coupons.view',
-            'coupons.add',
-            'coupons.edit',
-            'coupons.delete',
+            'view_coupon',
+            'add_coupon',
+            'edit_coupon',
+            'delete_coupon',
 
             //Unit
-            'units.view',
-            'units.add',
-            'units.edit',
-            'units.delete',
+            'view_unit',
+            'add_unit',
+            'edit_unit',
+            'delete_unit',
 
             //Store
-            'stores.view',
-            'stores.add',
-            'stores.edit',
-            'stores.delete',
+            'view_store',
+            'add_store',
+            'edit_store',
+            'delete_store',
 
             //Setting
-            'settings.view',
-            'settings.add',
-            'settings.edit',
-            'settings.delete',
+            'view_setting',
+            'add_setting',
+            'edit_setting',
+            'delete_setting',
 
             //Timeslot
-            'timeslots.view',
-            'timeslots.add',
-            'timeslots.edit',
-            'timeslots.delete',
+            'view_timeslot',
+            'add_timeslot',
+            'edit_timeslot',
+            'delete_timeslot',
 
             //Users
-            'users.view',
-            'users.add',
-            'users.edit',
-            'users.delete',
+            'view_user',
+            'add_user',
+            'edit_user',
+            'delete_user',
 
             //Roles
-            'Roles.view',
-            'Roles.add',
-            'Roles.edit',
-            'Roles.delete',
+            'view_role',
+            'add_role',
+            'edit_role',
+            'delete_role',
 
             //Zones
-            'zones.view',
-            'zones.add',
-            'zones.edit',
-            'zones.delete',
+            'view_zone',
+            'add_zone',
+            'edit_zone',
+            'delete_zone',
 
             //Logs
-            'logs.view',
-            'logs.add',
-            'logs.edit',
-            'logs.delete',
+            'view_log',
+            'add_log',
+            'edit_log',
+            'delete_log',
 
             //Rewards
-            'rewards.view',
-            'rewards.add',
-            'rewards.edit',
-            'rewards.delete',
+            'view_reward',
+            'add_reward',
+            'edit_reward',
+            'delete_reward',
 
             //Cms Pages
-            'cms-pages.view',
-            'cms-pages.add',
-            'cms-pages.edit',
-            'cms-pages.delete',
+            'view_cms-page',
+            'add_cms-page',
+            'edit_cms-page',
+            'delete_cms-page',
 
             //Holidays
-            'holidays.view',
-            'holidays.add',
-            'holidays.edit',
-            'holidays.delete',
+            'view_holiday',
+            'add_holiday',
+            'edit_holiday',
+            'delete_holiday',
 
             //Chats
-            'chats.view',
+            'view_chat',
 
             //Order Status
-            'order-status.view',
+            'view_order-status',
 
             //Pre Sales Customer
-            'pre-sales-customer.view',
-            'pre-sales-customer.add',
-            'pre-sales-customer.edit',
-            'pre-sales-customer.delete',
+            'view_pre-sales-customer',
+            'add_pre-sales-customer',
+            'edit_pre-sales-customer',
+            'delete_pre-sales-customer',
 
             //Payment Services
-            'payment-services.view',
+            'view_payment-services',
 
         ];
 

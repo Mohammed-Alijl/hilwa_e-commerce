@@ -14,7 +14,7 @@
             <h3><strong>{{__('Front-end/pages/roles.definitions')}}</strong> / {{__('Front-end/pages/roles.title')}}
             </h3>
         </div>
-        @can('Roles.add')
+        @can('add_role')
             <div class="col-auto ms-auto text-end mt-n1">
                 <a href="{{route('roles.create')}}" class="btn btn-primary">{{__('Front-end/pages/roles.add.role')}}</a>
             </div>
@@ -38,7 +38,7 @@
                         <td>{{$rowNumber++}}</td>
 
                         <td>
-                            @can('Roles.view')
+                            @can('view_role')
                                 <a href="{{ route('roles.show', $role->id) }}">
                                     {{ $role->name}}
                                 </a>
@@ -48,11 +48,11 @@
                         </td>
                         <td>
                             @if($role->name != 'Admin')
-                                @can('Roles.edit')
+                                @can('edit_role')
                                     <a href="{{route('roles.edit',$role->id)}}"><i class="align-middle"
                                                                                    data-feather="edit-2"></i></a>
                                 @endcan
-                                @can('Roles.delete')
+                                @can('delete_role')
                                     <a href="#" onclick="deletes({{ $role->id }})"><i class="align-middle"
                                                                                       data-feather="trash"></i></a>
                                 @endcan
