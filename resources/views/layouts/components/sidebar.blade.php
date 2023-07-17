@@ -233,10 +233,10 @@
                     <i class="align-middle me-2" data-feather="check-square"></i> <span class="align-middle">{{__('Front-end/sidebar.definitions')}}</span>
                 </a>
                 <ul id="definitions" class="sidebar-dropdown list-unstyled collapse{{ hasActiveChild(['users.index', 'roles.index']) ? ' show' : '' }}" data-bs-parent="#sidebar">
-                    @can('users.view')
+                    @can('view_user')
                     <li class="sidebar-item {{ request()->route()->named("users.index") ? "active" : '' }}" {{ request()->route()->named("users.index") ? "active" : '' }}><a class="sidebar-link" href="{{route('users.index')}}">{{__('Front-end/sidebar.users')}}</a></li>
                     @endcan
-                    @can('Roles.view')
+                    @can('view_role')
                     <li class="sidebar-item {{ request()->route()->named("roles.index") ? "active" : '' }}"><a class="sidebar-link" href="{{route('roles.index')}}">{{__('Front-end/sidebar.roles')}}</a></li>
                     @endcan
                     <li class="sidebar-item "><a class="sidebar-link" href="#">{{__('Front-end/sidebar.timeslots')}}</a></li>
@@ -257,7 +257,7 @@
                     <i class="align-middle me-2" data-feather="hard-drive"></i> <span class="align-middle">{{__('Front-end/sidebar.system')}}</span>
                 </a>
                 <ul id="system" class="sidebar-dropdown list-unstyled collapse {{ hasActiveChild(['settings.index']) ? ' show' : '' }}" data-bs-parent="#sidebar">
-                    @can('settings.view')
+                    @can('view_setting')
                     <li class="sidebar-item {{ request()->route()->named("settings.index") ? "active" : '' }}"><a class="sidebar-link" href="{{route('settings.index')}}">{{__('Front-end/sidebar.settings')}}</a></li>
                     @endcan
                     <li class="sidebar-item"><a class="sidebar-link" href="#">{{__('Front-end/sidebar.logs')}}</a></li>
