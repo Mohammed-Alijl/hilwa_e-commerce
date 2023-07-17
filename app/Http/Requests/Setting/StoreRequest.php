@@ -22,7 +22,11 @@ class StoreRequest extends FormRequest
             $setting->display_name = $this->display_name;
             $setting->namespace = $this->namespace;
             $setting->key = $this->key;
-            $setting->value = $this->value;
+            if($this->filled('value'))
+                $setting->value = $this->value;
+            else
+            $setting->value = $this->boolean_value;
+
             $setting->type = $this->type;
             $setting->save();
             return redirect()->back();
@@ -44,7 +48,6 @@ class StoreRequest extends FormRequest
             'namespace' => 'required|string',
             'key' => 'required|string|unique:settings',
             'type' => 'required|in:string,integer,float,boolean,color',
-            'value' => 'required',
         ];
     }
 

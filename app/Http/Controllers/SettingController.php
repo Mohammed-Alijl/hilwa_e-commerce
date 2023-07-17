@@ -11,10 +11,10 @@ class SettingController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:view_settings', ['only' => ['index','show']]);
-        $this->middleware('permission:add_settings', ['only' => ['create','store']]);
-        $this->middleware('permission:edit_settings', ['only' => ['edit','update']]);
-        $this->middleware('permission:delete_settings', ['only' => ['destroy']]);
+        $this->middleware('permission:view_setting', ['only' => ['index','show']]);
+        $this->middleware('permission:add_setting', ['only' => ['create','store']]);
+        $this->middleware('permission:edit_setting', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete_setting', ['only' => ['destroy']]);
     }
 
     /**

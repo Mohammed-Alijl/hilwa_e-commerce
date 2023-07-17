@@ -29,6 +29,7 @@ class UpdateRequest extends FormRequest
                 $setting->key = $this->key;
             if ($this->filled('value'))
                 $setting->value = $this->value;
+            else $setting->value = $this->boolean_value;
             if ($this->filled('type'))
                 $setting->type = $this->type;
             if ($setting->save())
@@ -47,13 +48,12 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $settingId = $this->route('setting');
         return [
             'display_name' => 'nullable|string',
             'namespace' => 'nullable|string',
-            'key' => 'nullable|string|unique:settings,key,' . $settingId,
+            'key' => 'nullable|string',
             'type' => 'nullable|in:string,integer,float,boolean,color',
-            'value' => 'nullable|required_with:type',
+            'value' => 'nullable',
         ];
     }
 

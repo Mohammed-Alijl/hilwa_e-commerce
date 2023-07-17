@@ -168,7 +168,7 @@
 
                         <!-- Boolean Options (Select for type 'boolean') -->
                         <div class="mb-3" style="display: none;" id="booleanOptionsSelect">
-                            <select class="form-select" name="value">
+                            <select class="form-select" name="boolean_value">
                                 <option value="true">True</option>
                                 <option value="false">False</option>
                             </select>
@@ -246,7 +246,7 @@
 
                             <!-- Boolean Options (Select for type 'boolean') -->
                             <div class="mb-3" style="display: none;" id="edit_booleanOptionsSelect">
-                                <select class="form-select" name="value">
+                                <select class="form-select" name="boolean_value">
                                     <option value="true" {{'true' == $setting->value ? 'selected' : ''}}>True</option>
                                     <option value="false" {{'false' == $setting->value ? 'selected' : ''}}>False</option>
                                 </select>
