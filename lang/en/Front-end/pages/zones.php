@@ -11,4 +11,7 @@ return [
   'action'=>'Action',
   'enable'=>'Enable',
   'disable'=>'Disable',
+  'edited'=>'Edited',
+  'zone.add'=>'Zone Add',
+  'deleted'=>'Deleted',
 ];

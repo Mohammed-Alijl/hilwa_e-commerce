@@ -70,4 +70,70 @@
             </table>
         </div>
     </div>
+    @section('scripts')
+        <script>
+            function deletes(zoneId) {
+                Swal.fire({
+                    title: '{{__('Front-end/pages/users.are.you.sure')}}',
+                    text: "{{__('Front-end/pages/users.not.able.revert')}}",
+                    icon: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: '{{__('Front-end/pages/users.delete')}}'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Perform the delete operation here
+                        deleteUser(zoneId);
+                    }
+                })
+            }
+
+            function deleteUser(zoneId) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '{{ route('zones.destroy', ['zone' => '__zoneId__']) }}'.replace('__zoneId__', zoneId);
+                form.innerHTML = `<input type="hidden" name="_method" value="DELETE">`;
+                form.innerHTML = `<input type="hidden" name="id" value="${zoneId}">`;
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = '_token';
+                csrfInput.value = csrfToken;
+
+                form.appendChild(csrfInput);
+                form.innerHTML += `<input type="hidden" name="_method" value="DELETE">`;
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        </script>
+        @if(\Illuminate\Support\Facades\Session::has('edit-success'))
+            <script>
+                Swal.fire(
+                    '{{__('Front-end/pages/zones.edited')}}',
+                    '{{\Illuminate\Support\Facades\Session::get('edit-success')}}',
+                    'success'
+                )
+            </script>
+        @endif
+        @if(\Illuminate\Support\Facades\Session::has('add-success'))
+            <script>
+                Swal.fire(
+                    '{{__('Front-end/pages/zones.zone.add')}}',
+                    '{{\Illuminate\Support\Facades\Session::get('add-success')}}',
+                    'success'
+                )
+            </script>
+        @endif
+        @if(\Illuminate\Support\Facades\Session::has('delete-success'))
+            <script>
+                Swal.fire(
+                    '{{__('Front-end/pages/zones.deleted')}}',
+                    '{{\Illuminate\Support\Facades\Session::get('delete-success')}}',
+                    'success'
+                )
+            </script>
+        @endif
+    @endsection
 @endsection
