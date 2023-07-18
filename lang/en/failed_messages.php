@@ -59,4 +59,14 @@ return [
     'setting.type.required'=>'Please select the type of value',
     'setting.type.in'=>'Please select the type of value',
     'setting.value.required'=>'Value is required',
+
+    //===================================================================================
+    // CITIES============================================================================
+    //===================================================================================
+    'city.name.required'=>'City Name Is Required',
+    'city.name.string'=>'Some thing wrong please try again',
+    'city.name.max'=>'City Name Should Be At Max 30 Char',
+    'city.state_id.required'=>'Please Select the State',
+    'city.state_id.numeric'=>'Some thing wrong please try again',
+    'city.state_id.exists'=>'Some thing wrong please try again',
 ];
