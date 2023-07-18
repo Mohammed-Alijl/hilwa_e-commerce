@@ -8,6 +8,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZipCodeController;
+use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -34,6 +35,7 @@ Route::group(
     Route::resource('roles',RoleController::class);
     Route::resource('settings',SettingController::class);
     Route::resource('cities',CityController::class);
+    Route::resource('zones',ZoneController::class);
     Route::get('state-cities/{id}',[StateController::class,'getStateCities']);
     Route::post('/zip-codes', [ZipCodeController::class,'store'])->name('zip-codes.store');
     Route::put('/static-settings', [FunctionSettingController::class,'staticSetting'])->name('staticSetting.update');
