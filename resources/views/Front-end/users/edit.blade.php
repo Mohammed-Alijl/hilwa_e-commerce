@@ -149,7 +149,7 @@
                                             <div class="mb-3 col-md-4">
                                                 <label class="form-label"
                                                        for="inputState">{{__('Front-end/pages/users.state')}}</label>
-                                                <select id="inputState" class="form-control" required>
+                                                <select id="inputState" class="form-control choices-single" required>
                                                     <option selected
                                                             value="{{$user->city->state->id}}">{{__('Front-end/states.' . $user->city->state->name)}}</option>
                                                     @foreach($states as $state)
@@ -167,7 +167,7 @@
                                             <div class="mb-3 col-md-4">
                                                 <label class="form-label"
                                                        for="inputCity">{{__('Front-end/pages/users.city')}}</label>
-                                                <select name="city_id" id="inputCity" class="form-control" required>
+                                                <select name="city_id" id="inputCity" class="form-control choices-single" required>
                                                     <option selected
                                                             value="{{$user->city->id}}">{{$user->city->name}}</option>
                                                 </select>
@@ -292,30 +292,98 @@
         </div>
     </main>
     @section('scripts')
-        <script>
-            $(document).ready(function () {
-                $('#inputState').on('change', function () {
-                    var StateId = $(this).val();
-                    if (StateId) {
-                        $.ajax({
-                            url: "{{ URL::to('state-cities') }}/" + StateId,
-                            type: "GET",
-                            dataType: "json",
-                            success: function (data) {
-                                $('select[name="city_id"]').empty();
-                                $.each(data, function (key, value) {
-                                    $('select[name="city_id"]').append('<option value="' +
-                                        key + '">' + value + '</option>');
-                                });
-                            },
+{{--        <script>--}}
+{{--            $(document).ready(function () {--}}
+{{--                $('#inputState').on('change', function () {--}}
+{{--                    var StateId = $(this).val();--}}
+{{--                    if (StateId) {--}}
+{{--                        $.ajax({--}}
+{{--                            url: "{{ URL::to('state-cities') }}/" + StateId,--}}
+{{--                            type: "GET",--}}
+{{--                            dataType: "json",--}}
+{{--                            success: function (data) {--}}
+{{--                                $('select[name="city_id"]').empty();--}}
+{{--                                $.each(data, function (key, value) {--}}
+{{--                                    $('select[name="city_id"]').append('<option value="' +--}}
+{{--                                        key + '">' + value + '</option>');--}}
+{{--                                });--}}
+{{--                            },--}}
+{{--                        });--}}
+
+{{--                    }--}}
+{{--                });--}}
+
+{{--            });--}}
+
+{{--        </script>--}}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        new Choices(document.querySelector("#inputState"));
+        new Choices(document.querySelector("#inputRole"));
+        // Choices.js
+        var citySelect = new Choices(document.querySelector("#inputCity"), {
+            removeItemButton: true,
+        });
+
+        // Ajax function to update the city options
+        function updateCityOptions(StateId) {
+            if (StateId) {
+                $.ajax({
+                    url: "{{ URL::to('state-cities') }}/" + StateId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        var cityOptions = []; // Array to hold the city options
+                        $.each(data, function (key, value) {
+                            cityOptions.push({ value: key, label: value }); // Add each city as an object to the array
                         });
-
-                    }
+                        citySelect.setChoices(cityOptions, 'value', 'label', true); // Set all city options at once
+                    },
                 });
+            } else {
+                citySelect.clearChoices(); // Clear the choices when no state is selected
+            }
+        }
 
-            });
+        // Call the updateCityOptions function when the state selection changes
+        $('#inputState').on('change', function () {
+            var StateId = $(this).val();
+            updateCityOptions(StateId);
 
-        </script>
+            // Clear the selected city when the state changes
+            citySelect.clearStore();
+        });
+
+        // Call the updateCityOptions function initially to populate cities based on the default state selection
+        var defaultStateId = $('#inputState').val();
+        updateCityOptions(defaultStateId);
+
+        // Flatpickr initialization and other code if any
+        flatpickr(".flatpickr-minimum");
+        flatpickr(".flatpickr-datetime", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+        });
+        flatpickr(".flatpickr-human", {
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+        });
+        flatpickr(".flatpickr-multiple", {
+            mode: "multiple",
+            dateFormat: "Y-m-d",
+        });
+        flatpickr(".flatpickr-range", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+        });
+        flatpickr(".flatpickr-time", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+        });
+    });
+</script>
         <script>
             (function () {
                 'use strict';

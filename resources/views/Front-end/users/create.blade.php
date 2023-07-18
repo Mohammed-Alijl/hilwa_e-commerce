@@ -149,7 +149,7 @@
                         </div>
                         <div class="mb-3 col-md-4">
                             <label class="form-label" for="inputState">{{__('Front-end/pages/users.state')}}</label>
-                            <select id="inputState" class="form-control" required>
+                            <select id="inputState" class="form-control choices-single" required>
                                 <option selected disabled value="">{{__('Front-end/pages/users.choose')}}</option>
                                 @foreach($states as $state)
                                     <option value="{{$state->id}}">{{__('Front-end/states.' . $state->name)}}</option>
@@ -164,7 +164,7 @@
                         </div>
                         <div class="mb-3 col-md-4">
                             <label class="form-label" for="inputCity">{{__('Front-end/pages/users.city')}}</label>
-                            <select name="city_id" id="inputCity" class="form-control" required>
+                            <select id="inputCity" name="city_id" class="form-control choices-single" required>
                                 <option selected disabled value="">{{__('Front-end/pages/users.choose')}}</option>
                             </select>
                             <div class="valid-feedback">
@@ -184,7 +184,7 @@
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="inputRole">{{__('Front-end/pages/users.role')}}</label>
-                            <select name="roles_name" id="inputRole" class="form-control" required>
+                            <select name="roles_name" id="inputRole" class="form-control choices-single" required>
                                 <option selected disabled value="">{{__('Front-end/pages/users.choose')}}</option>
                                 @foreach($roles as $role)
                                     <option value="{{$role->name}}">{{$role->name}}</option>
@@ -235,29 +235,74 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function () {
-            $('#inputState').on('change', function () {
-                var StateId = $(this).val();
+        document.addEventListener("DOMContentLoaded", function () {
+            new Choices(document.querySelector("#inputState"));
+            new Choices(document.querySelector("#inputRole"));
+            // Choices.js
+            var citySelect = new Choices(document.querySelector("#inputCity"), {
+                removeItemButton: true,
+            });
+
+            // Ajax function to update the city options
+            function updateCityOptions(StateId) {
                 if (StateId) {
                     $.ajax({
                         url: "{{ URL::to('state-cities') }}/" + StateId,
                         type: "GET",
                         dataType: "json",
                         success: function (data) {
-                            $('select[name="city_id"]').empty();
+                            var cityOptions = []; // Array to hold the city options
                             $.each(data, function (key, value) {
-                                $('select[name="city_id"]').append('<option value="' +
-                                    key + '">' + value + '</option>');
+                                cityOptions.push({ value: key, label: value }); // Add each city as an object to the array
                             });
+                            citySelect.setChoices(cityOptions, 'value', 'label', true); // Set all city options at once
                         },
                     });
-
+                } else {
+                    citySelect.clearChoices(); // Clear the choices when no state is selected
                 }
+            }
+
+            // Call the updateCityOptions function when the state selection changes
+            $('#inputState').on('change', function () {
+                var StateId = $(this).val();
+                updateCityOptions(StateId);
+
+                // Clear the selected city when the state changes
+                citySelect.clearStore();
             });
 
-        });
+            // Call the updateCityOptions function initially to populate cities based on the default state selection
+            var defaultStateId = $('#inputState').val();
+            updateCityOptions(defaultStateId);
 
+            // Flatpickr initialization and other code if any
+            flatpickr(".flatpickr-minimum");
+            flatpickr(".flatpickr-datetime", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+            });
+            flatpickr(".flatpickr-human", {
+                altInput: true,
+                altFormat: "F j, Y",
+                dateFormat: "Y-m-d",
+            });
+            flatpickr(".flatpickr-multiple", {
+                mode: "multiple",
+                dateFormat: "Y-m-d",
+            });
+            flatpickr(".flatpickr-range", {
+                mode: "range",
+                dateFormat: "Y-m-d",
+            });
+            flatpickr(".flatpickr-time", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+            });
+        });
     </script>
+
     <script>
         (function () {
             'use strict';
@@ -325,8 +370,6 @@
             }
         });
     </script>
-
-
 
 
     {{--    <script>--}}
