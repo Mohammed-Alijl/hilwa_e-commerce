@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('zones', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('status');
             $table->foreignId('city_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('store_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->json('postal_codes')->nullable();
             $table->timestamps();
         });
     }

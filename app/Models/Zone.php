@@ -10,7 +10,13 @@ class Zone extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'city_id'
+        'city_id',
+        'store_id',
+        'status',
+        'postal_codes'
+    ];
+    protected $casts = [
+        'postal_codes'=>'array'
     ];
 
     //===============================================================
@@ -18,6 +24,9 @@ class Zone extends Model
     //===============================================================
     public function city(){
         return $this->belongsTo(City::class,'city_id');
+    }
+    public function store(){
+        return $this->belongsTo(Store::class,'store_id');
     }
 
 }
