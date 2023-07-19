@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Zone\CreateRequest;
 use App\Http\Requests\Zone\DestroyRequest;
+use App\Http\Requests\Zone\EditRequest;
 use App\Http\Requests\Zone\IndexRequest;
 use App\Http\Requests\Zone\StoreRequest;
+use App\Http\Requests\Zone\UpdateRequest;
 use Illuminate\Http\Request;
 
 class ZoneController extends Controller
@@ -45,17 +47,17 @@ class ZoneController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(EditRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**

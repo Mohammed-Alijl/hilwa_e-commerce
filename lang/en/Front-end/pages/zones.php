@@ -25,4 +25,6 @@ return [
   'postal.code'=>'Postal Code',
   'postal_code.valid'=>'Postal Code Is Valid',
   'postal_code.invalid'=>'Postal Code Is Invalid',
+  'edit.zone'=>'Edit Zone',
+  'edit.description'=>'Edit Zone From Here',
 ];
