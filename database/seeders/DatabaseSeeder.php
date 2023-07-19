@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             CitySeeder::class,
             StoreSeeder::class,
-            ZoneSeeder::class,
             PermissionSeeder::class,
             AdminSeeder::class,
             StaticSettingSeeder::class
