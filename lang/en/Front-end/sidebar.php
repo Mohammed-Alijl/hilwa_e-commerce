@@ -51,6 +51,7 @@ return [
     'units'=>'Units',
     'stores'=>'Stores',
     'location.management'=>'Location Management',
+    'city'=>'City',
     'zone'=>'Zone',
     'system'=>'System',
     'settings'=>'Settings',

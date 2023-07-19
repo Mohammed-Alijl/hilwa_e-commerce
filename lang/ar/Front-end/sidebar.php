@@ -51,6 +51,7 @@ return [
     'units' => 'الوحدات',
     'stores' => 'المتاجر',
     'location.management' => 'إدارة الموقع',
+    'city' => 'المدينة',
     'zone' => 'المنطقة',
     'system' => 'النظام',
     'settings' => 'الإعدادات',
