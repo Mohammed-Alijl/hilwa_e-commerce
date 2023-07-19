@@ -69,4 +69,24 @@ return [
     'city.state_id.required'=>'Please Select the State',
     'city.state_id.numeric'=>'Some thing wrong please try again',
     'city.state_id.exists'=>'Some thing wrong please try again',
+
+    //===================================================================================
+    // ZONES=============================================================================
+    //===================================================================================
+    'zone.name.required'=>'Zone Name Is Required',
+    'zone.name.string'=>'Some Thing Wrong Please Try Again',
+    'zone.name.min'=>'Zone Name Should Be At Least 3 Char',
+    'zone.name.max'=>'Zone Name Is Too Long',
+    'zone.name.unique'=>'Zone Name Is Already Taken',
+    'zone.city_id.required'=>'Some Thing Wrong Please Try Again',
+    'zone.city_id.numeric'=>'Some Thing Wrong Please Try Again',
+    'zone.city_id.exists'=>'Some Thing Wrong Please Try Again',
+    'zone.store_id.required'=>'Some Thing Wrong Please Try Again',
+    'zone.store_id.numeric'=>'Some Thing Wrong Please Try Again',
+    'zone.store_id.exists'=>'Some Thing Wrong Please Try Again',
+    'zone.status.required'=>'Please Select Status',
+    'zone.status.boolean'=>'Some Thing Wrong Please Try Again',
+    'zone.postal_codes.required'=>'Please Select At Least One Postal Code',
+    'zone.postal_codes.string'=>'Some Thing Wrong Please Try Again',
+    'zone.postal_codes.regex'=>'Please Enter A Valid Postal Codes',
 ];

@@ -52,4 +52,21 @@ class UpdateRequest extends FormRequest
             'postal_codes' => 'string|regex:/^\d{3,10}(,\d{3,10})*$/',
         ];
     }
+
+    public function messages()
+    {
+        return[
+        'name.string'=>__('failed_messages.zone.name.string'),
+        'name.min'=>__('failed_messages.zone.name.min'),
+        'name.max'=>__('failed_messages.zone.name.max'),
+        'name.unique'=>__('failed_messages.zone.name.unique'),
+        'city_id.numeric'=>__('failed_messages.zone.city_id.numeric'),
+        'city_id.exists'=>__('failed_messages.zone.city_id.exists'),
+        'store_id.numeric'=>__('failed_messages.zone.store_id.numeric'),
+        'store_id.exists'=>__('failed_messages.zone.store_id.exists'),
+        'status.boolean'=>__('failed_messages.zone.status.boolean'),
+        'postal_codes.string'=>__('failed_messages.zone.postal_codes.string'),
+        'postal_codes.regex'=>__('failed_messages.zone.postal_codes.regex'),
+        ];
+    }
 }
