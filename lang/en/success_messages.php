@@ -40,11 +40,16 @@ return [
     'city.edit.success'=>'City Was Modified Successfully',
 
     //===================================================================================
-    // ZONES============================================================================
+    // ZONES=============================================================================
     //===================================================================================
     'zone.add.success'=>'Zone Was Added Successfully',
     'zone.edit.success'=>'Zone Was Modified Successfully',
     'zone.delete.success'=>'Zone Was Deleted Successfully',
 
-
+    //===================================================================================
+    // CUSTOMERS=========================================================================
+    //===================================================================================
+    'customer.add.success'=>'Customer Was Added Successfully',
+    'customer.edit.success'=>'Customer Was Modified Successfully',
+    'customer.delete.success'=>'Customer Was Deleted Successfully',
 ];

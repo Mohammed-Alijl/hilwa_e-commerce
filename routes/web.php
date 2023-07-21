@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FunctionSettingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -32,6 +33,7 @@ Route::group(
 
     Route::get('/',[\App\Http\Controllers\DashboardController::class,'create'])->name('dashboard');
     Route::resource('users',UserController::class);
+    Route::resource('customers',CustomerController::class);
     Route::resource('roles',RoleController::class);
     Route::resource('settings',SettingController::class);
     Route::resource('cities',CityController::class);
