@@ -23,6 +23,7 @@ class CustomerAddress extends Model
         'postal_code',
         'customer_id'
     ];
+    public static $types = ['delivery','billing'];
 
     public function city(){
         return $this->belongsTo(City::class,'city_id');

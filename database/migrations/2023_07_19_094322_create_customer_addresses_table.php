@@ -16,7 +16,7 @@ return new class extends Migration
             $table->double('latitude');
             $table->double('longitude');
             $table->string('address_one');
-            $table->string('address_two');
+            $table->string('address_two')->nullable();
             $table->string('street');
             $table->string('district');
             $table->foreignId('address_type_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
