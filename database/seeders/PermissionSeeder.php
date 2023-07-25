@@ -126,6 +126,11 @@ class PermissionSeeder extends Seeder
             'edit_role',
             'delete_role',
 
+            //Cities
+            'view_city',
+            'add_city',
+            'edit_city',
+
             //Zones
             'view_zone',
             'add_zone',

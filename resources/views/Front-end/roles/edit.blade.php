@@ -40,7 +40,7 @@
             @php
                 $isViewModel = ($model == 'dashboard' || $model == 'comment' || $model =='chat' || $model == 'order-status' || $model == 'payment-services');
                 $isContactRequestModel = ($model == 'contact-request');
-                $isOrderModel = ($model == 'order');
+                $noDeleteModel = ($model == 'order' || $model == 'city');
             @endphp
 
             @if($index % 4 === 0)
@@ -63,7 +63,7 @@
                                         <li class="list-group-item">-</li>
                                         <li class="list-group-item">-</li>
                                         @break
-                                    @elseif($isOrderModel && $method == 'delete')
+                                    @elseif($noDeleteModel && $method == 'delete')
                                         <li class="list-group-item">-</li>
                                         @break
                                     @endif

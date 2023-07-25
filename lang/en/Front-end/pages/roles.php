@@ -35,6 +35,7 @@ return [
     'timeslot'=>'Timeslot',
     'user'=>'Users',
     'role'=>'Roles',
+    'city'=>'cities',
     'zone'=>'Zones',
     'log'=>'Logs',
     'reward'=>'Rewards',

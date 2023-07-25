@@ -245,9 +245,11 @@
                     <li class="sidebar-item">
                         <a data-bs-target="#location" data-bs-toggle="collapse" class="sidebar-link collapsed">{{__('Front-end/sidebar.location.management')}}</a>
                         <ul id="location" class="sidebar-dropdown list-unstyled collapse {{ hasActiveChild(['cities.index', 'zones.index']) ? ' show' : '' }}">
+                            @can('view_city')
                             <li class="sidebar-item {{ request()->route()->named("cities.index") ? "active" : '' }}">
                                 <a class="sidebar-link" href="{{route('cities.index')}}">{{__('Front-end/sidebar.city')}}</a>
                             </li>
+                            @endcan
                             <li class="sidebar-item {{ request()->route()->named("zones.index") ? "active" : '' }}">
                                 <a class="sidebar-link" href="{{route('zones.index')}}">{{__('Front-end/sidebar.zone')}}</a>
                             </li>

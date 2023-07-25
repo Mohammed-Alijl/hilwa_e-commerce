@@ -13,13 +13,13 @@
         <div class="col-auto d-none d-sm-block">
             <h3><strong>{{__('Front-end/pages/cities.location.management')}}</strong> {{__('Front-end/pages/cities.title')}}</h3>
         </div>
-{{--        @can('add_city')--}}
+        @can('add_city')
             <div class="col-auto ms-auto text-end mt-n1">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
                     {{__('Front-end/pages/cities.add.city')}}
                 </button>
             </div>
-{{--        @endcan--}}
+        @endcan
     </div>
 @endsection
 @section('content')
@@ -57,7 +57,7 @@
                         <td>{{$city->state->country->name}}</td>
                         <td>{{$city->users->count()}}</td>
                         <td>
-{{--                                @can('edit_city')--}}
+                                @can('edit_city')
                             <a href="#" data-bs-toggle="modal" data-bs-target="#edit"
                                data-id="{{ $city->id }}"
                                data-name="{{ $city->name }}"
@@ -66,7 +66,7 @@
                             >
                                 <i class="align-middle" data-feather="edit-2"></i>
                             </a>
-{{--                                @endcan--}}
+                                @endcan
                         </td>
                     </tr>
                 @endforeach
