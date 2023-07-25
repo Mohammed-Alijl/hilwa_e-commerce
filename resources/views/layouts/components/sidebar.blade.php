@@ -40,7 +40,7 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-header"></li>
-            <li class="sidebar-item active">
+            <li class="sidebar-item">
                 <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">{{__('Front-end/sidebar.dashboards')}}</span>
                 </a>
@@ -57,7 +57,7 @@
             </li>
 
             <li class="sidebar-item {{ request()->route()->named("customers.index") ? "active" : '' }}">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{route('customers.index')}}">
                     <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">{{__('Front-end/sidebar.customers')}}</span>
                 </a>
             </li>
