@@ -28,5 +28,8 @@ class Zone extends Model
     public function store(){
         return $this->belongsTo(Store::class,'store_id');
     }
+    public function drivers(){
+        return $this->hasMany(Driver::class,'zone_id');
+    }
 
 }
