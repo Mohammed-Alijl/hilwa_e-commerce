@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 
 class ZoneController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:view_zone', ['only' => ['index','show']]);
+        $this->middleware('permission:add_zone', ['only' => ['create','store']]);
+        $this->middleware('permission:edit_zone', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete_zone', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
