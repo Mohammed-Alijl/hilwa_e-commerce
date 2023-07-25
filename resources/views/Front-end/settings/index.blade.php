@@ -188,7 +188,7 @@
 
         <!-- Edit Setting Form -->
         <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <form action="{{route('settings.update',$setting->id)}}" method="post" class="needs-validation" novalidate>
+            <form action="settings/update" method="post" class="needs-validation" novalidate>
                 @csrf
                 @method('put')
                 <div class="modal-dialog">
@@ -198,6 +198,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <input type="hidden" value="" name="id" id="edit_id">
                             <!-- Display Name -->
                             <div class="mb-3">
                                 <label class="form-label" for="edit_display_name">{{__('Front-end/pages/settings.display_name')}}</label>
@@ -527,6 +528,7 @@
                     $('#edit_display_name').val(displayName);
                     $('#edit_key').val(key);
                     $('#edit_namespace').val(namespace);
+                    $('#edit_id').val(settingId);
                     editTypeSelect.val(type);
                     handleTypeChange(type, editValueInput, editBooleanOptionsSelect);
 

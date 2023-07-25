@@ -60,9 +60,9 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(UpdateRequest $request)
     {
-        return $request->run($id);
+        return $request->run();
     }
 
     /**

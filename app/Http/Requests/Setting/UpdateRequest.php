@@ -15,10 +15,10 @@ class UpdateRequest extends FormRequest
         return true;
     }
 
-    public function run($id)
+    public function run()
     {
         try {
-            $setting = Setting::find($id);
+            $setting = Setting::find($this->id);
             if (!$setting)
                 abort(404);
             if ($this->filled('display_name'))
