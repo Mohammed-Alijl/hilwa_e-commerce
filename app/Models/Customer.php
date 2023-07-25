@@ -21,7 +21,7 @@ class Customer extends Model
     //=======================================================
     //==================RELATIONSHIPS========================
     //=======================================================
-    public function customerAddress(){
+    public function addresses(){
         return $this->hasMany(CustomerAddress::class,'customer_id');
     }
 }

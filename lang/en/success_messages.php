@@ -52,4 +52,9 @@ return [
     'customer.add.success'=>'Customer Was Added Successfully',
     'customer.edit.success'=>'Customer Was Modified Successfully',
     'customer.delete.success'=>'Customer Was Deleted Successfully',
+
+    //===================================================================================
+    // Address===========================================================================
+    //===================================================================================
+    'address.delete.success'=>'Address Was Deleted Successfully'
 ];

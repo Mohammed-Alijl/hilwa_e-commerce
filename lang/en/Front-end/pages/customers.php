@@ -53,4 +53,9 @@ return [
     'status.valid'=>'looks good',
     'status.invalid'=>'Please Select The Status For This Address',
     'look_up'=>'Look Up',
+    'edit.customer'=>'Edit Customer',
+    'edit.description'=>'Edit Customer From Here',
+    'name.valid'=>'Name Is Valid',
+    'name.invalid'=>'Name Is Required',
+    'delete'=>'Delete',
 ];

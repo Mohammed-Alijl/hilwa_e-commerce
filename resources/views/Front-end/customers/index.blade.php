@@ -51,9 +51,9 @@
                         </td>
                         <td>{{$customer->email}}</td>
                         <td>05{{$customer->mobile_number}}</td>
-                        <td>{{$customer->customerAddress->where('isDefault',1)->first()->city->state->name ?? $customer->customerAddress->first()->city->state->name}}</td>
-                        <td>{{$customer->customerAddress->where('isDefault',1)->first()->city->name ?? $customer->customerAddress->first()->city->name}}</td>
-                        <td>{{$customer->customerAddress->where('isDefault',1)->first()->postal_code ?? $customer->customerAddress->first()->postal_code}}</td>
+                        <td>{{$customer->addresses->where('isDefault',1)->isNotEmpty() ? $customer->addresses->where('isDefault',1)->first()->city->state->name : $customer->addresses->first()->city->state->name}}</td>
+                        <td>{{$customer->addresses->where('isDefault',1)->isNotEmpty() ? $customer->addresses->where('isDefault',1)->first()->city->name : $customer->addresses->first()->city->name}}</td>
+                        <td>{{$customer->addresses->where('isDefault',1)->isNotEmpty() ? $customer->addresses->where('isDefault',1)->first()->postal_code : $customer->addresses->first()->postal_code}}</td>
                         <td>
                             @can('edit_customer')
                                 <a href="{{route('customers.edit',$customer->id)}}"><i class="align-middle"

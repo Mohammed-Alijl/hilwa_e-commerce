@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CustomerAddressController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FunctionSettingController;
 use App\Http\Controllers\ProfileController;
@@ -38,6 +39,7 @@ Route::group(
     Route::resource('settings',SettingController::class);
     Route::resource('cities',CityController::class);
     Route::resource('zones',ZoneController::class);
+    Route::resource('address',CustomerAddressController::class);
     Route::get('state-cities/{id}',[StateController::class,'getStateCities']);
     Route::post('/zip-codes', [ZipCodeController::class,'store'])->name('zip-codes.store');
     Route::put('/static-settings', [FunctionSettingController::class,'staticSetting'])->name('staticSetting.update');
