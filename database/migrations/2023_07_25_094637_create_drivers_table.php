@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('mobile_number');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('image')->default('default.png');
             $table->boolean('status');
             $table->foreignId('zone_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
