@@ -614,7 +614,7 @@
             <script>
                 Swal.fire(
                     '{{__('Front-end/pages/users.deleted')}}',
-                    '{{\Illuminate\Support\Facades\Session::get('delete-success   ')}}',
+                    '{{\Illuminate\Support\Facades\Session::get('delete-success')}}',
                     'success'
                 )
             </script>
