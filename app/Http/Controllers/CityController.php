@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\City\IndexRequest;
 use App\Http\Requests\City\StoreRequest;
 use App\Http\Requests\City\UpdateRequest;
+use App\Models\City;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -26,5 +27,11 @@ class CityController extends Controller
 
     public function update(UpdateRequest $request){
         return $request->run();
+    }
+
+    public function getCityZones($id){
+        $city = City::find($id);
+        $zones = $city->zones->pluck('name','id');
+        return json_decode($zones);
     }
 }

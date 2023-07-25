@@ -15,4 +15,7 @@ return [
   'driver.edit'=>'Driver Edited',
   'enable'=>'Enable',
   'disable'=>'Disable',
+  'add.description'=>'Add Driver From Here',
+  'zone.valid'=>'Zone Is Valid',
+  'zone.invalid'=>'Please Select A Zone',
 ];

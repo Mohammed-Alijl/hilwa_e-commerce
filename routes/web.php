@@ -43,6 +43,7 @@ Route::group(
     Route::resource('address',CustomerAddressController::class);
     Route::resource('drivers',DriverController::class);
     Route::get('state-cities/{id}',[StateController::class,'getStateCities']);
+    Route::get('city-zones/{id}',[CityController::class,'getCityZones']);
     Route::post('/zip-codes', [ZipCodeController::class,'store'])->name('zip-codes.store');
     Route::put('/static-settings', [FunctionSettingController::class,'staticSetting'])->name('staticSetting.update');
     Route::get('/lookup-location', [CustomerController::class,'lookupLocation'])->name('location');
