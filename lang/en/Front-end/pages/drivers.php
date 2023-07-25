@@ -18,4 +18,7 @@ return [
   'add.description'=>'Add Driver From Here',
   'zone.valid'=>'Zone Is Valid',
   'zone.invalid'=>'Please Select A Zone',
+  'edit.driver'=>'Edit Driver',
+  'edit.description'=>'Edit Driver From Here',
+  'edit'=>'Edit',
 ];

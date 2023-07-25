@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Driver\CreateRequest;
 use App\Http\Requests\Driver\DestroyRequest;
+use App\Http\Requests\Driver\EditRequest;
 use App\Http\Requests\Driver\IndexRequest;
 use App\Http\Requests\Driver\StoreRequest;
+use App\Http\Requests\Driver\UpdateRequest;
 use Illuminate\Http\Request;
 
 class DriverController extends Controller
@@ -45,17 +47,17 @@ class DriverController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(EditRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
