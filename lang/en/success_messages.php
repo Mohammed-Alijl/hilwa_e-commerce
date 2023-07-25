@@ -56,5 +56,13 @@ return [
     //===================================================================================
     // Address===========================================================================
     //===================================================================================
-    'address.delete.success'=>'Address Was Deleted Successfully'
+    'address.delete.success'=>'Address Was Deleted Successfully',
+
+
+    //===================================================================================
+    // DRIVERS===========================================================================
+    //===================================================================================
+    'driver.add.success'=>'Driver Was Added Successfully',
+    'driver.edit.success'=>'Driver Was Modified Successfully',
+    'driver.delete.success'=>'Driver Was Deleted Successfully',
 ];

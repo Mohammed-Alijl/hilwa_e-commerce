@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Driver\DestroyRequest;
 use App\Http\Requests\Driver\IndexRequest;
 use Illuminate\Http\Request;
 
@@ -58,8 +59,8 @@ class DriverController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DestroyRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 }
