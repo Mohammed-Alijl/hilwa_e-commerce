@@ -12,7 +12,7 @@
     <div class="row mb-2 mb-xl-3">
         <div class="col-auto d-none d-sm-block">
             <h3>
-                <strong>{{__('Front-end/pages/customers.customers')}}</strong> / {{__('Front-end/pages/customers.edit.customer')}}
+                <strong>{{__('Front-end/pages/customers.customers')}}</strong> / {{__('Front-end/pages/customers.show.details')}}
             </h3>
         </div>
         <div class="col-auto ms-auto text-end mt-n1">
@@ -293,9 +293,8 @@
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="address_type">{{__('Front-end/pages/customers.address_type')}}</label>
                             <select name="address_type[]" id="address_type" class="form-control choices-single" required>
-                                <option value="{{$address->addressType->id}}" selected>{{__('Front-end/pages/customers.' .  $address->addressType->name)}}</option>
                                 @foreach($address_types as $address_type)
-                                    <option value="{{$address_type->id}}">{{__('Front-end/pages/customers.' .  $address_type->name)}}</option>
+                                    <option value="{{$address_type->id}}" {{$address->addressType->id == $address_type->id ? 'selected' : ''}}>{{__('Front-end/pages/customers.' .  $address_type->name)}}</option>
                                 @endforeach
                             </select>
                             <div class="valid-feedback">
@@ -309,9 +308,8 @@
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="use_for">{{__('Front-end/pages/customers.use_for')}}</label>
                             <select name="use_for[]" id="use_for" class="form-control choices-single" required>
-                                <option value="{{$address->use_for}}" >{{__('Front-end/pages/customers.' . $address->use_for)}}</option>
                                 @foreach(\App\Models\CustomerAddress::$types as $type)
-                                    <option value="{{$type}}" >{{__('Front-end/pages/customers.' . $type)}}</option>
+                                    <option value="{{$type}}" {{$address->use_for == $type ? 'selected' : ''}}>{{__('Front-end/pages/customers.' . $type)}}</option>
                                 @endforeach
                             </select>
                             <div class="valid-feedback">

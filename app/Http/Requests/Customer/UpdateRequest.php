@@ -5,6 +5,7 @@ use App\Models\City;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\State;
+use App\Traits\AttachmentTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -12,6 +13,7 @@ use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
+    use AttachmentTrait;
     /**
      * Determine if the user is authorized to make this request.
      */

@@ -58,4 +58,9 @@ return [
     'name.valid'=>'Name Is Valid',
     'name.invalid'=>'Name Is Required',
     'delete'=>'Delete',
+    'show.details'=>'Show Details',
+    'customer.info'=>'Customers Info',
+    'mobile_number'=>'Mobile Number',
+    'customer.details'=>'Customer Details',
+    'customer.address'=>'Customer Address',
 ];

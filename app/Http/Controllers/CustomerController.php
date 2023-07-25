@@ -6,6 +6,7 @@ use App\Http\Requests\Customer\CreateRequest;
 use App\Http\Requests\Customer\DestroyRequest;
 use App\Http\Requests\Customer\EditRequest;
 use App\Http\Requests\Customer\IndexRequest;
+use App\Http\Requests\Customer\ShowRequest;
 use App\Http\Requests\Customer\StoreRequest;
 use App\Http\Requests\Customer\UpdateRequest;
 use Illuminate\Http\Request;
@@ -13,6 +14,15 @@ use Illuminate\Support\Facades\Http;
 
 class CustomerController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:view_customer', ['only' => ['index','show']]);
+        $this->middleware('permission:add_customer', ['only' => ['create','store']]);
+        $this->middleware('permission:edit_customer', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete_customer', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -40,9 +50,9 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(ShowRequest $request, $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
