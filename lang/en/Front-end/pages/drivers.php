@@ -21,4 +21,7 @@ return [
   'edit.driver'=>'Edit Driver',
   'edit.description'=>'Edit Driver From Here',
   'edit'=>'Edit',
+  'account.details'=>'Driver Account Details',
+  'driver.info'=>'Driver Info',
+  'mobile_number'=>'Mobile Number',
 ];

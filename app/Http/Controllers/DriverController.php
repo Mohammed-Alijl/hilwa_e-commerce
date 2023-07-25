@@ -6,6 +6,7 @@ use App\Http\Requests\Driver\CreateRequest;
 use App\Http\Requests\Driver\DestroyRequest;
 use App\Http\Requests\Driver\EditRequest;
 use App\Http\Requests\Driver\IndexRequest;
+use App\Http\Requests\Driver\ShowRequest;
 use App\Http\Requests\Driver\StoreRequest;
 use App\Http\Requests\Driver\UpdateRequest;
 use Illuminate\Http\Request;
@@ -39,9 +40,9 @@ class DriverController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(ShowRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
