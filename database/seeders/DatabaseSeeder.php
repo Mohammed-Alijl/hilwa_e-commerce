@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             AdminSeeder::class,
             StaticSettingSeeder::class,
-            AddressTypeSeeder::class
+            AddressTypeSeeder::class,
+            DaySeeder::class,
         ]);
     }
 }
