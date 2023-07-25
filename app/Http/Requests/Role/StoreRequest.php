@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         $permissions = Permission::whereIn('name', $this->permission)->get();
         $role->syncPermissions($permissions);
 
-        return redirect()->route('roles.index')->with('success', 'Role created successfully.');
+        return redirect()->route('roles.index')->with('add-success', __('success_messages.role.add'));
     }
 
     /**

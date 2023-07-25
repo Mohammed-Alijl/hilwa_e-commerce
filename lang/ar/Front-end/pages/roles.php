@@ -10,6 +10,7 @@ return [
     'delete' => "حذف",
     'deleted'=>"تم الحذف",
     'user.add'=>'تم اضافة الدور',
+    'user.edit'=>'تم تعديل الدور',
     'show'=>'تفاصيل',
     'permission'=>'الصلاحيات',
     'view'=>'عرض',

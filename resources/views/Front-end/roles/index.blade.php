@@ -130,5 +130,14 @@
                 )
             </script>
         @endif
+        @if(\Illuminate\Support\Facades\Session::has('edit-success'))
+            <script>
+                Swal.fire(
+                    '{{__('Front-end/pages/roles.user.edit')}}',
+                    '{{\Illuminate\Support\Facades\Session::get('edit-success')}}',
+                    'success'
+                )
+            </script>
+        @endif
     @endsection
 @endsection

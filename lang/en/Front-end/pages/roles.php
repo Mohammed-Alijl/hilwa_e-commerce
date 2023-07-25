@@ -10,6 +10,7 @@ return [
     'delete' => "Delete",
     'deleted'=>"Deleted!",
     'user.add'=>'Role Added!',
+    'user.edit'=>'Role Edited!',
     'show'=>'Show',
     'permission'=>'Permission',
     'view'=>'View',
