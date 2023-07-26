@@ -65,4 +65,11 @@ return [
     'driver.add.success'=>'Driver Was Added Successfully',
     'driver.edit.success'=>'Driver Was Modified Successfully',
     'driver.delete.success'=>'Driver Was Deleted Successfully',
+
+
+    //===================================================================================
+    // TIMESLOT==========================================================================
+    //===================================================================================
+    'timeslot.add.success'=>'Timeslot Was Added Successfully',
+    'timeslot.edit.success'=>'Timeslot Was Modified Successfully',
 ];

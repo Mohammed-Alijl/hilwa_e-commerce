@@ -16,23 +16,23 @@ class DaySeeder extends Seeder
         $days = [
             [
                 'name'=>'Sunday',
-                'delivery_available'=>1
+                'delivery_available'=>0
             ],
             [
                 'name'=>'Monday',
-                'delivery_available'=>1
+                'delivery_available'=>0
             ],
             [
                 'name'=>'Tuesday',
-                'delivery_available'=>1
+                'delivery_available'=>0
             ],
             [
                 'name'=>'Wednesday',
-                'delivery_available'=>1
+                'delivery_available'=>0
             ],
             [
                 'name'=>'Thursday',
-                'delivery_available'=>1
+                'delivery_available'=>0
             ],
             [
                 'name'=>'Friday',
@@ -40,7 +40,7 @@ class DaySeeder extends Seeder
             ],
             [
                 'name'=>'Saturday',
-                'delivery_available'=>1
+                'delivery_available'=>0
             ],
 
         ];
