@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Unit\IndexRequest;
+use App\Http\Requests\Unit\StoreRequest;
 use Illuminate\Http\Request;
 
 class UnitController extends Controller
@@ -26,9 +27,9 @@ class UnitController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        return $request->run();
     }
 
     /**

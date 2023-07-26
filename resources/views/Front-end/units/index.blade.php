@@ -17,8 +17,9 @@
         </div>
         @can('add_unit')
             <div class="col-auto ms-auto text-end mt-n1">
-                <a href="{{route('units.create')}}"
-                   class="btn btn-primary">{{__('Front-end/pages/units.add.unit')}}</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
+                    {{__('Front-end/pages/units.add.unit')}}
+                </button>
             </div>
         @endcan
     </div>
@@ -60,7 +61,43 @@
             </table>
         </div>
     </div>
+    <!-- Add Unit Form -->
+    <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <form action="{{route('units.store')}}" method="post" class="needs-validation" novalidate>
+            @csrf
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">{{__('Front-end/pages/units.add.unit')}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Language -->
+                        <div class="mb-3">
+                            <label class="form-label" for="type">{{__('Front-end/pages/units.language')}}</label>
+                            <select id="type" class="form-control" disabled>
+                                <option selected>{{\App\Models\Language::where('code','en')->first()->name}}</option>
+                            </select>
+                        </div>
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label class="form-label" for="name">{{__('Front-end/pages/settings.display_name')}}</label>
+                            <input id="name" type="text" class="form-control" placeholder="{{__('Front-end/pages/units.name')}}" autocomplete="off" name="name" required>
+                            <div class="invalid-feedback">
+                                {{__('Front-end/pages/units.name.invalid')}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Submit & Close buttons -->
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Front-end/pages/settings.close')}}</button>
+                        <button type="submit" class="btn btn-primary">{{__('Front-end/pages/settings.add')}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
 
+    </div>
 @endsection
 @section('scripts')
     <script src="{{URL::asset('js/datatables.js')}}"></script>
@@ -72,6 +109,28 @@
                 responsive: true
             });
         });
+    </script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation');
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+        })();
     </script>
 
     <script>
