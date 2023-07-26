@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\TimeslotController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZipCodeController;
 use App\Http\Controllers\ZoneController;
@@ -42,6 +43,7 @@ Route::group(
     Route::resource('zones',ZoneController::class);
     Route::resource('address',CustomerAddressController::class);
     Route::resource('drivers',DriverController::class);
+    Route::resource('timeslots',TimeslotController::class);
     Route::get('state-cities/{id}',[StateController::class,'getStateCities']);
     Route::get('city-zones/{id}',[CityController::class,'getCityZones']);
     Route::post('/zip-codes', [ZipCodeController::class,'store'])->name('zip-codes.store');
