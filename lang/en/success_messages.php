@@ -72,4 +72,12 @@ return [
     //===================================================================================
     'timeslot.add.success'=>'Timeslot Was Added Successfully',
     'timeslot.edit.success'=>'Timeslot Was Modified Successfully',
+
+
+    //===================================================================================
+    // UNITS=============================================================================
+    //===================================================================================
+    'unit.add.success'=>'Unit Was Added Successfully',
+    'unit.edit.success'=>'Unit Was Modified Successfully',
+    'unit.delete.success'=>'Unit Was Deleted Successfully',
 ];
