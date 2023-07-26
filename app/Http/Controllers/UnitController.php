@@ -6,12 +6,17 @@ use App\Http\Requests\Unit\DestroyRequest;
 use App\Http\Requests\Unit\IndexRequest;
 use App\Http\Requests\Unit\StoreRequest;
 use App\Http\Requests\Unit\UpdateRequest;
-use App\Models\Unit;
 use App\Models\UnitTranlsation;
-use Illuminate\Http\Request;
 
 class UnitController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:view_unit', ['only' => ['index','show']]);
+        $this->middleware('permission:add_unit', ['only' => ['create','store']]);
+        $this->middleware('permission:edit_unit', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete_unit', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
