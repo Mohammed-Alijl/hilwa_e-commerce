@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             StaticSettingSeeder::class,
             AddressTypeSeeder::class,
             DaySeeder::class,
+            LanguageSeeder::class,
         ]);
     }
 }
