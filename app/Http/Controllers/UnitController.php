@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Unit\DestroyRequest;
 use App\Http\Requests\Unit\IndexRequest;
 use App\Http\Requests\Unit\StoreRequest;
 use App\Http\Requests\Unit\UpdateRequest;
@@ -62,9 +63,9 @@ class UnitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DestroyRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     public function getUnitLanguages($langId, $unitId)
