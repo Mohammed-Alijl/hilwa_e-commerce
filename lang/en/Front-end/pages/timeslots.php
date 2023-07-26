@@ -27,4 +27,7 @@ return [
   'display_order'=>'Display Order',
   'display_order.valid'=>'Display Order Is Valid',
   'display_order.invalid'=>'Please Enter Display Order',
+  'edit.timeslot'=>'Edit Timeslot',
+  'edit.description'=>'Edit Timeslot From Here!',
+  'edit'=>'Edit',
 ];

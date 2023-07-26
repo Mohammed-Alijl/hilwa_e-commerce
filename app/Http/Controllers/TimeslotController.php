@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Timeslot\CreateRequest;
+use App\Http\Requests\Timeslot\EditRequest;
 use App\Http\Requests\Timeslot\IndexRequest;
 use App\Http\Requests\Timeslot\StoreRequest;
+use App\Http\Requests\Timeslot\UpdateRequest;
 use Illuminate\Http\Request;
 
 class TimeslotController extends Controller
@@ -44,17 +46,17 @@ class TimeslotController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(EditRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
