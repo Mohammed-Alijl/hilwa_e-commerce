@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Unit\IndexRequest;
 use App\Http\Requests\Unit\StoreRequest;
+use App\Http\Requests\Unit\UpdateRequest;
+use App\Models\Unit;
+use App\Models\UnitTranlsation;
 use Illuminate\Http\Request;
 
 class UnitController extends Controller
@@ -51,9 +54,9 @@ class UnitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
@@ -62,5 +65,17 @@ class UnitController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getUnitLanguages($langId, $unitId)
+    {
+        $unitTranslation = UnitTranlsation::where('unit_id', $unitId)
+            ->where('language_id', $langId)
+            ->first();
+
+        if (!$unitTranslation) {
+            return json_decode('');
+        }
+        return response()->json(['unit_name' => $unitTranslation->name]);
     }
 }

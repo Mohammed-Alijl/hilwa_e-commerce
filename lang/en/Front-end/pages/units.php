@@ -8,4 +8,5 @@ return [
   'unit.edit'=>'Unit Edited',
   'language'=>'Language',
   'name.invalid'=>'Please Enter The Name',
+  'edit.unit'=>'Edit Unit',
 ];

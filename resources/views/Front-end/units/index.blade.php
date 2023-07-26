@@ -40,15 +40,15 @@
                     <tr>
                         <td>{{$rowNumber++}}</td>
 
-                        <td>
-                            <a href="{{ route('units.show', $unit->id) }}">
-                                {{ $unit->translations->first()->name }}
-                            </a>
-                        </td>
+                        <td>{{ $unit->translations->first()->name }}</td>
                         <td>
                             @can('edit_unit')
-                                <a href="{{route('units.edit',$unit->id)}}"><i class="align-middle"
-                                                                                       data-feather="edit-2"></i></a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#edit"
+                                   data-id="{{ $unit->id }}"
+                                   data-name="{{ $unit->translations->first()->name }}"
+                                >
+                                    <i class="align-middle" data-feather="edit-2"></i>
+                                </a>
                             @endcan
                             @can('delete_customer')
                                 <a href="#" onclick="deletes({{ $unit->id }})"><i class="align-middle"
@@ -81,7 +81,7 @@
                         </div>
                         <!-- Name -->
                         <div class="mb-3">
-                            <label class="form-label" for="name">{{__('Front-end/pages/settings.display_name')}}</label>
+                            <label class="form-label" for="name">{{__('Front-end/pages/units.name')}}</label>
                             <input id="name" type="text" class="form-control" placeholder="{{__('Front-end/pages/units.name')}}" autocomplete="off" name="name" required>
                             <div class="invalid-feedback">
                                 {{__('Front-end/pages/units.name.invalid')}}
@@ -92,6 +92,47 @@
                         <!-- Submit & Close buttons -->
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Front-end/pages/settings.close')}}</button>
                         <button type="submit" class="btn btn-primary">{{__('Front-end/pages/settings.add')}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <!-- Edit Unit Form -->
+    <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <form action="units/update" method="post" class="needs-validation" novalidate>
+            @csrf
+            @method('put')
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">{{__('Front-end/pages/units.edit.unit')}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" value="" id="edit_unit_id" name="id">
+                        <!-- Language -->
+                        <div class="mb-3">
+                            <label class="form-label" for="language">{{__('Front-end/pages/units.language')}}</label>
+                            <select id="language" class="form-control" required name="language_id">
+                                @foreach($languages as $language)
+                                <option value="{{$language->id}}" {{$language->code =='en' ? 'selected' : ''}}>{{$language->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label class="form-label" for="edit_name">{{__('Front-end/pages/units.name')}}</label>
+                            <input id="edit_name" type="text" class="form-control" placeholder="{{__('Front-end/pages/units.name')}}" autocomplete="off" name="name" required>
+                            <div class="invalid-feedback">
+                                {{__('Front-end/pages/units.name.invalid')}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Submit & Close buttons -->
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Front-end/pages/settings.close')}}</button>
+                        <button type="submit" class="btn btn-primary">{{__('Front-end/pages/settings.edit')}}</button>
                     </div>
                 </div>
             </div>
@@ -170,6 +211,41 @@
             document.body.appendChild(form);
             form.submit();
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#edit').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var name = button.data('name');
+                var modal = $(this);
+                modal.find('.modal-body #edit_name').val(name);
+                modal.find('.modal-body #edit_unit_id').val(id);
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Get the initial value of the name input
+            const initialName = $("#edit_name").val();
+
+            // Event listener for the language select change
+            $("#language").change(function() {
+                // Get the selected language ID
+                const languageId = $(this).val();
+
+                $.ajax({
+                    url: "{{ URL::to('unit-languages') }}/" + languageId + '/' + document.getElementById('edit_unit_id').value,
+                    method: "GET",
+                    success: function(data) {
+                        $("#edit_name").val(data.unit_name);
+                    },
+                    error: function(xhr, status, error) {
+                        $("#edit_name").val(initialName);
+                    }
+                });
+            });
+        });
     </script>
     @if(\Illuminate\Support\Facades\Session::has('delete-success'))
         <script>

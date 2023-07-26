@@ -48,6 +48,7 @@ Route::group(
     Route::resource('units',UnitController::class);
     Route::get('state-cities/{id}',[StateController::class,'getStateCities']);
     Route::get('city-zones/{id}',[CityController::class,'getCityZones']);
+    Route::get('unit-languages/{langId}/{unitId}',[UnitController::class,'getUnitLanguages']);
     Route::post('/zip-codes', [ZipCodeController::class,'store'])->name('zip-codes.store');
     Route::put('/static-settings', [FunctionSettingController::class,'staticSetting'])->name('staticSetting.update');
     Route::get('/lookup-location', [CustomerController::class,'lookupLocation'])->name('location');

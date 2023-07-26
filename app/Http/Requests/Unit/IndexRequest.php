@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Unit;
 
+use App\Models\Language;
 use App\Models\Unit;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -18,7 +19,8 @@ class IndexRequest extends FormRequest
     public function run(){
         $rowNumber = 1;
         $units = Unit::get();
-        return view('Front-end.units.index',compact('rowNumber','units'));
+        $languages = Language::get();
+        return view('Front-end.units.index',compact('rowNumber','units','languages'));
     }
 
     /**
