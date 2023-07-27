@@ -94,9 +94,8 @@
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="inputStore">{{__('Front-end/pages/zones.store')}}</label>
                             <select name="store_id" id="inputStore" class="form-control choices-single" required>
-                                <option selected value="{{$zone->store_id}}">{{$zone->store->name}}</option>
                                 @foreach($stores as $store)
-                                    <option value="{{$store->id}}">{{$store->name}}</option>
+                                    <option value="{{$store->id}}" {{$zone->store_id == $store->id ? 'selected' : ''}}>{{$store->translations->first()->name}}</option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback">

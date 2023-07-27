@@ -45,7 +45,7 @@
                         </td>
                         <td>{{$zone->city->state->name}}</td>
                         <td>{{$zone->city->name}}</td>
-                        <td>{{$zone->store->name}}</td>
+                        <td>{{$zone->store->translations->first()->name}}</td>
                         <td>
                             @if($zone->status)
                                 <span class="badge badge-success-light">{{ __('Front-end/pages/zones.enable') }}</span>

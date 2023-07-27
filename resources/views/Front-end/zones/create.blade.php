@@ -95,7 +95,7 @@
                             <select name="store_id" id="inputStore" class="form-control choices-single" required>
                                 <option selected disabled value="">{{__('Front-end/pages/users.choose')}}</option>
                                 @foreach($stores as $store)
-                                    <option value="{{$store->id}}">{{$store->name}}</option>
+                                    <option value="{{$store->id}}">{{\App\Models\StoreTranslation::where('language_id',1)->where('store_id',$store->id)->first()->name}}</option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback">
