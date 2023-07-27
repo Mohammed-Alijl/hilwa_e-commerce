@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Store\CreateRequest;
 use App\Http\Requests\Store\IndexRequest;
+use App\Http\Requests\Store\StoreRequest;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
@@ -25,17 +27,17 @@ class StoreController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(CreateRequest $request)
     {
-        //
+        return $request->run();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        return $request->run();
     }
 
     /**
