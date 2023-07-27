@@ -76,12 +76,12 @@
                             </li>
                         @endcan
                         @can('view_driver')
-                        <li class="sidebar-item {{ request()->route()->named("drivers.index") ? "active" : '' }}">
-                            <a class="sidebar-link" href="{{route('drivers.index')}}">
-                                <i class="align-middle me-2" data-feather="truck"></i> <span
-                                    class="align-middle">{{__('Front-end/sidebar.drivers')}}</span>
-                            </a>
-                        </li>
+                            <li class="sidebar-item {{ request()->route()->named("drivers.index") ? "active" : '' }}">
+                                <a class="sidebar-link" href="{{route('drivers.index')}}">
+                                    <i class="align-middle me-2" data-feather="truck"></i> <span
+                                        class="align-middle">{{__('Front-end/sidebar.drivers')}}</span>
+                                </a>
+                            </li>
                         @endcan
                         <li class="sidebar-item">
                             <a data-bs-target="#multi" data-bs-toggle="collapse" class="sidebar-link collapsed">
@@ -290,7 +290,9 @@
                                     class="align-middle">{{__('Front-end/sidebar.definitions')}}</span>
                             </a>
                             <ul id="definitions"
-                                class="sidebar-dropdown list-unstyled collapse{{ hasActiveChild(['users.index', 'roles.index','cities.index','zones.index']) ? ' show' : '' }}"
+                                class="sidebar-dropdown list-unstyled collapse{{ hasActiveChild(['users.index', 'roles.index','cities.index','zones.index','timeslots.index','units,index','stores.index',
+                                                                                                'users.create', 'roles.create','cities.create','zones.create','timeslots.create','stores.create',
+                                                                                                'users.edit', 'roles.edit','cities.edit','zones.edit','timeslots.edit','stores.edit']) ? ' show' : '' }}"
                                 data-bs-parent="#sidebar">
                                 @can('view_user')
                                     <li class="sidebar-item {{ request()->route()->named("users.index") ? "active" : '' }}" {{ request()->route()->named("users.index") ? "active" : '' }}>
@@ -302,12 +304,22 @@
                                         <a class="sidebar-link"
                                            href="{{route('roles.index')}}">{{__('Front-end/sidebar.roles')}}</a></li>
                                 @endcan
-                                <li class="sidebar-item "><a class="sidebar-link"
-                                                             href="#">{{__('Front-end/sidebar.timeslots')}}</a></li>
-                                <li class="sidebar-item "><a class="sidebar-link"
-                                                             href="#">{{__('Front-end/sidebar.units')}}</a></li>
-                                <li class="sidebar-item "><a class="sidebar-link"
-                                                             href="#">{{__('Front-end/sidebar.stores')}}</a></li>
+                                    @can('view_timeslot')
+                                <li class="sidebar-item {{ request()->route()->named(["timeslots.index", "timeslots.create", "timeslots.edit"]) ? "active" : '' }}">
+                                    <a class="sidebar-link"
+                                       href="{{route('timeslots.index')}}">{{__('Front-end/sidebar.timeslots')}}</a>
+                                </li>
+                                        @endcan
+                                    @can('view_unit')
+                                <li class="sidebar-item {{ request()->route()->named(["units.index"]) ? "active" : '' }}">
+                                    <a class="sidebar-link"
+                                       href="{{route('units.index')}}">{{__('Front-end/sidebar.units')}}</a></li>
+                                    @endcan
+                                    @can('view_store')
+                                <li class="sidebar-item {{ request()->route()->named(["stores.index", "stores.create", "stores.edit"]) ? "active" : '' }}">
+                                    <a class="sidebar-link"
+                                       href="{{route('stores.index')}}">{{__('Front-end/sidebar.stores')}}</a></li>
+                                    @endcan
                                 <li class="sidebar-item">
                                     <a data-bs-target="#location" data-bs-toggle="collapse"
                                        class="sidebar-link collapsed">{{__('Front-end/sidebar.location.management')}}</a>
