@@ -29,4 +29,8 @@ return [
   'close_time.invalid'=>'Please Enter A Close Time',
   'postal_code.valid'=>'Postal Code Is Valid',
   'postal_code.invalid'=>'Please Enter A Valid Postal Code',
+  'edit.store'=>'Edit Store',
+  'edit.description'=>'Edit Store From Here!',
+  'language.valid'=>'looks good',
+  'language.invalid'=>'Please Select Language',
 ];

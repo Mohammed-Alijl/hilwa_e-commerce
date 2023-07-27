@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Store\CreateRequest;
+use App\Http\Requests\Store\EditRequest;
 use App\Http\Requests\Store\IndexRequest;
 use App\Http\Requests\Store\StoreRequest;
+use App\Http\Requests\Store\UpdateRequest;
+use App\Models\StoreTranslation;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
@@ -51,17 +54,17 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(EditRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
@@ -70,5 +73,16 @@ class StoreController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getStoreLanguages($langId, $storeId){
+        $storeTranslation = StoreTranslation::where('store_id', $storeId)
+            ->where('language_id', $langId)
+            ->first();
+
+        if (!$storeTranslation) {
+            return json_decode('');
+        }
+        return response()->json(['store_name' => $storeTranslation->name]);
     }
 }
