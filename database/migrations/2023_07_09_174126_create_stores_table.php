@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('email');
+            $table->string('mobile_number');
+            $table->time('open_time');
+            $table->time('close_time');
+            $table->foreignId('city_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->integer('zip_code');
+            $table->string('address')->nullable();
+            $table->double('latitude');
+            $table->double('longitude');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

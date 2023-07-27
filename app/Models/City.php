@@ -28,4 +28,7 @@ class City extends Model
     public function customerAddress(){
         return $this->hasMany(CustomerAddress::class,'city_id');
     }
+    public function stores(){
+        return $this->hasMany(Store::class,'city_id');
+    }
 }

@@ -18,4 +18,7 @@ class Language extends Model
     public function units(){
         return $this->hasMany(UnitTranlsation::class,'language_id');
     }
+    public function stores(){
+        return $this->hasMany(StoreTranslation::class,'language_id');
+    }
 }

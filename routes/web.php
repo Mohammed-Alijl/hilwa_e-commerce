@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TimeslotController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
@@ -46,6 +47,7 @@ Route::group(
     Route::resource('drivers',DriverController::class);
     Route::resource('timeslots',TimeslotController::class);
     Route::resource('units',UnitController::class);
+    Route::resource('stores',StoreController::class);
     Route::get('state-cities/{id}',[StateController::class,'getStateCities']);
     Route::get('city-zones/{id}',[CityController::class,'getCityZones']);
     Route::get('unit-languages/{langId}/{unitId}',[UnitController::class,'getUnitLanguages']);
