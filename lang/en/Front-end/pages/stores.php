@@ -33,4 +33,6 @@ return [
   'edit.description'=>'Edit Store From Here!',
   'language.valid'=>'looks good',
   'language.invalid'=>'Please Select Language',
+  'ok'=>'Ok',
+  'can.not.delete'=>"Can't Delete!",
 ];

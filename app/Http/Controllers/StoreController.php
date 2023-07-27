@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Store\CreateRequest;
+use App\Http\Requests\Store\DestroyRequest;
 use App\Http\Requests\Store\EditRequest;
 use App\Http\Requests\Store\IndexRequest;
 use App\Http\Requests\Store\StoreRequest;
@@ -70,9 +71,9 @@ class StoreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DestroyRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     public function getStoreLanguages($langId, $storeId){

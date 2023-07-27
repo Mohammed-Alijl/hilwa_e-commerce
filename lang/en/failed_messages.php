@@ -89,4 +89,9 @@ return [
     'zone.postal_codes.required'=>'Please Select At Least One Postal Code',
     'zone.postal_codes.string'=>'Some Thing Wrong Please Try Again',
     'zone.postal_codes.regex'=>'Please Enter A Valid Postal Codes',
+
+    //===================================================================================
+    // STORES============================================================================
+    //===================================================================================
+    'store.delete.failed' => 'You cannot delete this store because it is already in use.',
 ];

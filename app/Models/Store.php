@@ -33,4 +33,8 @@ class Store extends Model
     public function city(){
         return $this->belongsTo(City::class,'city_id');
     }
+
+    public function zones(){
+        return $this->hasMany(Zone::class,'store_id');
+    }
 }
