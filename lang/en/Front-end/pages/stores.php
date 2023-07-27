@@ -1,0 +1,20 @@
+<?php
+return [
+  'title'=>'Stores',
+  'definitions'=>'Definitions',
+  'add.store'=>'Add Store',
+  'name'=>'Name',
+  'email'=>'Email',
+  'mobile_number'=>'Mobile Number',
+  'state'=>'State',
+  'city'=>'City',
+  'postal_code'=>'Postal Code',
+  'open-closed.time'=>'Open-Closed Time',
+  'status'=>'Status',
+  'enable'=>'Enable',
+  'disable'=>'Disable',
+  'action'=>'Action',
+  'edited'=>'Edited',
+  'store.add'=>'Store Added',
+  'deleted'=>'Deleted',
+];

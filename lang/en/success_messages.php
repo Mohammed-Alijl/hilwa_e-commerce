@@ -80,4 +80,11 @@ return [
     'unit.add.success'=>'Unit Was Added Successfully',
     'unit.edit.success'=>'Unit Was Modified Successfully',
     'unit.delete.success'=>'Unit Was Deleted Successfully',
+
+    //===================================================================================
+    // STORES============================================================================
+    //===================================================================================
+    'store.add.success'=>'Store Was Added Successfully',
+    'store.edit.success'=>'Store Was Modified Successfully',
+    'store.delete.success'=>'Store Was Deleted Successfully',
 ];
