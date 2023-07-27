@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CustomerAddressController;
 use App\Http\Controllers\CustomerController;
@@ -48,6 +49,7 @@ Route::group(
     Route::resource('timeslots',TimeslotController::class);
     Route::resource('units',UnitController::class);
     Route::resource('stores',StoreController::class);
+    Route::resource('attributes',AttributeController::class);
     Route::get('state-cities/{id}',[StateController::class,'getStateCities']);
     Route::get('city-zones/{id}',[CityController::class,'getCityZones']);
     Route::get('unit-languages/{langId}/{unitId}',[UnitController::class,'getUnitLanguages']);

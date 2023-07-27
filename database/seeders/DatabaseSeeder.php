@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             AddressTypeSeeder::class,
             DaySeeder::class,
             LanguageSeeder::class,
+            EntitySeeder::class
         ]);
     }
 }

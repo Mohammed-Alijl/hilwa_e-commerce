@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('unit_tranlsations', function (Blueprint $table) {
+        Schema::create('attributes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('attribute_id')->constrained('units')->onDelete('cascade');
-            $table->foreignId('language_id')->constrained('languages')->onDelete('cascade');
-            $table->string('name');
+            $table->foreignId('entity_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->integer('display_order');
+            $table->boolean('isBoolean')->default(0);
+            $table->boolean('status')->default(1);
             $table->timestamps();
-            $table->unique(['unit_id', 'language_id']);
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('unit_tranlsations');
+        Schema::dropIfExists('attributes');
     }
 };
