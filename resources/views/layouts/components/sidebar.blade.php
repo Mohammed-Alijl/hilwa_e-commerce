@@ -290,17 +290,17 @@
                                     class="align-middle">{{__('Front-end/sidebar.definitions')}}</span>
                             </a>
                             <ul id="definitions"
-                                class="sidebar-dropdown list-unstyled collapse{{ hasActiveChild(['users.index', 'roles.index','cities.index','zones.index','timeslots.index','units,index','stores.index',
+                                class="sidebar-dropdown list-unstyled collapse{{ request()->route()->named(['users.index', 'roles.index','cities.index','zones.index','timeslots.index','units,index','stores.index',
                                                                                                 'users.create', 'roles.create','cities.create','zones.create','timeslots.create','stores.create',
-                                                                                                'users.edit', 'roles.edit','cities.edit','zones.edit','timeslots.edit','stores.edit']) ? ' show' : '' }}"
+                                                                                                'users.edit', 'roles.edit','cities.edit','zones.edit','timeslots.edit','stores.edit','users.show', 'roles.show']) ? ' show' : '' }}"
                                 data-bs-parent="#sidebar">
                                 @can('view_user')
-                                    <li class="sidebar-item {{ request()->route()->named("users.index") ? "active" : '' }}" {{ request()->route()->named("users.index") ? "active" : '' }}>
+                                    <li class="sidebar-item {{ request()->route()->named(['users.index','users.create','users.edit','users.show']) ? "active" : '' }}" {{ request()->route()->named("users.index") ? "active" : '' }}>
                                         <a class="sidebar-link"
                                            href="{{route('users.index')}}">{{__('Front-end/sidebar.users')}}</a></li>
                                 @endcan
                                 @can('view_role')
-                                    <li class="sidebar-item {{ request()->route()->named("roles.index") ? "active" : '' }}">
+                                    <li class="sidebar-item {{ request()->route()->named(['roles.index','roles.create','roles.edit','roles.show']) ? "active" : '' }}">
                                         <a class="sidebar-link"
                                            href="{{route('roles.index')}}">{{__('Front-end/sidebar.roles')}}</a></li>
                                 @endcan
@@ -324,14 +324,14 @@
                                     <a data-bs-target="#location" data-bs-toggle="collapse"
                                        class="sidebar-link collapsed">{{__('Front-end/sidebar.location.management')}}</a>
                                     <ul id="location"
-                                        class="sidebar-dropdown list-unstyled collapse {{ hasActiveChild(['cities.index', 'zones.index']) ? ' show' : '' }}">
+                                        class="sidebar-dropdown list-unstyled collapse {{ request()->route()->named(['cities.index', 'zones.index', 'zones.create', 'zones.edit']) ? ' show' : '' }}">
                                         @can('view_city')
                                             <li class="sidebar-item {{ request()->route()->named("cities.index") ? "active" : '' }}">
                                                 <a class="sidebar-link"
                                                    href="{{route('cities.index')}}">{{__('Front-end/sidebar.city')}}</a>
                                             </li>
                                         @endcan
-                                        <li class="sidebar-item {{ request()->route()->named("zones.index") ? "active" : '' }}">
+                                        <li class="sidebar-item {{ request()->route()->named(['zones.index', 'zones.create', 'zones.edit']) ? "active" : '' }}">
                                             <a class="sidebar-link"
                                                href="{{route('zones.index')}}">{{__('Front-end/sidebar.zone')}}</a>
                                         </li>
@@ -346,7 +346,7 @@
                                     class="align-middle">{{__('Front-end/sidebar.system')}}</span>
                             </a>
                             <ul id="system"
-                                class="sidebar-dropdown list-unstyled collapse {{ hasActiveChild(['settings.index']) ? ' show' : '' }}"
+                                class="sidebar-dropdown list-unstyled collapse {{ request()->route()->named(['settings.index']) ? ' show' : '' }}"
                                 data-bs-parent="#sidebar">
                                 @can('view_setting')
                                     <li class="sidebar-item {{ request()->route()->named("settings.index") ? "active" : '' }}">
