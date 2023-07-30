@@ -229,8 +229,8 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="#">
+                        <li class="sidebar-item {{ request()->route()->named(['categories.index','categories.create','categories.edit','categories.show']) ? "active" : '' }}">
+                            <a class="sidebar-link" href="{{route('categories.index')}}">
                                 <i class="align-middle me-2 fas fa-fw fa-list"></i> <span
                                     class="align-middle">{{__('Front-end/sidebar.categories')}}</span>
                             </a>
