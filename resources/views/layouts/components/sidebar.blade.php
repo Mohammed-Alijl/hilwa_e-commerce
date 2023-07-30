@@ -241,8 +241,8 @@
                                     class="align-middle">{{__('Front-end/sidebar.products')}}</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="#">
+                        <li class="sidebar-item {{ request()->route()->named(['attributes.index','attributes.create','attributes.edit']) ? "active" : '' }}">
+                            <a class="sidebar-link" href="{{route('attributes.index')}}">
                                 <i class="align-middle me-2 fas fa-fw fa-align-center"></i> <span
                                     class="align-middle">{{__('Front-end/sidebar.attribute')}}</span>
                             </a>
