@@ -23,4 +23,8 @@ class Attribute extends Model
     {
         return $this->hasMany(AttributeTranslation::class,'attribute_id');
     }
+
+    public function entity(){
+        return $this->belongsTo(Entity::class,'entity_id');
+    }
 }

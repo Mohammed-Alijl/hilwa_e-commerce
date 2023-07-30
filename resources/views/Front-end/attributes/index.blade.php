@@ -40,9 +40,15 @@
                     <tr>
                         <td>{{$rowNumber++}}</td>
                         <td>{{$attribute->translations->first()->name}}</td>
-                        <td>{{$attribute->isBoolean}}</td>
-                        <td>{{$attribute->entity}}</td>
-                        <td>{{$attribute->dispaly_order}}</td>
+                        <td>
+                            @if($attribute->isBoolean)
+                                {{ __('Front-end/pages/attributes.yes') }}
+                            @else
+                                {{ __('Front-end/pages/attributes.no') }}
+                            @endif
+                        </td>
+                        <td>{{$attribute->entity->name}}</td>
+                        <td>{{$attribute->display_order}}</td>
                         <td>
                             @if($attribute->status)
                                 <span class="badge badge-success-light">{{ __('Front-end/pages/attributes.enable') }}</span>
@@ -120,7 +126,7 @@
     @if(\Illuminate\Support\Facades\Session::has('edit-success'))
         <script>
             Swal.fire(
-                '{{__('Front-end/pages/stores.edited')}}',
+                '{{__('Front-end/pages/attributes.edited')}}',
                 '{{\Illuminate\Support\Facades\Session::get('edit-success')}}',
                 'success'
             )
@@ -129,7 +135,7 @@
     @if(\Illuminate\Support\Facades\Session::has('add-success'))
         <script>
             Swal.fire(
-                '{{__('Front-end/pages/stores.store.add')}}',
+                '{{__('Front-end/pages/attributes.attribute.add')}}',
                 '{{\Illuminate\Support\Facades\Session::get('add-success')}}',
                 'success'
             )
@@ -138,7 +144,7 @@
     @if(\Illuminate\Support\Facades\Session::has('delete-success'))
         <script>
             Swal.fire(
-                '{{__('Front-end/pages/stores.deleted')}}',
+                '{{__('Front-end/pages/attributes.deleted')}}',
                 '{{\Illuminate\Support\Facades\Session::get('delete-success')}}',
                 'success'
             )
@@ -147,11 +153,11 @@
     @if(\Illuminate\Support\Facades\Session::has('delete-failed'))
         <script>
             Swal.fire({
-                title: '{{__('Front-end/pages/stores.can.not.delete')}}',
+                title: '{{__('Front-end/pages/attributes.can.not.delete')}}',
                 text: '{{\Illuminate\Support\Facades\Session::get('delete-failed')}}',
                 icon: 'warning',
                 confirmButtonColor: '#3085d6',
-                confirmButtonText: '{{__('Front-end/pages/stores.ok')}}'
+                confirmButtonText: '{{__('Front-end/pages/attributes.ok')}}'
             })
         </script>
     @endif

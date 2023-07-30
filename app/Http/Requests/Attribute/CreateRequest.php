@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Attribute;
 
-use App\Models\Attribute;
+use App\Models\Entity;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,9 +16,8 @@ class IndexRequest extends FormRequest
     }
 
     public function run(){
-        $attributes = Attribute::get();
-        $rowNumber = 1;
-        return view('Front-end.attributes.index',compact('attributes','rowNumber'));
+        $entities = Entity::get();
+        return view('Front-end.attributes.create',compact('entities'));
     }
 
     /**

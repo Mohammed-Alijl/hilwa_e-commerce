@@ -87,4 +87,12 @@ return [
     'store.add.success'=>'Store Was Added Successfully',
     'store.edit.success'=>'Store Was Modified Successfully',
     'store.delete.success'=>'Store Was Deleted Successfully',
+
+
+    //===================================================================================
+    // ATTRIBUTES========================================================================
+    //===================================================================================
+    'attribute.add.success'=>'Attribute Was Added Successfully',
+    'attribute.edit.success'=>'Attribute Was Modified Successfully',
+    'attribute.delete.success'=>'Attribute Was Deleted Successfully',
 ];
