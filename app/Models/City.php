@@ -31,4 +31,7 @@ class City extends Model
     public function stores(){
         return $this->hasMany(Store::class,'city_id');
     }
+    public function categories(){
+        return $this->belongsToMany(Category::class,'category_city','city_id','category_id');
+    }
 }
