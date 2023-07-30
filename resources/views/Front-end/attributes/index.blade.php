@@ -59,7 +59,7 @@
 
                         <td>
                             @can('edit_attribute')
-                                <a href="{{route('stores.edit',$attribute->id)}}"><i class="align-middle"
+                                <a href="{{route('attributes.edit',$attribute->id)}}"><i class="align-middle"
                                                                                  data-feather="edit-2"></i></a>
                             @endcan
                             @can('delete_attribute')

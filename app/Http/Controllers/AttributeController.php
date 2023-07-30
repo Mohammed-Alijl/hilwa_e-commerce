@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Attribute\CreateRequest;
+use App\Http\Requests\Attribute\EditRequest;
 use App\Http\Requests\Attribute\IndexRequest;
 use App\Http\Requests\Attribute\StoreRequest;
+use App\Http\Requests\Attribute\UpdateRequest;
+use App\Models\AttributeTranslation;
 use Illuminate\Http\Request;
 
 class AttributeController extends Controller
@@ -51,17 +54,17 @@ class AttributeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(EditRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     /**
@@ -70,5 +73,16 @@ class AttributeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getAttributeLanguages($langId, $attributeId){
+        $attributeTranslation = AttributeTranslation::where('attribute_id', $attributeId)
+            ->where('language_id', $langId)
+            ->first();
+
+        if (!$attributeTranslation) {
+            return json_decode('');
+        }
+        return response()->json(['attribute_name' => $attributeTranslation->name]);
     }
 }

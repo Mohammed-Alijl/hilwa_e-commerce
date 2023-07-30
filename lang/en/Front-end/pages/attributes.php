@@ -28,4 +28,7 @@ return [
     'ok'=>'Ok',
     'yes'=>'Yes',
     'no'=>'No',
+    'edit.attribute'=>'Edit Attribute',
+    'edit.description'=>'Edit The Attribute From Here!',
+    'edit'=>'Edit',
 ];
