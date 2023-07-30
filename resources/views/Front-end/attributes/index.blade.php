@@ -87,7 +87,7 @@
     </script>
 
     <script>
-        function deletes(storeId) {
+        function deletes(attributeId) {
             Swal.fire({
                 title: '{{__('Front-end/pages/users.are.you.sure')}}',
                 text: "{{__('Front-end/pages/users.not.able.revert')}}",
@@ -99,17 +99,17 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Perform the delete operation here
-                    deleteUser(storeId);
+                    deleteAttribute(attributeId);
                 }
             })
         }
 
-        function deleteUser(storeId) {
+        function deleteAttribute(attributeId) {
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '{{ route('stores.destroy', ['store' => '__storeId__']) }}'.replace('__storeId__', storeId);
+            form.action = '{{ route('attributes.destroy', ['attribute' => '__attributeId__']) }}'.replace('__attributeId__', attributeId);
             form.innerHTML = `<input type="hidden" name="_method" value="DELETE">`;
-            form.innerHTML = `<input type="hidden" name="id" value="${storeId}">`;
+            form.innerHTML = `<input type="hidden" name="id" value="${attributeId}">`;
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const csrfInput = document.createElement('input');
             csrfInput.type = 'hidden';

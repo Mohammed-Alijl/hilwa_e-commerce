@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Attribute\CreateRequest;
+use App\Http\Requests\Attribute\DestroyRequest;
 use App\Http\Requests\Attribute\EditRequest;
 use App\Http\Requests\Attribute\IndexRequest;
 use App\Http\Requests\Attribute\StoreRequest;
 use App\Http\Requests\Attribute\UpdateRequest;
 use App\Models\AttributeTranslation;
-use Illuminate\Http\Request;
 
 class AttributeController extends Controller
 {
@@ -70,9 +70,9 @@ class AttributeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DestroyRequest $request, string $id)
     {
-        //
+        return $request->run($id);
     }
 
     public function getAttributeLanguages($langId, $attributeId){
