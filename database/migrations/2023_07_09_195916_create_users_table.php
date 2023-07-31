@@ -11,17 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('drivers', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
             $table->string('mobile_number');
             $table->string('address')->nullable();
             $table->string('image')->default('default.png');
-            $table->boolean('status');
-            $table->foreignId('zone_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->boolean('status')->nullable();
+            $table->unsignedBigInteger('zone_id')->nullable();
+            $table->string('platform')->nullable();
+            $table->enum('type',['customer','driver']);
             $table->timestamps();
+
+            $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('drivers');
+        Schema::dropIfExists('users');
     }
 };

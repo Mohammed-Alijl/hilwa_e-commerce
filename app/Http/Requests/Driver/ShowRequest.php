@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Driver;
 
 use App\Models\Driver;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ShowRequest extends FormRequest
@@ -16,7 +17,7 @@ class ShowRequest extends FormRequest
     }
 
     public function run($id){
-        $driver = Driver::find($id);
+        $driver = User::find($id);
         return view('Front-end.drivers.show',compact('driver'));
     }
 

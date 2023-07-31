@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Customer;
 
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ShowRequest extends FormRequest
@@ -16,7 +17,7 @@ class ShowRequest extends FormRequest
     }
 
     public function run($id){
-        $customer = Customer::find($id);
+        $customer = User::find($id);
         return view('Front-end.customers.show',compact('customer'));
     }
 

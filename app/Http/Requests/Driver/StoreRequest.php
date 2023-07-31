@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Driver;
 
 use App\Models\Driver;
+use App\Models\User;
 use App\Traits\AttachmentTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,7 @@ class StoreRequest extends FormRequest
     }
 
     public function run(){
-        $driver = new Driver();
+        $driver = new User();
         $driver->name = $this->first_name . " " . $this->last_name;
         $driver->email = $this->email;
         $driver->mobile_number = $this->mobile_number;
@@ -32,6 +33,7 @@ class StoreRequest extends FormRequest
                 $imageName = 'default.png';
         $driver->status = $this->status;
         $driver->image = $imageName;
+        $driver->type = 'driver';
         $driver->save();
             return redirect()->route('drivers.index')
                 ->with('add-success',__('success_messages.driver.add.success'));
@@ -47,10 +49,10 @@ class StoreRequest extends FormRequest
         return [
             'first_name' => 'required|max:255|string',
             'last_name' => 'required|max:255|string',
-            'email' => 'required|email|unique:drivers,email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'pic' => 'nullable|file|mimes:jpeg,jpg,png,svg|max:5000',
-            'mobile_number' => 'required|size:8|unique:drivers,mobile_number',
+            'mobile_number' => 'required|size:8|unique:users,mobile_number',
             'zone_id'=>'required|numeric|exists:zones,id',
             'address'=>'string|max:255',
             'status'=>'required|boolean',

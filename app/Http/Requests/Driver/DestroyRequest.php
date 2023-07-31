@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Driver;
 
 use App\Models\Driver;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DestroyRequest extends FormRequest
@@ -16,7 +17,7 @@ class DestroyRequest extends FormRequest
     }
 
     public function run($id){
-        $driver = Driver::find($id);
+        $driver = User::find($id);
         if(!$driver)
             abort(404);
         $driver->delete();

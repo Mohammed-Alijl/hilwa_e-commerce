@@ -4,6 +4,7 @@ namespace App\Http\Requests\Driver;
 
 use App\Models\Driver;
 use App\Models\State;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditRequest extends FormRequest
@@ -17,7 +18,7 @@ class EditRequest extends FormRequest
     }
 
     public function run($id){
-        $driver = Driver::find($id);
+        $driver = User::find($id);
         $states = State::get();
         return view('Front-end.drivers.edit',compact('driver','states'));
     }

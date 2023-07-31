@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Driver;
 
 use App\Models\Driver;
+use App\Models\User;
 use App\Traits\AttachmentTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,7 @@ class UpdateRequest extends FormRequest
 
     public function run($id)
     {
-        $driver = Driver::find($id);
+        $driver = User::find($id);
         if ($this->filled('name'))
             $driver->name = $this->name;
         if ($this->filled('password'))

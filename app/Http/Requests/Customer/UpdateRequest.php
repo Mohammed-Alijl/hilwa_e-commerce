@@ -5,6 +5,7 @@ use App\Models\City;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\State;
+use App\Models\User;
 use App\Traits\AttachmentTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +30,7 @@ class UpdateRequest extends FormRequest
             return redirect()->back()->withErrors('Some Thing Error');
         }
 
-        $customer = Customer::find($id);
+        $customer = User::find($id);
         if (!$customer)
             abort(404);
         if ($this->filled('name'))

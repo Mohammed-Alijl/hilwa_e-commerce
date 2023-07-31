@@ -19,6 +19,7 @@ class StoreRequest extends FormRequest
     public function run(){
         $role = new Role();
         $role->name = $this->name;
+        $role->guard_name = 'admin';
         $role->save();
 
         $permissions = Permission::whereIn('name', $this->permission)->get();

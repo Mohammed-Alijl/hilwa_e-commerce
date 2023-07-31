@@ -21,7 +21,7 @@ class CreateRequest extends FormRequest
     public function run(){
         $roles = Role::all();
         $states = State::get();
-        return view('Front-end.users.create',compact('roles','states'));
+        return view('Front-end.admins.create',compact('roles','states'));
     }
 
     /**

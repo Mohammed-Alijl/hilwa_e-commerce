@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\User;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexRequest extends FormRequest
@@ -18,9 +18,9 @@ class IndexRequest extends FormRequest
     }
 
     public function run(){
-        $users = User::orderBy('id','DESC')->get();
+        $users = Admin::orderBy('id','DESC')->get();
         $rowNumber = 1;
-        return view('Front-end.users.index',compact('users','rowNumber'))
+        return view('Front-end.admins.index',compact('users','rowNumber'))
             ->with('i', ($this->input('page', 1) - 1) * 5);
     }
 

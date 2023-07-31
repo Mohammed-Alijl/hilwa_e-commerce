@@ -4,9 +4,9 @@
 namespace App\Http\Requests\Customer;
 
 use App\Models\City;
-use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\State;
+use App\Models\User;
 use App\Traits\AttachmentTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
             return redirect()->back()->withErrors('Some Thing Error');
         }
 
-        $customer = new Customer();
+        $customer = new User();
         $customer->name = $this->first_name . " " . $this->last_name;
         $customer->password = Hash::make($this->password);
         $customer->email = $this->email;
@@ -42,6 +42,7 @@ class StoreRequest extends FormRequest
         }
 
         $customer->image = $imageName;
+        $customer->type = 'customer';
         $customer->save();
 
         $apiKey = env('GOOGLE_MAP_API_KEY');
@@ -137,10 +138,10 @@ class StoreRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:30',
             'last_name' => 'required|string|max:30',
-            'email' => 'required|email|unique:customers,email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'pic' => 'nullable|file|mimes:jpeg,jpg,png,svg|max:5000',
-            'mobile_number' => 'required|size:8|unique:customers,mobile_number',
+            'mobile_number' => 'required|size:8|unique:users,mobile_number',
             'latitude' => 'array|required',
             'latitude.*' => 'required|numeric',
             'longitude' => 'array|required',

@@ -40,7 +40,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="text-center">
-                                                    <img alt="{{"$user->first_name $user->last_name"}}" src="{{URL::asset('img/users/' . $user->image)}}" class="rounded-circle img-responsive mt-2"
+                                                    <img alt="{{"$user->first_name $user->last_name"}}" src="{{URL::asset('img/admins/' . $user->image)}}" class="rounded-circle img-responsive mt-2"
                                                          width="128" height="128" />
                                                 </div>
                                             </div>

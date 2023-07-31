@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('isDefault');
             $table->enum('use_for',['delivery','billing']);
             $table->integer('postal_code');
-            $table->foreignId('customer_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('customer_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('city_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

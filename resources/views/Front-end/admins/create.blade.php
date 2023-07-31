@@ -35,7 +35,7 @@
                 <h6 class="card-subtitle text-muted">{{__('Front-end/pages/users.add.description')}}</h6>
             </div>
             <div class="card-body">
-                <form action="{{route('users.store')}}" method="post" enctype="multipart/form-data" id="create_user"
+                <form action="{{route('admins.store')}}" method="post" enctype="multipart/form-data" id="create_user"
                       class="needs-validation" novalidate>
                     @csrf
                     <div class="row">

@@ -29,7 +29,7 @@ class CustomerAddress extends Model
         return $this->belongsTo(City::class,'city_id');
     }
     public function customer(){
-        return $this->belongsTo(Customer::class,'customer_id');
+        return $this->belongsTo(User::class,'customer_id');
     }
     public function addressType(){
         return $this->belongsTo(AddressType::class,'address_type_id');

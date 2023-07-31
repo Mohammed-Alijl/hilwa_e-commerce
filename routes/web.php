@@ -14,7 +14,7 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TimeslotController;
 use App\Http\Controllers\UnitController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ZipCodeController;
 use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
@@ -35,11 +35,11 @@ require __DIR__ . '/auth.php';
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth']
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth:admin']
     ], function () {
 
     Route::get('/',[\App\Http\Controllers\DashboardController::class,'create'])->name('dashboard');
-    Route::resource('users',UserController::class);
+    Route::resource('admins',AdminController::class);
     Route::resource('customers',CustomerController::class);
     Route::resource('roles',RoleController::class);
     Route::resource('settings',SettingController::class);
@@ -71,7 +71,7 @@ Route::group(
 
 
 
-    Route::post('/check-email', [UserController::class, 'checkEmail']);
-    Route::post('/check-mobile', [UserController::class, 'checkMobile']);
-    Route::post('/check-code', [UserController::class, 'checkCode']);
+    Route::post('/check-email', [AdminController::class, 'checkEmail']);
+    Route::post('/check-mobile', [AdminController::class, 'checkMobile']);
+    Route::post('/check-code', [AdminController::class, 'checkCode']);
 });

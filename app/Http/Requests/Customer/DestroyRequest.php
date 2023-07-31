@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Customer;
 
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DestroyRequest extends FormRequest
@@ -16,7 +17,7 @@ class DestroyRequest extends FormRequest
     }
 
     public function run($id){
-        $customer = Customer::find($id);
+        $customer = User::find($id);
         if(!$customer)
             abort(404);
         $customer->delete();

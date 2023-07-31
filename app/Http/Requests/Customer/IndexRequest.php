@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Customer;
 
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexRequest extends FormRequest
@@ -17,7 +18,7 @@ class IndexRequest extends FormRequest
 
     public function run(){
         $rowNumber = 1;
-        $customers = Customer::get();
+        $customers = User::where('type','customer')->get();
         return view('Front-end.customers.index',compact('rowNumber','customers'));
     }
 

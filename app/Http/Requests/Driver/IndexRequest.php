@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Driver;
 
 use App\Models\Driver;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexRequest extends FormRequest
@@ -16,7 +17,7 @@ class IndexRequest extends FormRequest
     }
 
     public function run(){
-        $drivers = Driver::get();
+        $drivers = User::where('type','driver')->get();
         return view('Front-end.drivers.index',compact('drivers'));
     }
 

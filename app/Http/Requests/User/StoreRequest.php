@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests\User;
 
-use App\Models\User;
+use App\Models\Admin;
 use App\Traits\AttachmentTrait;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 
 class StoreRequest extends FormRequest
 {
@@ -24,7 +23,7 @@ class StoreRequest extends FormRequest
 
     public function run(){
         try {
-            $user = new User();
+            $user = new Admin();
             $user->first_name = $this->first_name;
             $user->last_name = $this->last_name;
             $user->email = $this->email;
@@ -36,7 +35,7 @@ class StoreRequest extends FormRequest
             $user->address = $this->address;
             $user->limit_state = $this->has('limit_state');
             if ($files = $this->file('pic')) {
-                $imageName = $this->save_attachment($files, "img/users");
+                $imageName = $this->save_attachment($files, "img/admins");
             }else
                 $imageName = 'default.png';
             $user->image = $imageName;
@@ -44,7 +43,7 @@ class StoreRequest extends FormRequest
 
             $user->assignRole($this->roles_name);
 
-            return redirect()->route('users.index')
+            return redirect()->route('admins.index')
                 ->with('add-success',__('success_messages.user.add.success'));
         }catch (Exception $ex){
             return redirect()->back()->withErrors('failed',$ex->getMessage());
@@ -62,12 +61,12 @@ class StoreRequest extends FormRequest
         return [
             'first_name' => 'required|max:255|string',
             'last_name' => 'required|max:255|string',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:admins,email',
             'password' => 'required|same:confirm-password',
             'roles_name' => 'required|exists:roles,name',
             'pic' => 'nullable|file|mimes:jpeg,jpg,png,svg|max:5000',
-            'code'=>'required|string|size:8||unique:users,code',
-            'mobile_number' => 'required|size:8|unique:users,mobile_number',
+            'code'=>'required|string|size:8||unique:admins,code',
+            'mobile_number' => 'required|size:8|unique:admins,mobile_number',
             'city_id'=>'required|numeric|exists:cities,id',
             'address'=>'string|max:255',
             ];

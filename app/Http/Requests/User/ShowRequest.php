@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests\User;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
-use Spatie\Permission\Models\Role;
 
 class ShowRequest extends FormRequest
 {
@@ -20,11 +19,11 @@ class ShowRequest extends FormRequest
 
     public function run($id){
         try {
-            $user = User::find($id);
+            $user = Admin::find($id);
             $userRole = $user->roles->pluck('name','name')->all();
             if(!$user)
                 return redirect()->back()->withErrors(__('failed_messages.user.notFound'));
-            return view('Front-end.users.show',compact('user','userRole'));
+            return view('Front-end.admins.show',compact('user','userRole'));
         }catch (\Exception $ex){
             return redirect()->back()->withErrors($ex->getMessage());
         }

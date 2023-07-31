@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\Models\Admin;
 use App\Models\User;
 use App\Traits\AttachmentTrait;
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,11 +24,11 @@ class DestroyRequest extends FormRequest
     public function run()
     {
         try {
-            $user = User::find($this->id);
+            $user = Admin::find($this->id);
             if (!$user)
                 return redirect()->back()->withErrors(__('failed_messages.user.notFound'));
             if ($user->image != 'default.png')
-                $this->delete_attachment('img/users/' . $user->image);
+                $this->delete_attachment('img/admins/' . $user->image);
             if ($user->delete()) {
                 return redirect()->back()->with('success-message',__('success_messages.user.destroy'));
             }

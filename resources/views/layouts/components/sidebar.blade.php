@@ -290,14 +290,14 @@
                                     class="align-middle">{{__('Front-end/sidebar.definitions')}}</span>
                             </a>
                             <ul id="definitions"
-                                class="sidebar-dropdown list-unstyled collapse{{ request()->route()->named(['users.index', 'roles.index','cities.index','zones.index','timeslots.index','units,index','stores.index',
-                                                                                                'users.create', 'roles.create','cities.create','zones.create','timeslots.create','stores.create',
-                                                                                                'users.edit', 'roles.edit','cities.edit','zones.edit','timeslots.edit','stores.edit','users.show', 'roles.show']) ? ' show' : '' }}"
+                                class="sidebar-dropdown list-unstyled collapse{{ request()->route()->named(['admins.index', 'roles.index','cities.index','zones.index','timeslots.index','units,index','stores.index',
+                                                                                                'admins.create', 'roles.create','cities.create','zones.create','timeslots.create','stores.create',
+                                                                                                'admins.edit', 'roles.edit','cities.edit','zones.edit','timeslots.edit','stores.edit','admins.show', 'roles.show']) ? ' show' : '' }}"
                                 data-bs-parent="#sidebar">
                                 @can('view_user')
-                                    <li class="sidebar-item {{ request()->route()->named(['users.index','users.create','users.edit','users.show']) ? "active" : '' }}" {{ request()->route()->named("users.index") ? "active" : '' }}>
+                                    <li class="sidebar-item {{ request()->route()->named(['admins.index','admins.create','admins.edit','admins.show']) ? "active" : '' }}" {{ request()->route()->named("admins.index") ? "active" : '' }}>
                                         <a class="sidebar-link"
-                                           href="{{route('users.index')}}">{{__('Front-end/sidebar.users')}}</a></li>
+                                           href="{{route('admins.index')}}">{{__('Front-end/sidebar.users')}}</a></li>
                                 @endcan
                                 @can('view_role')
                                     <li class="sidebar-item {{ request()->route()->named(['roles.index','roles.create','roles.edit','roles.show']) ? "active" : '' }}">

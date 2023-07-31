@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\Models\Admin;
 use App\Models\State;
 use App\Models\User;
 use Exception;
@@ -23,7 +24,7 @@ class EditRequest extends FormRequest
     public function run($id)
     {
         try {
-            $user = User::find($id);
+            $user = Admin::find($id);
             if (!$user)
                 return redirect()->back()->withErrors(__('failed_messages.user.notFound'));
             if ($user->roles->pluck('name', 'name')->first() == "Admin")
@@ -31,7 +32,7 @@ class EditRequest extends FormRequest
             $roles = Role::pluck('name', 'name')->all();
             $userRole = $user->roles->pluck('name', 'name')->first();
             $states = State::get();
-            return view('Front-end.users.edit', compact('user', 'roles', 'userRole', 'states'));
+            return view('Front-end.admins.edit', compact('user', 'roles', 'userRole', 'states'));
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -15,26 +15,27 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = new User();
-        $user->first_name = 'Mohammed';
-        $user->last_name = ' Alajel';
-        $user->email = 'admin@admin.com';
-        $user->mobile_number = '69997391';
-        $user->password = bcrypt('123456789');
-        $user->image = 'default.png';
-        $user->code = 'Mohammed';
-        $user->address = 'Aljala';
-        $user->roles_name = ['Admin'];
-        $user->city_id = 1;
-        $user->limit_state = true;
-        $user->save();
+        $admin = new Admin();
+        $admin->first_name = 'Mohammed';
+        $admin->last_name = ' Alajel';
+        $admin->email = 'admin@admin.com';
+        $admin->mobile_number = '69997391';
+        $admin->password = bcrypt('123456789');
+        $admin->image = 'default.png';
+        $admin->code = 'Mohammed';
+        $admin->address = 'Aljala';
+        $admin->roles_name = ['Admin'];
+        $admin->city_id = 1;
+        $admin->limit_state = true;
+        $admin->save();
 
-        $role = Role::create(['name' => 'Admin']);
+        $role = Role::create(['name' => 'Admin', 'guard_name' => 'admin']);
 
-        $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::where('guard_name', 'admin')->pluck('id')->all();
 
         $role->syncPermissions($permissions);
 
-        $user->assignRole([$role->id]);
+        $admin->assignRole([$role->id]);
+
     }
 }

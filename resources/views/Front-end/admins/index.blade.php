@@ -17,7 +17,7 @@
         </div>
         @can('add_user')
             <div class="col-auto ms-auto text-end mt-n1">
-                <a href="{{route('users.create')}}" class="btn btn-primary">{{__('Front-end/pages/users.add.user')}}</a>
+                <a href="{{route('admins.create')}}" class="btn btn-primary">{{__('Front-end/pages/users.add.user')}}</a>
             </div>
         @endcan
     </div>
@@ -46,7 +46,7 @@
 
                         <td>
                             @can('view_user')
-                                <a href="{{ route('users.show', $user->id) }}">
+                                <a href="{{ route('admins.show', $user->id) }}">
                                     {{ $user->first_name . ' ' . $user->last_name }}
                                 </a>
                             @else
@@ -62,7 +62,7 @@
                         <td>
                             @if($user->roles->pluck('name','name')->first() != 'Admin')
                             @can('edit_user')
-                                <a href="{{route('users.edit',$user->id)}}"><i class="align-middle"
+                                <a href="{{route('admins.edit',$user->id)}}"><i class="align-middle"
                                                                                data-feather="edit-2"></i></a>
                             @endcan
                             @can('delete_user')
@@ -92,7 +92,7 @@
     </script>
 
     <script>
-        function deletes(userId) {
+        function deletes(adminId) {
             Swal.fire({
                 title: '{{__('Front-end/pages/users.are.you.sure')}}',
                 text: "{{__('Front-end/pages/users.not.able.revert')}}",
@@ -104,18 +104,18 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Perform the delete operation here
-                    deleteUser(userId);
+                    deleteUser(adminId);
                 }
             })
         }
 
-        function deleteUser(userId) {
+        function deleteUser(adminId) {
             // Send an AJAX request or submit a form to the delete route
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '{{ route('users.destroy', ['user' => '__userId__']) }}'.replace('__userId__', userId);
+            form.action = '{{ route('admins.destroy', ['admin' => '__adminId__']) }}'.replace('__adminId__', adminId);
             form.innerHTML = `<input type="hidden" name="_method" value="DELETE">`;
-            form.innerHTML = `<input type="hidden" name="id" value="${userId}">`;
+            form.innerHTML = `<input type="hidden" name="id" value="${adminId}">`;
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const csrfInput = document.createElement('input');
             csrfInput.type = 'hidden';

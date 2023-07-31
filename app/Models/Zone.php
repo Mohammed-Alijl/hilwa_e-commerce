@@ -29,7 +29,7 @@ class Zone extends Model
         return $this->belongsTo(Store::class,'store_id');
     }
     public function drivers(){
-        return $this->hasMany(Driver::class,'zone_id');
+        return $this->hasMany(User::class,'zone_id');
     }
 
 }

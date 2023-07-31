@@ -5,6 +5,7 @@ namespace App\Http\Requests\Customer;
 use App\Models\AddressType;
 use App\Models\Customer;
 use App\Models\State;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditRequest extends FormRequest
@@ -18,7 +19,7 @@ class EditRequest extends FormRequest
     }
 
     public function run($id){
-        $customer = Customer::find($id);
+        $customer = User::find($id);
         if(!$customer)
             abort(404);
         $states = State::get();

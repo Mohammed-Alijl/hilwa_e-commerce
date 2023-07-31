@@ -12,7 +12,7 @@ use App\Http\Requests\User\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     function __construct()
     {

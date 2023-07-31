@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\Models\Admin;
 use App\Models\User;
 use App\Traits\AttachmentTrait;
 use Exception;
@@ -29,7 +30,7 @@ class UpdateRequest extends FormRequest
 
     public function run($id){
         try {
-            $user = User::find($id);
+            $user = Admin::find($id);
             if(!$user)
                 return redirect()->back()->withErrors(__('failed_messages.user.notFound'));
             if($this->filled('password')){
@@ -51,14 +52,14 @@ class UpdateRequest extends FormRequest
                 $user->roles_name = $this->roles_name;
             if ($files = $this->file('pic')) {
                 if($user->image != 'default.png')
-                $this->delete_attachment('img/users/' . $user->image);
-                $imageName = $this->save_attachment($files, "img/users");
+                $this->delete_attachment('img/admins/' . $user->image);
+                $imageName = $this->save_attachment($files, "img/admins");
                 $user->image = $imageName;
             }
             if($user->save()){
                 DB::table('model_has_roles')->where('model_id',$id)->delete();
                 $user->assignRole($this->roles_name);
-                return redirect()->route('users.index')->with('edit-success',__('success_messages.data.edit'));
+                return redirect()->route('admins.index')->with('edit-success',__('success_messages.data.edit'));
             }
             else
                 return redirect()->withErrors(__('failed_messages.failed'));
@@ -77,12 +78,12 @@ class UpdateRequest extends FormRequest
         return [
             'first_name' => 'max:255|string',
             'last_name' => 'max:255|string',
-            'email' => 'email|unique:users,email,' . $this->id,
+            'email' => 'email|unique:admins,email,' . $this->id,
             'password' => 'same:confirm-password',
             'roles_name' => 'exists:roles,name',
             'pic' => 'nullable|file|mimes:jpeg,jpg,png,svg|max:5000',
             'code'=>'string|size:8||unique:users,code',
-            'mobile_number' => 'size:8|unique:users,mobile_number,' . $this->id,
+            'mobile_number' => 'size:8|unique:admins,mobile_number,' . $this->id,
             'city_id'=>'numeric|exists:cities,id',
             'address'=>'string|max:255',
         ];
