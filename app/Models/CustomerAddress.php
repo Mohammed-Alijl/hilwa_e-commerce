@@ -25,6 +25,10 @@ class CustomerAddress extends Model
     ];
     public static $types = ['delivery','billing'];
 
+
+    //===============================================================
+    //========================== RELATIONSHips ======================
+    //===============================================================
     public function city(){
         return $this->belongsTo(City::class,'city_id');
     }

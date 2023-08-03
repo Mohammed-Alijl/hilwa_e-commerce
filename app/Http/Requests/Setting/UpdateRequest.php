@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Setting;
 
-use App\Models\Setting;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -13,32 +12,6 @@ class UpdateRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function run()
-    {
-        try {
-            $setting = Setting::find($this->id);
-            if (!$setting)
-                abort(404);
-            if ($this->filled('display_name'))
-                $setting->display_name = $this->display_name;
-            if ($this->filled('namespace'))
-                $setting->namespace = $this->namespace;
-            if ($this->filled('key'))
-                $setting->key = $this->key;
-            if ($this->filled('value'))
-                $setting->value = $this->value;
-            else $setting->value = $this->boolean_value;
-            if ($this->filled('type'))
-                $setting->type = $this->type;
-            if ($setting->save())
-                return redirect()->route('settings.index');
-            else
-                return redirect()->back()->withErrors('failed', 'Failed to edit the setting');
-        } catch (\Exception $ex) {
-            return redirect()->back()->withErrors($ex->getMessage());
-        }
     }
 
     /**

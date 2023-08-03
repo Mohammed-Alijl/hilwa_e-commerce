@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Store;
 
-use App\Models\Store;
-use App\Models\StoreTranslation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -14,32 +12,6 @@ class UpdateRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function run($storeId)
-    {
-        $store = Store::findOrFail($storeId);
-        $storeTranslation = StoreTranslation::where('language_id', $this->language_id)->where('store_id', $storeId)->first();
-        if (!$storeTranslation) {
-            $storeTranslation = new StoreTranslation();
-            $storeTranslation->language_id = $this->language_id;
-            $storeTranslation->store_id = $storeId;
-        }
-        $storeTranslation->name = $this->name;
-        $storeTranslation->save();
-        $store->email = $this->email;
-        $store->mobile_number = $this->mobile_number;
-        if ($this->filled('open_time'))
-            $store->open_time = $this->open_time;
-        if ($this->filled('close_time'))
-            $store->close_time = $this->close_time;
-        $store->city_id = $this->city_id;
-        $store->latitude = $this->latitude;
-        $store->longitude = $this->longitude;
-        $store->zip_code = $this->zip_code;
-        $store->status = $this->status;
-        $store->save();
-        return redirect()->route('stores.index')->with('edit-success', __('success_messages.store.edit.success'));
     }
 
     /**

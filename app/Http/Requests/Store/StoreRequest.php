@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Store;
 
-use App\Models\Store;
-use App\Models\StoreTranslation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -14,26 +12,6 @@ class StoreRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function run(){
-        $store = new Store();
-        $store->email = $this->email;
-        $store->mobile_number = $this->mobile_number;
-        $store->open_time = $this->open_time;
-        $store->close_time = $this->close_time;
-        $store->city_id = $this->city_id;
-        $store->latitude = $this->latitude;
-        $store->longitude = $this->longitude;
-        $store->zip_code = $this->zip_code;
-        $store->status = $this->status;
-        $store->save();
-        $storeTranslation = new StoreTranslation();
-        $storeTranslation->name = $this->name;
-        $storeTranslation->store_id = $store->id;
-        $storeTranslation->language_id = 1;
-        $storeTranslation->save();
-        return redirect()->route('stores.index')->with('add-success',__('success_messages.store.add.success'));
     }
 
     /**

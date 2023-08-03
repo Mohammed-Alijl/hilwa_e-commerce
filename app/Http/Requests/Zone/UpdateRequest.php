@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Zone;
 
-use App\Models\Zone;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -13,28 +12,6 @@ class UpdateRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function run($id)
-    {
-        $zone = Zone::find($id);
-        if (!$zone)
-            abort(404);
-        if ($this->filled('name'))
-            $zone->name = $this->name;
-        if ($this->filled('store_id'))
-            $zone->store_id = $this->store_id;
-        if ($this->filled('city_id'))
-            $zone->city_id = $this->city_id;
-        if ($this->filled('status'))
-            $zone->status = $this->status;
-        if ($this->filled('postal_codes')) {
-            $postalCodes = explode(',', $this->postal_codes);
-            $postalCodes = array_map('trim', $postalCodes);
-            $zone->postal_codes = $postalCodes;
-        }
-        $zone->save();
-        return redirect()->route('zones.index')->with('edit-success',__('success_messages.zone.edit.success'));
     }
 
     /**

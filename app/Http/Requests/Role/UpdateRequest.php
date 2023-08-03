@@ -3,9 +3,6 @@
 namespace App\Http\Requests\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class UpdateRequest extends FormRequest
 {
@@ -15,20 +12,6 @@ class UpdateRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function run($id){
-        $role = Role::find($id);
-        if(!$role)
-            abort(404);
-        if ($this->filled('name'))
-        $role->name = $this->name;
-        $role->save();
-        $permissions = Permission::whereIn('name', $this->permission)->get();
-        $role->syncPermissions($permissions);
-
-        return redirect()->route('roles.index')
-            ->with('edit-success',__('success_messages.role.edit'));
     }
 
     /**

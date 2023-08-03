@@ -23,7 +23,7 @@ class City extends Model
         return $this->hasMany(Zone::class,'city_id');
     }
     public function users(){
-        return $this->hasMany(User::class,'city_id');
+        return $this->hasMany(Admin::class,'city_id');
     }
     public function customerAddress(){
         return $this->hasMany(CustomerAddress::class,'city_id');

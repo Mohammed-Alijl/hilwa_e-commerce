@@ -14,6 +14,10 @@ class StoreTranslation extends Model
         'name'
     ];
 
+
+    //===============================================================
+    //========================== RELATIONSHips ======================
+    //===============================================================
     public function language()
     {
         return $this->belongsTo(Language::class);

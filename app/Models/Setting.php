@@ -12,6 +12,10 @@ class Setting extends Model
 
     protected $types = ['string', 'integer', 'float', 'boolean', 'color'];
 
+
+    //===============================================================
+    //========================== RELATIONSHips ======================
+    //===============================================================
     public function getTypesAttribute()
     {
         return $this->types;

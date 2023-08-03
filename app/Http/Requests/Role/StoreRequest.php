@@ -3,8 +3,6 @@
 namespace App\Http\Requests\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class StoreRequest extends FormRequest
 {
@@ -14,18 +12,6 @@ class StoreRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function run(){
-        $role = new Role();
-        $role->name = $this->name;
-        $role->guard_name = 'admin';
-        $role->save();
-
-        $permissions = Permission::whereIn('name', $this->permission)->get();
-        $role->syncPermissions($permissions);
-
-        return redirect()->route('roles.index')->with('add-success', __('success_messages.role.add'));
     }
 
     /**

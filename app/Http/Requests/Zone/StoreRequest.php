@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Zone;
 
-use App\Models\Zone;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -15,19 +14,6 @@ class StoreRequest extends FormRequest
         return true;
     }
 
-    public function run(){
-        $postalCodes = explode(',', $this->postal_codes);
-        $postalCodes = array_map('trim', $postalCodes);
-        $zone = new Zone();
-        $zone->name = $this->name;
-        $zone->city_id = $this->city_id;
-        $zone->status = $this->status;
-        $zone->store_id = $this->store_id;
-        $zone->postal_codes = $postalCodes;
-        $zone->save();
-        return redirect()->route('zones.index')->with('add-success',__('success_messages.zone.add.success'));
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -36,33 +22,33 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string|min:3|max:30|unique:zones,name',
-            'city_id'=>'required|numeric|exists:cities,id',
-            'store_id'=>'required|numeric|exists:stores,id',
-            'status'=>'required|boolean',
+            'name' => 'required|string|min:3|max:30|unique:zones,name',
+            'city_id' => 'required|numeric|exists:cities,id',
+            'store_id' => 'required|numeric|exists:stores,id',
+            'status' => 'required|boolean',
             'postal_codes' => 'required|string|regex:/^\d{3,10}(,\d{3,10})*$/',
         ];
     }
 
     public function messages()
     {
-        return[
-            'name.required'=>__('failed_messages.zone.name.required'),
-            'name.string'=>__('failed_messages.zone.name.string'),
-            'name.min'=>__('failed_messages.zone.name.min'),
-            'name.max'=>__('failed_messages.zone.name.max'),
-            'name.unique'=>__('failed_messages.zone.name.unique'),
-            'city_id.required'=>__('failed_messages.zone.city_id.required'),
-            'city_id.numeric'=>__('failed_messages.zone.city_id.numeric'),
-            'city_id.exists'=>__('failed_messages.zone.city_id.exists'),
-            'store_id.required'=>__('failed_messages.zone.store_id.required'),
-            'store_id.numeric'=>__('failed_messages.zone.store_id.numeric'),
-            'store_id.exists'=>__('failed_messages.zone.store_id.exists'),
-            'status.required'=>__('failed_messages.zone.status.required'),
-            'status.boolean'=>__('failed_messages.zone.status.boolean'),
-            'postal_codes.required'=>__('failed_messages.zone.postal_codes.required'),
-            'postal_codes.string'=>__('failed_messages.zone.postal_codes.string'),
-            'postal_codes.regex'=>__('failed_messages.zone.postal_codes.regex'),
+        return [
+            'name.required' => __('failed_messages.zone.name.required'),
+            'name.string' => __('failed_messages.zone.name.string'),
+            'name.min' => __('failed_messages.zone.name.min'),
+            'name.max' => __('failed_messages.zone.name.max'),
+            'name.unique' => __('failed_messages.zone.name.unique'),
+            'city_id.required' => __('failed_messages.zone.city_id.required'),
+            'city_id.numeric' => __('failed_messages.zone.city_id.numeric'),
+            'city_id.exists' => __('failed_messages.zone.city_id.exists'),
+            'store_id.required' => __('failed_messages.zone.store_id.required'),
+            'store_id.numeric' => __('failed_messages.zone.store_id.numeric'),
+            'store_id.exists' => __('failed_messages.zone.store_id.exists'),
+            'status.required' => __('failed_messages.zone.status.required'),
+            'status.boolean' => __('failed_messages.zone.status.boolean'),
+            'postal_codes.required' => __('failed_messages.zone.postal_codes.required'),
+            'postal_codes.string' => __('failed_messages.zone.postal_codes.string'),
+            'postal_codes.regex' => __('failed_messages.zone.postal_codes.regex'),
 
         ];
     }

@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Attribute;
 
-use App\Models\Attribute;
-use App\Models\AttributeTranslation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -14,26 +12,6 @@ class UpdateRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function run($id)
-    {
-        $attribute = Attribute::findOrFail($id);
-        $attributeTranslation = AttributeTranslation::where('language_id', $this->language_id)->where('attribute_id', $id)->first();
-        if (!$attributeTranslation) {
-            $attributeTranslation = new AttributeTranslation();
-            $attributeTranslation->language_id = $this->language_id;
-            $attributeTranslation->attribute_id = $id;
-        }
-        $attributeTranslation->name = $this->name;
-        $attributeTranslation->save();
-
-        $attribute->entity_id = $this->entity_id;
-        $attribute->display_order = $this->display_order;
-        $attribute->isBoolean = $this->isBoolean;
-        $attribute->status = $this->status;
-        $attribute->save();
-        return redirect()->route('attributes.index')->with('edit-success',__('success_messages.attribute.edit.success'));
     }
 
     /**

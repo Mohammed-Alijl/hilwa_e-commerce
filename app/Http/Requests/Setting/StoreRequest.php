@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Setting;
 
-use App\Models\Setting;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -13,27 +12,6 @@ class StoreRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function run()
-    {
-        try {
-            $setting = new Setting();
-            $setting->display_name = $this->display_name;
-            $setting->namespace = $this->namespace;
-            $setting->key = $this->key;
-            if($this->filled('value'))
-                $setting->value = $this->value;
-            else
-            $setting->value = $this->boolean_value;
-
-            $setting->type = $this->type;
-            $setting->save();
-            return redirect()->back();
-        } catch (\Exception $ex) {
-            return redirect()->back()->withErrors($ex->getMessage());
-        }
-
     }
 
     /**

@@ -53,10 +53,10 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'max:255|string',
-            'email' => 'email|unique:drivers,email,' . $this->route('driver'),
+            'email' => 'email|unique:users,email,' . $this->route('driver'),
             'password' => 'same:confirm-password',
             'pic' => 'nullable|file|mimes:jpeg,jpg,png,svg|max:5000',
-            'mobile_number' => 'size:8|unique:drivers,mobile_number,' . $this->route('driver'),
+            'mobile_number' => 'size:8|unique:users,mobile_number,' . $this->route('driver'),
             'zone_id'=>'numeric|exists:zones,id',
             'address'=>'string|max:255',
             'status'=>'boolean',

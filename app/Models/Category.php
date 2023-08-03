@@ -17,6 +17,9 @@ class Category extends Model
       'image',
     ];
 
+    //=======================================================
+    //==================RELATIONSHIPS========================
+    //=======================================================
     public function parentCategory(){
         return $this->belongsTo(Category::class);
     }

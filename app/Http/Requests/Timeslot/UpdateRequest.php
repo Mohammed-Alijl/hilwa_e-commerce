@@ -15,34 +15,6 @@ class UpdateRequest extends FormRequest
         return true;
     }
 
-    public function run($id){
-        $fields = ['start_time', 'end_time', 'total_order', 'display_order','timeslot_id'];
-        if (!$this->hasEqualArrayCount($fields)) {
-            return redirect()->back()->withErrors('Some Thing Error');
-        }
-        foreach ($this->start_time as $index=>$start_time){
-            $timeslot = Timeslot::find($this->timeslot_id[$index]);
-            $timeslot->start_time = $this->start_time[$index];
-            $timeslot->end_time = $this->end_time[$index];
-            $timeslot->total_order = $this->total_order[$index];
-            $timeslot->display_order = $this->display_order[$index];
-            $timeslot->save();
-        }
-        return redirect()->route('timeslots.index')->with('edit-success',__('success_messages.timeslot.edit.success'));
-    }
-    private function hasEqualArrayCount($fields)
-    {
-        if(!isset($this->fields))
-            return false;
-        $count = count($this->{$fields[0]});
-        foreach ($fields as $field) {
-            if (count($this->{$field}) !== $count) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

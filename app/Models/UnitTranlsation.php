@@ -11,6 +11,10 @@ class UnitTranlsation extends Model
     protected $fillable = ['language_id','unit_id','name'];
 
 
+
+    //===============================================================
+    //========================== RELATIONSHips ======================
+    //===============================================================
     public function language()
     {
         return $this->belongsTo(Language::class);

@@ -15,6 +15,9 @@ class CategoryTranslation extends Model
         'name',
     ];
 
+    //=======================================================
+    //==================RELATIONSHIPS========================
+    //=======================================================
     public function language()
     {
         return $this->belongsTo(Language::class);

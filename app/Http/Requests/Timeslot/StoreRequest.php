@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Timeslot;
 
-use App\Models\Day;
-use App\Models\Timeslot;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -14,20 +12,6 @@ class StoreRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function run(){
-        $timeslot = new Timeslot();
-        $timeslot->day_id = $this->day_id;
-        $timeslot->start_time = $this->start_time;
-        $timeslot->end_time = $this->end_time;
-        $timeslot->total_order = $this->total_order;
-        $timeslot->display_order = $this->display_order;
-        $timeslot->save();
-        $day = Day::find($this->day_id);
-        $day->delivery_available = 1;
-        $day->save();
-        return redirect()->route('timeslots.index')->with('add-success',__('success_messages.timeslot.add.success'));
     }
 
     /**

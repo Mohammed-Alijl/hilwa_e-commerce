@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\ZipCode;
 
-use App\Models\ZipCode;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -13,14 +12,6 @@ class StoreRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function run(){
-        $zipCode = new ZipCode();
-        $zipCode->zip_code = $this->input('zip_code');
-        $zipCode->save();
-
-        return response()->json(['zip_code' => $zipCode->zip_code]);
     }
 
     /**
