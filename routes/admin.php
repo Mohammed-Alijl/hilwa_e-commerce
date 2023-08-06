@@ -7,14 +7,12 @@ use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\CustomerAddressController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DriverController;
-use App\Http\Controllers\Dashboard\FunctionSettingController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\StateController;
 use App\Http\Controllers\Dashboard\StoreController;
 use App\Http\Controllers\Dashboard\TimeslotController;
 use App\Http\Controllers\Dashboard\UnitController;
-use App\Http\Controllers\Dashboard\ZipCodeController;
 use App\Http\Controllers\Dashboard\ZoneController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +46,8 @@ Route::prefix('admin')->group(function () {
                 'categories' => CategoryController::class,
             ]);
 
+            Route::get('/',[\App\Http\Controllers\Dashboard\DashboardController::class,'create']);
+
             //==========================================
             //==AJAX====================================
             //==========================================
@@ -56,8 +56,8 @@ Route::prefix('admin')->group(function () {
             Route::get('unit-languages/{langId}/{unitId}', [UnitController::class, 'getUnitLanguages']);
             Route::get('store-languages/{langId}/{storeId}', [StoreController::class, 'getStoreLanguages']);
             Route::get('attribute-languages/{langId}/{storeId}', [AttributeController::class, 'getAttributeLanguages']);
-            Route::post('/zip-codes', [ZipCodeController::class, 'store'])->name('zip-codes.store');
-            Route::put('/static-settings', [FunctionSettingController::class, 'staticSetting'])->name('staticSetting.update');
+            Route::post('/zip-codes', [SettingController::class, 'addZipCode'])->name('zip-codes.store');
+            Route::put('/static-settings', [SettingController::class, 'staticSetting'])->name('staticSetting.update');
             Route::get('/lookup-location', [CustomerController::class, 'lookupLocation'])->name('location');
             Route::post('/check-email', [AdminController::class, 'checkEmail']);
             Route::post('/check-mobile', [AdminController::class, 'checkMobile']);

@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\Attribute\StoreRequest;
 use App\Http\Requests\Attribute\UpdateRequest;
-use App\Models\Attribute;
-use App\Models\AttributeTranslation;
-use App\Models\Entity;
-use App\Models\Language;
+use App\Repositories\AttributeRepository;
+use App\Repositories\EntityRepository;
+use App\Repositories\LanguageRepository;
 
 class AttributeController extends Controller
 {
-    function __construct()
+    function __construct(private AttributeRepository $attributeRepository,
+                         private EntityRepository    $entityRepository,
+                         private LanguageRepository  $languageRepository
+    )
     {
         $this->middleware('permission:view_attribute', ['only' => ['index', 'show']]);
         $this->middleware('permission:add_attribute', ['only' => ['create', 'store']]);
@@ -24,7 +26,7 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        $attributes = Attribute::get();
+        $attributes = $this->attributeRepository->getAll();
         $rowNumber = 1;
         return view('dashboard.attributes.index', compact('attributes', 'rowNumber'));
     }
@@ -34,7 +36,7 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        $entities = Entity::get();
+        $entities = $this->entityRepository->getAll();
         return view('dashboard.attributes.create', compact('entities'));
     }
 
@@ -43,17 +45,7 @@ class AttributeController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $attribute = new Attribute();
-        $attribute->entity_id = $request->entity_id;
-        $attribute->display_order = $request->display_order;
-        $attribute->isBoolean = $request->isBoolean;
-        $attribute->status = $request->status;
-        $attribute->save();
-        $attributeTranslation = new AttributeTranslation();
-        $attributeTranslation->name = $request->name;
-        $attributeTranslation->attribute_id = $attribute->id;
-        $attributeTranslation->language_id = 1;
-        $attributeTranslation->save();
+        $this->attributeRepository->create($request);
         return redirect()->route('attributes.index')->with('add-success', __('success_messages.attribute.add.success'));
     }
 
@@ -70,9 +62,9 @@ class AttributeController extends Controller
      */
     public function edit(string $id)
     {
-        $languages = Language::get();
-        $attribute = Attribute::find($id);
-        $entities = Entity::get();
+        $languages = $this->languageRepository->getAll();
+        $attribute = $this->attributeRepository->find($id);
+        $entities = $this->entityRepository->getAll();
         return view('dashboard.attributes.edit', compact('languages', 'attribute', 'entities'));
     }
 
@@ -81,21 +73,7 @@ class AttributeController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $attribute = Attribute::findOrFail($id);
-        $attributeTranslation = AttributeTranslation::where('language_id', $request->language_id)->where('attribute_id', $id)->first();
-        if (!$attributeTranslation) {
-            $attributeTranslation = new AttributeTranslation();
-            $attributeTranslation->language_id = $request->language_id;
-            $attributeTranslation->attribute_id = $id;
-        }
-        $attributeTranslation->name = $request->name;
-        $attributeTranslation->save();
-
-        $attribute->entity_id = $request->entity_id;
-        $attribute->display_order = $request->display_order;
-        $attribute->isBoolean = $request->isBoolean;
-        $attribute->status = $request->status;
-        $attribute->save();
+        $this->attributeRepository->update($request, $id);
         return redirect()->route('attributes.index')->with('edit-success', __('success_messages.attribute.edit.success'));
     }
 
@@ -104,17 +82,13 @@ class AttributeController extends Controller
      */
     public function destroy(string $id)
     {
-        $attribute = Attribute::findOrFail($id);
-        //here should edit it to check if there any category or product use this attribute should prevent delete
-        $attribute->delete();
+        $this->attributeRepository->delete($id);
         return redirect()->route('attributes.index')->with('delete-success', __('success_messages.attribute.delete.success'));
     }
 
     public function getAttributeLanguages($langId, $attributeId)
     {
-        $attributeTranslation = AttributeTranslation::where('attribute_id', $attributeId)
-            ->where('language_id', $langId)
-            ->first();
+        $attributeTranslation = $this->attributeRepository->getAttributeLanguages($langId, $attributeId);
 
         if (!$attributeTranslation) {
             return json_decode('');

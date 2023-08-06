@@ -31,7 +31,9 @@ return [
     //===================================================================================
     // SETTINGS==========================================================================
     //===================================================================================
-    'setting.delete'=>'Setting was deleted successfully',
+    'setting.add.success'=>'Setting Was Added Successfully',
+    'setting.edit.success'=>'Setting Was Modified Successfully',
+    'setting.delete.success'=>'Setting was deleted successfully',
 
     //===================================================================================
     // CITIES============================================================================

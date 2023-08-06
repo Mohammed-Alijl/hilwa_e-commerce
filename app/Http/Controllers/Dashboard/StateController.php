@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\State;
+use App\Repositories\StateRepository;
 use Illuminate\Http\Request;
 
 class StateController extends Controller
 {
+    public function __construct(private StateRepository $stateRepository)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -63,9 +67,10 @@ class StateController extends Controller
         //
     }
 
-    public function getStateCities($id){
-        $state = State::find($id);
-        $cities = $state->cities->pluck('name','id');
+    public function getStateCities($id)
+    {
+        $state = $this->stateRepository->find($id);
+        $cities = $state->cities->pluck('name', 'id');
         return json_encode($cities);
     }
 }

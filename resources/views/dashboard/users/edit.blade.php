@@ -200,7 +200,7 @@
                                                        for="inputRole">{{__('Front-end/pages/users.role')}}</label>
                                                 <select name="roles_name" id="inputRole" class="form-control" required>
                                                     @foreach($roles as $role)
-                                                        @if($role->name == 'Admin')
+                                                        @if($role == 'Admin')
                                                             @continue
                                                         @endif
                                                         <option {{ $role == $userRole ? 'selected' : '' }} value="{{$role}}">{{$role}}</option>

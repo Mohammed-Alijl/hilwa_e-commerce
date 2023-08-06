@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\Unit\StoreRequest;
 use App\Http\Requests\Unit\UpdateRequest;
-use App\Models\Language;
-use App\Models\Unit;
-use App\Models\UnitTranlsation;
+use App\Repositories\LanguageRepository;
+use App\Repositories\UnitRepository;
 
 class UnitController extends Controller
 {
-    function __construct()
+    function __construct(private UnitRepository $unitRepository, private LanguageRepository $languageRepository)
     {
         $this->middleware('permission:view_unit', ['only' => ['index', 'show']]);
         $this->middleware('permission:add_unit', ['only' => ['create', 'store']]);
@@ -24,8 +23,8 @@ class UnitController extends Controller
     public function index()
     {
         $rowNumber = 1;
-        $units = Unit::get();
-        $languages = Language::get();
+        $units = $this->unitRepository->getAll();
+        $languages = $this->languageRepository->getAll();
         return view('dashboard.units.index', compact('rowNumber', 'units', 'languages'));
     }
 
@@ -42,13 +41,7 @@ class UnitController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $unit = new Unit();
-        $unit->save();
-        $unitTranslation = new UnitTranlsation();
-        $unitTranslation->unit_id = $unit->id;
-        $unitTranslation->language_id = 1;
-        $unitTranslation->name = $request->name;
-        $unitTranslation->save();
+        $this->unitRepository->create($request);
         return redirect()->back()->with('add-success', __('success_messages.unit.add.success'));
     }
 
@@ -73,16 +66,7 @@ class UnitController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $unitTranslation = UnitTranlsation::where('unit_id', $request->id)
-            ->where('language_id', $request->language_id)
-            ->first();
-        if (!$unitTranslation) {
-            $unitTranslation = new UnitTranlsation();
-            $unitTranslation->language_id = $request->language_id;
-            $unitTranslation->unit_id = $request->id;
-        }
-        $unitTranslation->name = $request->name;
-        $unitTranslation->save();
+        $this->unitRepository->update($request, $id);
         return redirect()->back()->with('edit-success', __('success_messages.unit.edit.success'));
     }
 
@@ -91,18 +75,13 @@ class UnitController extends Controller
      */
     public function destroy(string $id)
     {
-        $unit = Unit::findOrFail($id);
-        //here should edit it when you make product to check if any product use the unit prevent delete
-        $unit->delete();
+        $this->unitRepository->delete($id);
         return redirect()->back()->with('delete-success', __('success_messages.unit.delete.success'));
     }
 
     public function getUnitLanguages($langId, $unitId)
     {
-        $unitTranslation = UnitTranlsation::where('unit_id', $unitId)
-            ->where('language_id', $langId)
-            ->first();
-
+        $unitTranslation = $this->unitRepository->getUnitLanguages($langId, $unitId);
         if (!$unitTranslation) {
             return json_decode('');
         }

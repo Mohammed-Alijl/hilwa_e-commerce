@@ -4,21 +4,26 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\Driver\StoreRequest;
 use App\Http\Requests\Driver\UpdateRequest;
-use App\Models\State;
-use App\Models\User;
-use App\Traits\AttachmentTrait;
-use Illuminate\Support\Facades\Hash;
+use App\Repositories\DriverRepository;
+use App\Repositories\StateRepository;
 
 class DriverController extends Controller
 {
-    use AttachmentTrait;
+    public function __construct(private DriverRepository $driverRepository, private StateRepository $stateRepository)
+    {
+        $this->middleware('permission:view_driver', ['only' => ['index', 'show']]);
+        $this->middleware('permission:add_driver', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit_driver', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete_driver', ['only' => ['destroy']]);
+    }
+
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $drivers = User::where('type', 'driver')->get();
+        $drivers = $this->driverRepository->getAll();
         return view('dashboard.drivers.index', compact('drivers'));
     }
 
@@ -27,7 +32,7 @@ class DriverController extends Controller
      */
     public function create()
     {
-        $states = State::get();
+        $states = $this->stateRepository->getAll();
         return view('dashboard.drivers.create', compact('states'));
     }
 
@@ -36,21 +41,7 @@ class DriverController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $driver = new User();
-        $driver->name = $request->first_name . " " . $request->last_name;
-        $driver->email = $request->email;
-        $driver->mobile_number = $request->mobile_number;
-        $driver->password = Hash::make($request->password);
-        $driver->zone_id = $request->zone_id;
-        $driver->address = $request->address;
-        if ($files = $request->file('pic')) {
-            $imageName = $this->save_attachment($files, "img/drivers");
-        } else
-            $imageName = 'default.png';
-        $driver->status = $request->status;
-        $driver->image = $imageName;
-        $driver->type = 'driver';
-        $driver->save();
+        $this->driverRepository->create($request);
         return redirect()->route('drivers.index')
             ->with('add-success', __('success_messages.driver.add.success'));
     }
@@ -60,7 +51,7 @@ class DriverController extends Controller
      */
     public function show(string $id)
     {
-        $driver = User::find($id);
+        $driver = $this->driverRepository->find($id);
         return view('dashboard.drivers.show', compact('driver'));
     }
 
@@ -69,8 +60,8 @@ class DriverController extends Controller
      */
     public function edit(string $id)
     {
-        $driver = User::findOrFail($id);
-        $states = State::get();
+        $driver = $this->driverRepository->find($id);
+        $states = $this->stateRepository->getAll();
         return view('dashboard.drivers.edit', compact('driver', 'states'));
     }
 
@@ -79,26 +70,7 @@ class DriverController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $driver = User::findOrFail($id);
-        if ($request->filled('name'))
-            $driver->name = $request->name;
-        if ($request->filled('password'))
-            $driver->password = Hash::make($request->password);
-        if ($request->filled('email'))
-            $driver->email = $request->email;
-        if ($request->filled('address'))
-            $driver->address = $request->address;
-        if ($request->filled('zone_id'))
-            $driver->zone_id = $request->zone_id;
-        if ($request->filled('status'))
-            $driver->status = $request->status;
-        if ($files = $request->file('pic')) {
-            if ($driver->image != 'default.png')
-                $this->delete_attachment('img/drivers/' . $driver->image);
-            $imageName = $this->save_attachment($files, "img/drivers");
-            $driver->image = $imageName;
-        }
-        $driver->save();
+        $this->driverRepository->update($request, $id);
         return redirect()->route('drivers.index')->with('edit-success', __('success_messages.driver.edit.success'));
     }
 
@@ -107,10 +79,7 @@ class DriverController extends Controller
      */
     public function destroy(string $id)
     {
-        $driver = User::findOrFail($id);
-        if ($driver->image != 'default.png')
-            $this->delete_attachment('img/drivers/' . $driver->image);
-        $driver->delete();
+        $this->driverRepository->delete($id);
         return redirect()->route('drivers.index')->with('delete-success', __('success_messages.driver.delete.success'));
     }
 }

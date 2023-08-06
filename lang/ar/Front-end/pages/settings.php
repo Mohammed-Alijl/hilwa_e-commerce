@@ -28,5 +28,7 @@ return [
     'confirm.place.order' => 'تأكيد طلب المكان',
     'create.new.order.back.office' => 'إنشاء طلب جديد من مكتب الخلفية',
     'show.unavailable.offers' => 'اظهار العروض غير المتوفرة',
+    'edited'=>'تم التعديل',
+    'setting.add'=>'تم اضافة الاعداد',
 
 ];

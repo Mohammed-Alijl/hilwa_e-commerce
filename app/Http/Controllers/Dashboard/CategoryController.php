@@ -2,18 +2,26 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Category;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function __construct(private CategoryRepository $categoryRepository)
+    {
+        $this->middleware('permission:view_category', ['only' => ['index', 'show']]);
+        $this->middleware('permission:add_category', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit_category', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete_category', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Category::get();
-        return view('dashboard.categories.index',compact('categories'));
+        $categories = $this->categoryRepository->getAll();
+        return view('dashboard.categories.index', compact('categories'));
     }
 
     /**

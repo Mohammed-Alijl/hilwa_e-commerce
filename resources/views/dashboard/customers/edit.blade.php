@@ -734,7 +734,7 @@
             // Send an AJAX request or submit a form to the delete route
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '{{ route('address.destroy', ['address' => '__addressId__']) }}'.replace('__addressId__', addressId);
+            form.action = '{{ route('addresses.destroy', ['address' => '__addressId__']) }}'.replace('__addressId__', addressId);
             form.innerHTML = `<input type="hidden" name="_method" value="DELETE">`;
             form.innerHTML = `<input type="hidden" name="id" value="${addressId}">`;
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

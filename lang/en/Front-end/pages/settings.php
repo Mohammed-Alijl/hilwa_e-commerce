@@ -28,4 +28,6 @@ return [
     'confirm.place.order'=>'Confirm Place Order',
     'create.new.order.back.office'=>'Create New Order from Back Office',
     'show.unavailable.offers'=>'Show Unavailable Offers',
+    'edited'=>'Edited!',
+    'setting.add'=>'Setting Was Added!',
 ];

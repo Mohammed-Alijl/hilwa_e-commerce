@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\CustomerAddress;
+use App\Repositories\CustomerAddressRepository;
 use Illuminate\Http\Request;
 
 class CustomerAddressController extends Controller
 {
+    public function __construct(private CustomerAddressRepository $addressRepository)
+    {
+
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -60,8 +65,7 @@ class CustomerAddressController extends Controller
      */
     public function destroy(string $id)
     {
-        $address = CustomerAddress::findOrFail($id);
-        $address->delete();
+        $this->addressRepository->delete($id);
         return redirect()->back()->with('delete-success', __('success_messages.address.delete.success'));
     }
 }

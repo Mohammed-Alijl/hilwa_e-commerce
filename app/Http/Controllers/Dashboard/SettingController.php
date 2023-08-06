@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Requests\Setting\StoreRequest;
 use App\Http\Requests\Setting\UpdateRequest;
 use App\Models\Setting;
-use App\Models\ZipCode;
+use App\Repositories\SettingRepository;
+use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
-    function __construct()
+    function __construct(private SettingRepository $settingRepository)
     {
         $this->middleware('permission:view_setting', ['only' => ['index', 'show']]);
         $this->middleware('permission:add_setting', ['only' => ['create', 'store']]);
@@ -22,9 +23,9 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $settings = Setting::get();
+        $settings = $this->settingRepository->getAll();
         $setting = new Setting();
-        $zipCodes = ZipCode::get();
+        $zipCodes = $this->settingRepository->getZipCodes();
         return view('dashboard.settings.index', compact('settings', 'setting', 'zipCodes'));
     }
 
@@ -42,18 +43,8 @@ class SettingController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            $setting = new Setting();
-            $setting->display_name = $request->display_name;
-            $setting->namespace = $request->namespace;
-            $setting->key = $request->key;
-            if ($request->filled('value'))
-                $setting->value = $request->value;
-            else
-                $setting->value = $request->boolean_value;
-
-            $setting->type = $request->type;
-            $setting->save();
-            return redirect()->back();
+            $this->settingRepository->create($request);
+            return redirect()->back()->with('add-success', __('success_messages.setting.add.success'));
         } catch (\Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
@@ -81,22 +72,8 @@ class SettingController extends Controller
     public function update(UpdateRequest $request)
     {
         try {
-            $setting = Setting::findOrFail($request->id);
-            if ($request->filled('display_name'))
-                $setting->display_name = $request->display_name;
-            if ($request->filled('namespace'))
-                $setting->namespace = $request->namespace;
-            if ($request->filled('key'))
-                $setting->key = $request->key;
-            if ($request->filled('value'))
-                $setting->value = $request->value;
-            else $setting->value = $request->boolean_value;
-            if ($request->filled('type'))
-                $setting->type = $request->type;
-            if ($setting->save())
-                return redirect()->route('settings.index');
-            else
-                return redirect()->back()->withErrors('failed', 'Failed to edit the setting');
+            $this->settingRepository->update($request, $request->id);
+            return redirect()->route('settings.index')->with('edit-success', __('success_messages.setting.edit.success'));
         } catch (\Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
@@ -108,13 +85,24 @@ class SettingController extends Controller
     public function destroy(string $id)
     {
         try {
-            $setting = Setting::findOrFail($id);
-            if ($setting->delete())
-                return redirect()->route('settings.index')->with('delete-success', __('success_messages.setting.delete'));
+            if ($this->settingRepository->delete($id))
+                return redirect()->route('settings.index')->with('delete-success', __('success_messages.setting.delete.success'));
             else
                 return redirect()->back()->withErrors('failed', 'failed to delete the setting');
         } catch (\Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
+    }
+
+    public function staticSetting(Request $request)
+    {
+        $this->settingRepository->staticSetting($request);
+        return redirect()->back();
+    }
+
+    public function addZipCode(\App\Http\Requests\ZipCode\StoreRequest $request)
+    {
+        $zipCode = $this->settingRepository->addZipCode($request);
+        return response()->json(['zip_code' => $zipCode->zip_code]);
     }
 }

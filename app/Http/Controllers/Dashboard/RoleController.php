@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\Role\StoreRequest;
 use App\Http\Requests\Role\UpdateRequest;
-use Spatie\Permission\Models\Permission;
+use App\Repositories\RoleRepository;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 
@@ -15,27 +15,12 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
+    function __construct(private RoleRepository $roleRepository)
     {
         $this->middleware('permission:view_role', ['only' => ['index', 'show']]);
         $this->middleware('permission:add_role', ['only' => ['create', 'store']]);
         $this->middleware('permission:edit_role', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete_role', ['only' => ['destroy']]);
-    }
-
-    protected $methods = ['view', 'add', 'edit', 'delete'];
-    protected $models = ['dashboard', 'order', 'customer', 'driver', 'contact-request', 'review', 'category', 'product',
-        'attribute', 'return', 'comment', 'advertisement', 'marketing', 'coupon', 'unit', 'store', 'setting', 'timeslot', 'user',
-        'role', 'city', 'zone', 'log', 'reward', 'cms-page', 'holiday', 'chat', 'order-status', 'pre-sales-customer', 'payment-services'];
-
-    public function getMethods()
-    {
-        return $this->methods;
-    }
-
-    public function getModels()
-    {
-        return $this->models;
     }
 
     /**
@@ -45,7 +30,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::orderBy('id', 'Asc')->paginate(5);
+        $roles = $this->roleRepository->getAll();
         $rowNumber = 1;
         return view('dashboard.roles.index', compact('roles', 'rowNumber'));
     }
@@ -57,9 +42,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permission = Permission::get();
-        $methods = $this->getMethods();
-        $models = $this->getModels();
+        $permission = $this->roleRepository->getPermissions();
+        $methods = $this->roleRepository->getMethods();
+        $models = $this->roleRepository->getModels();
         return view('dashboard.roles.create', compact('permission', 'methods', 'models'));
     }
 
@@ -71,14 +56,7 @@ class RoleController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $role = new Role();
-        $role->name = $request->name;
-        $role->guard_name = 'admin';
-        $role->save();
-
-        $permissions = Permission::whereIn('name', $request->permission)->get();
-        $role->syncPermissions($permissions);
-
+        $this->roleRepository->create($request);
         return redirect()->route('roles.index')->with('add-success', __('success_messages.role.add'));
     }
 
@@ -90,7 +68,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->roleRepository->find($id);
         $rolePermissions = $role->permissions->pluck('name')->toArray();
         $methods = $this->getMethods();
         $models = $this->getModels();
@@ -109,10 +87,10 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         if ($role->name == "Admin")
             abort(403);
-        $permissions = Permission::get();
+        $permissions = $this->roleRepository->getPermissions();
         $rolePermissions = $role->permissions->pluck('name')->toArray();
-        $methods = $this->getMethods();
-        $models = $this->getModels();
+        $methods = $this->roleRepository->getMethods();
+        $models = $this->roleRepository->getModels();
 
         return view('dashboard.roles.edit', compact('role', 'permissions', 'rolePermissions', 'methods', 'models'));
     }
@@ -126,12 +104,7 @@ class RoleController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        $role = Role::findOrFail($id);
-        if ($request->filled('name'))
-            $role->name = $request->name;
-        $role->save();
-        $permissions = Permission::whereIn('name', $request->permission)->get();
-        $role->syncPermissions($permissions);
+        $this->roleRepository->update($request, $id);
 
         return redirect()->route('roles.index')
             ->with('edit-success', __('success_messages.role.edit'));
@@ -146,8 +119,7 @@ class RoleController extends Controller
      */
     public function destroy(Request $request)
     {
-        $role = Role::findOrFail($request->id);
-        $role->delete();
+        $this->roleRepository->delete($request->id);
         return redirect()->route('roles.index')
             ->with('delete-success', __('success_messages.role.destroy'));
     }

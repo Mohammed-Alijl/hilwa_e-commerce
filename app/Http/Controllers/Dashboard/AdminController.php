@@ -4,21 +4,24 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
-use App\Models\Admin;
-use App\Models\State;
 use App\Models\User;
+use App\Repositories\RoleRepository;
+use App\Repositories\StateRepository;
+use App\Repositories\UserRepository;
 use App\Traits\AttachmentTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
+    private $userRepository, $stateRepository, $roleRepository;
     use AttachmentTrait;
 
-    function __construct()
+    function __construct(UserRepository $userRepository, StateRepository $stateRepository, RoleRepository $roleRepository)
     {
+        $this->userRepository = $userRepository;
+        $this->stateRepository = $stateRepository;
+        $this->roleRepository = $roleRepository;
         $this->middleware('permission:view_user', ['only' => ['index', 'show']]);
         $this->middleware('permission:add_user', ['only' => ['create', 'store']]);
         $this->middleware('permission:edit_user', ['only' => ['edit', 'update']]);
@@ -32,7 +35,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = Admin::orderBy('id', 'DESC')->get();
+        $users = $this->userRepository->getAll();
         $rowNumber = 1;
         return view('dashboard.users.index', compact('users', 'rowNumber'));
     }
@@ -44,8 +47,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
-        $states = State::get();
+        $roles = $this->roleRepository->getAll();
+        $states = $this->stateRepository->getAll();
         return view('dashboard.users.create', compact('roles', 'states'));
     }
 
@@ -58,23 +61,10 @@ class AdminController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            $user = new Admin();
-            $user->first_name = $request->first_name;
-            $user->last_name = $request->last_name;
-            $user->email = $request->email;
-            $user->mobile_number = $request->mobile_number;
-            $user->password = Hash::make($request->password);
-            $user->roles_name = $request->roles_name;
-            $user->city_id = $request->city_id;
-            $user->code = $request->code;
-            $user->address = $request->address;
-            $user->limit_state = $request->has('limit_state');
-            if ($files = $request->file('pic')) {
-                $imageName = $this->save_attachment($files, "img/admins");
-            } else
-                $imageName = 'default.png';
-            $user->image = $imageName;
-            $user->save();
+            $adminData = $request->only(['first_name','last_name','email','mobile_number','password','roles_name','city_id','code','address']);
+            $adminData += ['limit_state'=>$request->has('limit_state')];
+            $adminData += ['image' => $request->file('pic') ? $this->save_attachment($request->file('pic'), "img/admins") : 'default.png'];
+            $user = $this->userRepository->create($adminData);
 
             $user->assignRole($request->roles_name);
 
@@ -94,7 +84,7 @@ class AdminController extends Controller
     public function show($id)
     {
         try {
-            $user = Admin::findOrFail($id);
+            $user = $this->userRepository->find($id);
             $userRole = $user->roles->pluck('name', 'name')->all();
             return view('dashboard.users.show', compact('user', 'userRole'));
         } catch (\Exception $ex) {
@@ -111,12 +101,12 @@ class AdminController extends Controller
     public function edit($id)
     {
         try {
-            $user = Admin::findOrFail($id);
+            $user = $this->userRepository->find($id);
             if ($user->roles->pluck('name', 'name')->first() == "Admin")
                 abort(403);
             $roles = Role::pluck('name', 'name')->all();
             $userRole = $user->roles->pluck('name', 'name')->first();
-            $states = State::get();
+            $states = $this->stateRepository->getAll();
             return view('dashboard.users.edit', compact('user', 'roles', 'userRole', 'states'));
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
@@ -132,40 +122,8 @@ class AdminController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        try {
-            $user = Admin::findOrFail($id);
-            if ($request->filled('password')) {
-                $user->password = Hash::make($request->password);
-                $user->save();
-                return redirect()->route('users.index')->with('edit-success', __('success_messages.password.change'));
-            }
-            if ($request->filled('first_name'))
-                $user->first_name = $request->first_name;
-            if ($request->filled('last_name'))
-                $user->last_name = $request->last_name;
-            if ($request->filled('email'))
-                $user->email = $request->email;
-            if ($request->filled('mobile_number'))
-                $user->mobile_number = $request->mobile_number;
-            if ($request->filled('city_id'))
-                $user->city_id = $request->city_id;
-            if ($request->filled('roles_name'))
-                $user->roles_name = $request->roles_name;
-            if ($files = $request->file('pic')) {
-                if ($user->image != 'default.png')
-                    $this->delete_attachment('img/admins/' . $user->image);
-                $imageName = $this->save_attachment($files, "img/admins");
-                $user->image = $imageName;
-            }
-            if ($user->save()) {
-                DB::table('model_has_roles')->where('model_id', $id)->delete();
-                $user->assignRole($request->roles_name);
+       $this->userRepository->update($request,$id);
                 return redirect()->route('users.index')->with('edit-success', __('success_messages.data.edit'));
-            } else
-                return redirect()->withErrors(__('failed_messages.failed'));
-        } catch (Exception $ex) {
-            return redirect()->back()->withErrors($ex->getMessage());
-        }
     }
 
     /**
@@ -176,19 +134,9 @@ class AdminController extends Controller
      */
     public function destroy(Request $request)
     {
-        try {
-            $user = Admin::find($request->id);
-            if (!$user)
-                return redirect()->back()->withErrors(__('failed_messages.user.notFound'));
-            if ($user->image != 'default.png')
-                $this->delete_attachment('img/admins/' . $user->image);
-            if ($user->delete()) {
-                return redirect()->back()->with('delete-message', __('success_messages.user.destroy'));
-            } else
-                return redirect()->back()->withErrors(__('failed_messages.failed'));
-        } catch (\Exception $ex) {
-            return redirect()->back()->withErrors($ex->getMessage());
-        }
+        $this->userRepository->delete($request->id);
+        return redirect()->back()->with('delete-message', __('success_messages.user.destroy'));
+
     }
 
 

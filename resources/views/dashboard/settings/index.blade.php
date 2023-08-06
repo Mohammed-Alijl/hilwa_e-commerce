@@ -385,233 +385,243 @@
 
 
     </div>
-    @section('scripts')
-        <script src="{{URL::asset('js/datatables.js')}}"></script>
+@endsection
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Datatables Responsive
-                $("#datatables-reponsive").DataTable({
-                    responsive: true
-                });
+@section('scripts')
+    <script src="{{URL::asset('js/datatables.js')}}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Datatables Responsive
+            $("#datatables-reponsive").DataTable({
+                responsive: true
             });
-        </script>
+        });
+    </script>
 
-        <script>
-            function deletes(settingId) {
-                Swal.fire({
-                    title: '{{__('Front-end/pages/users.are.you.sure')}}',
-                    text: "{{__('Front-end/pages/users.not.able.revert')}}",
-                    icon: 'error',
-                    showCancelButton: false,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: '{{__('Front-end/pages/users.delete')}}'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Perform the delete operation here
-                        deleteSetting(settingId);
+    <script>
+        function deletes(settingId) {
+            Swal.fire({
+                title: '{{__('Front-end/pages/users.are.you.sure')}}',
+                text: "{{__('Front-end/pages/users.not.able.revert')}}",
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: '{{__('Front-end/pages/users.delete')}}'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Perform the delete operation here
+                    deleteSetting(settingId);
+                }
+            })
+        }
+
+        function deleteSetting(settingId) {
+            // Send an AJAX request or submit a form to the delete route
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ route('settings.destroy', ['setting' => '__settingId__']) }}'.replace('__settingId__', settingId);
+            form.innerHTML = `<input type="hidden" name="_method" value="DELETE">`;
+            form.innerHTML = `<input type="hidden" name="id" value="${settingId}">`;
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken;
+
+            form.appendChild(csrfInput);
+            form.innerHTML += `<input type="hidden" name="_method" value="DELETE">`;
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation');
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+        })();
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            const addTypeSelect = $('#type');
+            const addValueInput = $('#value');
+            const addBooleanOptionsSelect = $('#booleanOptionsSelect');
+
+            const editTypeSelect = $('#edit_type');
+            const editValueInput = $('#edit_value');
+            const editBooleanOptionsSelect = $('#edit_booleanOptionsSelect');
+
+            function handleTypeChange(selectedType, valueInput, booleanOptionsSelect) {
+                if (selectedType === 'boolean') {
+                    if (valueInput.is(':visible')) {
+                        valueInput.replaceWith(booleanOptionsSelect);
+                        booleanOptionsSelect.show();
                     }
-                })
-            }
+                } else {
+                    if (booleanOptionsSelect.is(':visible')) {
+                        booleanOptionsSelect.replaceWith(valueInput);
+                        booleanOptionsSelect.hide();
+                    }
 
-            function deleteSetting(settingId) {
-                // Send an AJAX request or submit a form to the delete route
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '{{ route('settings.destroy', ['setting' => '__settingId__']) }}'.replace('__settingId__', settingId);
-                form.innerHTML = `<input type="hidden" name="_method" value="DELETE">`;
-                form.innerHTML = `<input type="hidden" name="id" value="${settingId}">`;
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                const csrfInput = document.createElement('input');
-                csrfInput.type = 'hidden';
-                csrfInput.name = '_token';
-                csrfInput.value = csrfToken;
+                    valueInput.val('').removeClass('is-invalid');
 
-                form.appendChild(csrfInput);
-                form.innerHTML += `<input type="hidden" name="_method" value="DELETE">`;
-
-                document.body.appendChild(form);
-                form.submit();
-            }
-        </script>
-
-        <script>
-            (function () {
-                'use strict';
-
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.querySelectorAll('.needs-validation');
-
-                // Loop over them and prevent submission
-                Array.prototype.slice.call(forms)
-                    .forEach(function (form) {
-                        form.addEventListener('submit', function (event) {
-                            if (!form.checkValidity()) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-            })();
-        </script>
-
-        <script>
-            $(document).ready(function() {
-                const addTypeSelect = $('#type');
-                const addValueInput = $('#value');
-                const addBooleanOptionsSelect = $('#booleanOptionsSelect');
-
-                const editTypeSelect = $('#edit_type');
-                const editValueInput = $('#edit_value');
-                const editBooleanOptionsSelect = $('#edit_booleanOptionsSelect');
-
-                function handleTypeChange(selectedType, valueInput, booleanOptionsSelect) {
-                    if (selectedType === 'boolean') {
-                        if (valueInput.is(':visible')) {
-                            valueInput.replaceWith(booleanOptionsSelect);
-                            booleanOptionsSelect.show();
-                        }
+                    if (selectedType === 'integer') {
+                        valueInput.attr('pattern', '^\\d+$');
+                    } else if (selectedType === 'float') {
+                        valueInput.attr('pattern', '^\\d+(\\.\\d+)?$');
+                    } else if (selectedType === 'color') {
+                        valueInput.attr('pattern', '^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$');
                     } else {
-                        if (booleanOptionsSelect.is(':visible')) {
-                            booleanOptionsSelect.replaceWith(valueInput);
-                            booleanOptionsSelect.hide();
-                        }
-
-                        valueInput.val('').removeClass('is-invalid');
-
-                        if (selectedType === 'integer') {
-                            valueInput.attr('pattern', '^\\d+$');
-                        } else if (selectedType === 'float') {
-                            valueInput.attr('pattern', '^\\d+(\\.\\d+)?$');
-                        } else if (selectedType === 'color') {
-                            valueInput.attr('pattern', '^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$');
-                        } else {
-                            valueInput.removeAttr('pattern');
-                        }
+                        valueInput.removeAttr('pattern');
                     }
                 }
+            }
 
-                // Add modal type change event
-                addTypeSelect.on('change', function() {
-                    const selectedType = addTypeSelect.val();
-                    handleTypeChange(selectedType, addValueInput, addBooleanOptionsSelect);
-                });
+            // Add modal type change event
+            addTypeSelect.on('change', function() {
+                const selectedType = addTypeSelect.val();
+                handleTypeChange(selectedType, addValueInput, addBooleanOptionsSelect);
+            });
 
-                // Edit modal type change event
-                editTypeSelect.on('change', function() {
-                    const selectedType = editTypeSelect.val();
-                    handleTypeChange(selectedType, editValueInput, editBooleanOptionsSelect);
-                });
+            // Edit modal type change event
+            editTypeSelect.on('change', function() {
+                const selectedType = editTypeSelect.val();
+                handleTypeChange(selectedType, editValueInput, editBooleanOptionsSelect);
+            });
 
-                // Edit modal show event
-                $('#edit').on('show.bs.modal', function (event) {
-                    const link = $(event.relatedTarget);
-                    const settingId = link.data('setting-id');
-                    const displayName = link.data('setting-display-name');
-                    const value = link.data('setting-value');
-                    const key = link.data('setting-key');
-                    const type = link.data('setting-type');
-                    const namespace = link.data('setting-namespace');
+            // Edit modal show event
+            $('#edit').on('show.bs.modal', function (event) {
+                const link = $(event.relatedTarget);
+                const settingId = link.data('setting-id');
+                const displayName = link.data('setting-display-name');
+                const value = link.data('setting-value');
+                const key = link.data('setting-key');
+                const type = link.data('setting-type');
+                const namespace = link.data('setting-namespace');
 
-                    const form = $(this).find('form');
-                    form.attr('action', form.attr('action').replace(/\/\d+$/, '/' + settingId));
+                const form = $(this).find('form');
+                form.attr('action', form.attr('action').replace(/\/\d+$/, '/' + settingId));
 
-                    $('#edit_display_name').val(displayName);
-                    $('#edit_key').val(key);
-                    $('#edit_namespace').val(namespace);
-                    $('#edit_id').val(settingId);
-                    editTypeSelect.val(type);
-                    handleTypeChange(type, editValueInput, editBooleanOptionsSelect);
+                $('#edit_display_name').val(displayName);
+                $('#edit_key').val(key);
+                $('#edit_namespace').val(namespace);
+                $('#edit_id').val(settingId);
+                editTypeSelect.val(type);
+                handleTypeChange(type, editValueInput, editBooleanOptionsSelect);
 
-                    if (type === 'boolean') {
-                        editBooleanOptionsSelect.find('option[value="' + value + '"]').prop('selected', true);
-                    } else {
-                        editValueInput.val(value);
+                if (type === 'boolean') {
+                    editBooleanOptionsSelect.find('option[value="' + value + '"]').prop('selected', true);
+                } else {
+                    editValueInput.val(value);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Show modal show event
+            $('#show').on('show.bs.modal', function (event) {
+                const link = $(event.relatedTarget);
+                const displayName = link.data('setting-display-name');
+                const namespace = link.data('setting-namespace');
+                const key = link.data('setting-key');
+                const type = link.data('setting-type');
+                const value = link.data('setting-value');
+
+                // Populate the data into the modal input fields
+                $('#show_display_name').val(displayName);
+                $('#show_namespace').val(namespace);
+                $('#show_key').val(key);
+                $('#show_type').val(type);
+                $('#show_value').val(value);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            const addZipCodeBtn = $('#addZipCodeBtn');
+            const inputZipCode = $('#inputZipCode');
+            const existingZipCodes = $('#existingZipCodes');
+
+            addZipCodeBtn.on('click', function() {
+                const zipCode = inputZipCode.val();
+
+                // Perform validation if needed (e.g., non-empty value)
+                if (!zipCode) {
+                    alert('Please enter a valid zip code.');
+                    return;
+                }
+
+                // Send the zip code to the server using AJAX
+                $.ajax({
+                    url: '{{route('zip-codes.store')}}',
+                    type: 'POST',
+                    data: { zip_code: zipCode },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Handle success response, e.g., display the new zip code in the list
+                        const zipCodeItem = $('<div class="zip-code-item"></div>');
+                        zipCodeItem.text(response.zip_code);
+                        existingZipCodes.append(zipCodeItem);
+                        inputZipCode.val(''); // Clear the input field
+                    },
+                    error: function(error) {
+                        console.log(error); // Log the error to the console
                     }
                 });
             });
-        </script>
+        });
+    </script>
 
+    @if(\Illuminate\Support\Facades\Session::has('add-success'))
         <script>
-            $(document).ready(function() {
-                // Show modal show event
-                $('#show').on('show.bs.modal', function (event) {
-                    const link = $(event.relatedTarget);
-                    const displayName = link.data('setting-display-name');
-                    const namespace = link.data('setting-namespace');
-                    const key = link.data('setting-key');
-                    const type = link.data('setting-type');
-                    const value = link.data('setting-value');
-
-                    // Populate the data into the modal input fields
-                    $('#show_display_name').val(displayName);
-                    $('#show_namespace').val(namespace);
-                    $('#show_key').val(key);
-                    $('#show_type').val(type);
-                    $('#show_value').val(value);
-                });
-            });
+            Swal.fire(
+                '{{__('Front-end/pages/settings.setting.add')}}',
+                '{{\Illuminate\Support\Facades\Session::get('add-success')}}',
+                'success'
+            )
         </script>
+    @endif
 
+    @if(\Illuminate\Support\Facades\Session::has('edit-success'))
         <script>
-            $(document).ready(function() {
-                const addZipCodeBtn = $('#addZipCodeBtn');
-                const inputZipCode = $('#inputZipCode');
-                const existingZipCodes = $('#existingZipCodes');
-
-                addZipCodeBtn.on('click', function() {
-                    const zipCode = inputZipCode.val();
-
-                    // Perform validation if needed (e.g., non-empty value)
-                    if (!zipCode) {
-                        alert('Please enter a valid zip code.');
-                        return;
-                    }
-
-                    // Send the zip code to the server using AJAX
-                    $.ajax({
-                        url: '{{route('zip-codes.store')}}',
-                        type: 'POST',
-                        data: { zip_code: zipCode },
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            // Handle success response, e.g., display the new zip code in the list
-                            const zipCodeItem = $('<div class="zip-code-item"></div>');
-                            zipCodeItem.text(response.zip_code);
-                            existingZipCodes.append(zipCodeItem);
-                            inputZipCode.val(''); // Clear the input field
-                        },
-                        error: function(error) {
-                            console.log(error); // Log the error to the console
-                        }
-                    });
-                });
-            });
+            Swal.fire(
+                '{{__('Front-end/pages/settings.edited')}}',
+                '{{\Illuminate\Support\Facades\Session::get('edit-success')}}',
+                'success'
+            )
         </script>
-
-
-
-
-
-
-
-
-
-
-
-        @if(\Illuminate\Support\Facades\Session::has('delete-success'))
-            <script>
-                Swal.fire(
-                    '{{__('Front-end/pages/users.deleted')}}',
-                    '{{\Illuminate\Support\Facades\Session::get('delete-success')}}',
-                    'success'
-                )
-            </script>
-        @endif
-    @endsection
+    @endif
+    @if(\Illuminate\Support\Facades\Session::has('delete-success'))
+        <script>
+            Swal.fire(
+                '{{__('Front-end/pages/users.deleted')}}',
+                '{{\Illuminate\Support\Facades\Session::get('delete-success')}}',
+                'success'
+            )
+        </script>
+    @endif
 @endsection

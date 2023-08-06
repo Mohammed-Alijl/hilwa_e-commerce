@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\Timeslot\StoreRequest;
 use App\Http\Requests\Timeslot\UpdateRequest;
-use App\Models\Day;
-use App\Models\Timeslot;
+use App\Repositories\TimeslotRepository;
 
 class TimeslotController extends Controller
 {
-    function __construct()
+    function __construct(private TimeslotRepository $timeslotRepository)
     {
         $this->middleware('permission:view_timeslot', ['only' => ['index', 'show']]);
         $this->middleware('permission:add_timeslot', ['only' => ['create', 'store']]);
@@ -22,7 +21,7 @@ class TimeslotController extends Controller
      */
     public function index()
     {
-        $days = Day::get();
+        $days = $this->timeslotRepository->getDays();
         $rowNumber = 1;
         return view('dashboard.timeslots.index', compact('days', 'rowNumber'));
     }
@@ -32,7 +31,7 @@ class TimeslotController extends Controller
      */
     public function create()
     {
-        $days = Day::get();
+        $days = $this->timeslotRepository->getDays();
         return view('dashboard.timeslots.create', compact('days'));
     }
 
@@ -41,16 +40,7 @@ class TimeslotController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $timeslot = new Timeslot();
-        $timeslot->day_id = $request->day_id;
-        $timeslot->start_time = $request->start_time;
-        $timeslot->end_time = $request->end_time;
-        $timeslot->total_order = $request->total_order;
-        $timeslot->display_order = $request->display_order;
-        $timeslot->save();
-        $day = Day::find($request->day_id);
-        $day->delivery_available = 1;
-        $day->save();
+        $this->timeslotRepository->create($request);
         return redirect()->route('timeslots.index')->with('add-success', __('success_messages.timeslot.add.success'));
     }
 
@@ -67,8 +57,8 @@ class TimeslotController extends Controller
      */
     public function edit(string $id)
     {
-        $day = Day::findOrFail($id);
-        $days = Day::get();
+        $day = $this->timeslotRepository->findDay($id);
+        $days = $this->timeslotRepository->getDays();
         return view('dashboard.timeslots.edit', compact('day', 'days'));
     }
 
@@ -77,18 +67,7 @@ class TimeslotController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $fields = ['start_time', 'end_time', 'total_order', 'display_order', 'timeslot_id'];
-        if (!$this->hasEqualArrayCount($request, $fields)) {
-            return redirect()->back()->withErrors('Some Thing Error');
-        }
-        foreach ($request->start_time as $index => $start_time) {
-            $timeslot = Timeslot::find($request->timeslot_id[$index]);
-            $timeslot->start_time = $request->start_time[$index];
-            $timeslot->end_time = $request->end_time[$index];
-            $timeslot->total_order = $request->total_order[$index];
-            $timeslot->display_order = $request->display_order[$index];
-            $timeslot->save();
-        }
+        $this->timeslotRepository->update($request, $id);
         return redirect()->route('timeslots.index')->with('edit-success', __('success_messages.timeslot.edit.success'));
     }
 
@@ -100,14 +79,5 @@ class TimeslotController extends Controller
         //
     }
 
-    private function hasEqualArrayCount($request, $fields)
-    {
-        $count = count($request->{$fields[0]});
-        foreach ($fields as $field) {
-            if (count($request->{$field}) !== $count) {
-                return false;
-            }
-        }
-        return true;
-    }
+
 }

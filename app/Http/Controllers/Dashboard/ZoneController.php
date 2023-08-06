@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\Zone\StoreRequest;
 use App\Http\Requests\Zone\UpdateRequest;
-use App\Models\State;
-use App\Models\Store;
-use App\Models\Zone;
+use App\Repositories\StateRepository;
+use App\Repositories\StoreRepository;
+use App\Repositories\ZoneRepository;
 
 class ZoneController extends Controller
 {
-    function __construct()
+    function __construct(private ZoneRepository $zoneRepository, private StateRepository $stateRepository, private StoreRepository $storeRepository)
     {
         $this->middleware('permission:view_zone', ['only' => ['index', 'show']]);
         $this->middleware('permission:add_zone', ['only' => ['create', 'store']]);
@@ -23,7 +23,7 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        $zones = Zone::get();
+        $zones = $this->zoneRepository->getAll();
         $rowNumber = 1;
         return view('dashboard.zones.index', compact('zones', 'rowNumber'));
     }
@@ -33,8 +33,8 @@ class ZoneController extends Controller
      */
     public function create()
     {
-        $stores = Store::where('status', 1)->get();
-        $states = State::get();
+        $stores = $this->storeRepository->getActiveStores();
+        $states = $this->stateRepository->getAll();
         return view('dashboard.zones.create', compact('stores', 'states'));
     }
 
@@ -43,15 +43,7 @@ class ZoneController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $postalCodes = explode(',', $request->postal_codes);
-        $postalCodes = array_map('trim', $postalCodes);
-        $zone = new Zone();
-        $zone->name = $request->name;
-        $zone->city_id = $request->city_id;
-        $zone->status = $request->status;
-        $zone->store_id = $request->store_id;
-        $zone->postal_codes = $postalCodes;
-        $zone->save();
+        $this->zoneRepository->create($request);
         return redirect()->route('zones.index')->with('add-success', __('success_messages.zone.add.success'));
     }
 
@@ -68,9 +60,9 @@ class ZoneController extends Controller
      */
     public function edit(string $id)
     {
-        $zone = Zone::find($id);
-        $stores = Store::where('status', 1)->get();
-        $states = State::get();
+        $zone = $this->zoneRepository->find($id);
+        $stores = $this->storeRepository->getActiveStores();
+        $states = $this->stateRepository->getAll();
         $postal_codes = implode(',', $zone->postal_codes);
 
         return view('dashboard.zones.edit', compact('zone', 'stores', 'states', 'postal_codes'));
@@ -81,21 +73,7 @@ class ZoneController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $zone = Zone::findOrFail($id);
-        if ($request->filled('name'))
-            $zone->name = $request->name;
-        if ($request->filled('store_id'))
-            $zone->store_id = $request->store_id;
-        if ($request->filled('city_id'))
-            $zone->city_id = $request->city_id;
-        if ($request->filled('status'))
-            $zone->status = $request->status;
-        if ($request->filled('postal_codes')) {
-            $postalCodes = explode(',', $request->postal_codes);
-            $postalCodes = array_map('trim', $postalCodes);
-            $zone->postal_codes = $postalCodes;
-        }
-        $zone->save();
+        $this->zoneRepository->update($request, $id);
         return redirect()->route('zones.index')->with('edit-success', __('success_messages.zone.edit.success'));
     }
 
@@ -104,8 +82,7 @@ class ZoneController extends Controller
      */
     public function destroy(string $id)
     {
-        $zone = Zone::findOrFail($id);
-        $zone->delete();
+        $this->zoneRepository->delete($id);
         return redirect()->back()->with('delete-success', __('success_messages.zone.delete.success'));
     }
 }
