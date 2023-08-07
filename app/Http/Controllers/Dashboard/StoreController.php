@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\Store\StoreRequest;
-use App\Http\Requests\Store\UpdateRequest;
+use App\Http\Requests\StoreRequest;
 use App\Repositories\LanguageRepository;
 use App\Repositories\StateRepository;
 use App\Repositories\StoreRepository;
@@ -72,7 +71,7 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(StoreRequest $request, string $id)
     {
         $this->storeRepository->update($request, $id);
         return redirect()->route('stores.index')->with('edit-success', __('success_messages.store.edit.success'));

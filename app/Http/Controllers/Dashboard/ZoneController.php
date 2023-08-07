@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\Zone\StoreRequest;
-use App\Http\Requests\Zone\UpdateRequest;
+use App\Http\Requests\ZoneRequest;
 use App\Repositories\StateRepository;
 use App\Repositories\StoreRepository;
 use App\Repositories\ZoneRepository;
@@ -41,7 +40,7 @@ class ZoneController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(ZoneRequest $request)
     {
         $this->zoneRepository->create($request);
         return redirect()->route('zones.index')->with('add-success', __('success_messages.zone.add.success'));
@@ -71,7 +70,7 @@ class ZoneController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(ZoneRequest $request, string $id)
     {
         $this->zoneRepository->update($request, $id);
         return redirect()->route('zones.index')->with('edit-success', __('success_messages.zone.edit.success'));

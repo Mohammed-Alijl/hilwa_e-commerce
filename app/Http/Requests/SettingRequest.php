@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Setting;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class SettingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'display_name' => 'required|string',
             'namespace' => 'required|string',
-            'key' => 'required|string|unique:settings',
+            'key' => 'required|string|unique:settings,key,' . $this->id,
             'type' => 'required|in:string,integer,float,boolean,color',
         ];
     }

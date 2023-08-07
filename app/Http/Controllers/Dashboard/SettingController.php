@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\Setting\StoreRequest;
-use App\Http\Requests\Setting\UpdateRequest;
+use App\Http\Requests\SettingRequest;
 use App\Models\Setting;
 use App\Repositories\SettingRepository;
 use Illuminate\Http\Request;
@@ -40,7 +39,7 @@ class SettingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(SettingRequest $request)
     {
         try {
             $this->settingRepository->create($request);
@@ -69,7 +68,7 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request)
+    public function update(SettingRequest $request)
     {
         try {
             $this->settingRepository->update($request, $request->id);
@@ -100,7 +99,7 @@ class SettingController extends Controller
         return redirect()->back();
     }
 
-    public function addZipCode(\App\Http\Requests\ZipCode\StoreRequest $request)
+    public function addZipCode(\App\Http\Requests\ZipCodeRequest $request)
     {
         $zipCode = $this->settingRepository->addZipCode($request);
         return response()->json(['zip_code' => $zipCode->zip_code]);

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Role;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class RoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:roles',
+            'name' => 'required|string|max:255|unique:roles,name,'  . $this->route('role'),
             'permission' => 'required|array',
         ];
     }

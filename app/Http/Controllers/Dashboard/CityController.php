@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\City\StoreRequest;
-use App\Http\Requests\City\UpdateRequest;
+use App\Http\Requests\CityRequest;
 use App\Repositories\CityRepository;
 use App\Repositories\StateRepository;
 
@@ -30,13 +29,13 @@ class CityController extends Controller
         return view('dashboard.cities.index', compact('cities', 'rowNumber', 'states'));
     }
 
-    public function store(StoreRequest $request)
+    public function store(CityRequest $request)
     {
         $this->cityRepository->create($request->only(['name', 'state_id']));
         return redirect()->back()->with('add-success', __('success_messages.city.add.success'));
     }
 
-    public function update(UpdateRequest $request)
+    public function update(CityRequest $request)
     {
         $this->cityRepository->update($request->only(['name', 'state_id']), $request->id);
         return redirect()->back()->with('edit-success', __('success_messages.city.edit.success'));

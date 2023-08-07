@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Attribute;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class ZipCodeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'entity_id' => 'required|numeric|exists:entities,id',
-            'display_order' => 'required|numeric',
-            'isBoolean' => 'required|boolean',
-            'status' => 'required|boolean',
+            'zip_code' => 'required|numeric|unique:zip_codes,zip_code',
         ];
     }
 }

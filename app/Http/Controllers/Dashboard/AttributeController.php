@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\Attribute\StoreRequest;
-use App\Http\Requests\Attribute\UpdateRequest;
+use App\Http\Requests\AttributeRequest;
 use App\Repositories\AttributeRepository;
 use App\Repositories\EntityRepository;
 use App\Repositories\LanguageRepository;
@@ -43,7 +42,7 @@ class AttributeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(AttributeRequest $request)
     {
         $this->attributeRepository->create($request);
         return redirect()->route('attributes.index')->with('add-success', __('success_messages.attribute.add.success'));
@@ -71,7 +70,7 @@ class AttributeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(AttributeRequest $request, string $id)
     {
         $this->attributeRepository->update($request, $id);
         return redirect()->route('attributes.index')->with('edit-success', __('success_messages.attribute.edit.success'));

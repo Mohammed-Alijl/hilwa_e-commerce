@@ -36,17 +36,13 @@ class SettingRepository implements BasicRepositoryInterface
     public function update($request, $id)
     {
         $setting = Setting::findOrFail($request->id);
-        if ($request->filled('display_name'))
-            $setting->display_name = $request->display_name;
-        if ($request->filled('namespace'))
-            $setting->namespace = $request->namespace;
-        if ($request->filled('key'))
-            $setting->key = $request->key;
+        $setting->display_name = $request->display_name;
+        $setting->namespace = $request->namespace;
+        $setting->key = $request->key;
         if ($request->filled('value'))
             $setting->value = $request->value;
         else $setting->value = $request->boolean_value;
-        if ($request->filled('type'))
-            $setting->type = $request->type;
+        $setting->type = $request->type;
         $setting->save();
     }
 

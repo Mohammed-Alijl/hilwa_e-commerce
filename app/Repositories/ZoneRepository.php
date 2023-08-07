@@ -32,20 +32,14 @@ class ZoneRepository implements BasicRepositoryInterface
 
     public function update($request, $id)
     {
+        $postalCodes = explode(',', $request->postal_codes);
+        $postalCodes = array_map('trim', $postalCodes);
         $zone = Zone::findOrFail($id);
-        if ($request->filled('name'))
-            $zone->name = $request->name;
-        if ($request->filled('store_id'))
-            $zone->store_id = $request->store_id;
-        if ($request->filled('city_id'))
-            $zone->city_id = $request->city_id;
-        if ($request->filled('status'))
-            $zone->status = $request->status;
-        if ($request->filled('postal_codes')) {
-            $postalCodes = explode(',', $request->postal_codes);
-            $postalCodes = array_map('trim', $postalCodes);
-            $zone->postal_codes = $postalCodes;
-        }
+        $zone->name = $request->name;
+        $zone->city_id = $request->city_id;
+        $zone->status = $request->status;
+        $zone->store_id = $request->store_id;
+        $zone->postal_codes = $postalCodes;
         $zone->save();
     }
 

@@ -51,10 +51,8 @@ class StoreRepository implements BasicRepositoryInterface
         $storeTranslation->save();
         $store->email = $request->email;
         $store->mobile_number = $request->mobile_number;
-        if ($request->filled('open_time'))
-            $store->open_time = $request->open_time;
-        if ($request->filled('close_time'))
-            $store->close_time = $request->close_time;
+        $store->open_time = $request->open_time;
+        $store->close_time = $request->close_time;
         $store->city_id = $request->city_id;
         $store->latitude = $request->latitude;
         $store->longitude = $request->longitude;

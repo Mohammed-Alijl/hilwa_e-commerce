@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ZipCode;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class AttributeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,6 +14,7 @@ class StoreRequest extends FormRequest
         return true;
     }
 
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +23,11 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'zip_code' => 'required|numeric|unique:zip_codes,zip_code',
+            'name' => 'required|string|max:255',
+            'entity_id' => 'required|numeric|exists:entities,id',
+            'display_order' => 'required|numeric',
+            'isBoolean' => 'required|boolean',
+            'status' => 'required|boolean',
         ];
     }
 }

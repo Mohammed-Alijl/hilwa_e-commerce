@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\Role\StoreRequest;
-use App\Http\Requests\Role\UpdateRequest;
+use App\Http\Requests\RoleRequest;
 use App\Repositories\RoleRepository;
-use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -54,7 +53,7 @@ class RoleController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(RoleRequest $request)
     {
         $this->roleRepository->create($request);
         return redirect()->route('roles.index')->with('add-success', __('success_messages.role.add'));
@@ -102,7 +101,7 @@ class RoleController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, $id)
+    public function update(RoleRequest $request, $id)
     {
         $this->roleRepository->update($request, $id);
 
