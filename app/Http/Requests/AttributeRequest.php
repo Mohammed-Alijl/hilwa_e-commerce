@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AttributeRequest extends FormRequest
 {
@@ -24,9 +25,9 @@ class AttributeRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'entity_id' => 'required|numeric|exists:entities,id',
             'display_order' => 'required|numeric',
-            'isBoolean' => 'required|boolean',
+            'type' => ['required',Rule::in(['string', 'integer', 'float', 'boolean', 'image'])],
+            'value_multiplicity' => ['required',Rule::in(['list','single'])],
             'status' => 'required|boolean',
         ];
     }

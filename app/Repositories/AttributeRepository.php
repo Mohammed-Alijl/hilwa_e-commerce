@@ -22,9 +22,9 @@ class AttributeRepository implements BasicRepositoryInterface
     public function create($request)
     {
         $attribute = new Attribute();
-        $attribute->entity_id = $request->entity_id;
         $attribute->display_order = $request->display_order;
-        $attribute->isBoolean = $request->isBoolean;
+        $attribute->type = $request->type;
+        $attribute->value_multiplicity = $request->value_multiplicity;
         $attribute->status = $request->status;
         $attribute->save();
         $attributeTranslation = new AttributeTranslation();
@@ -46,9 +46,9 @@ class AttributeRepository implements BasicRepositoryInterface
         $attributeTranslation->name = $request->name;
         $attributeTranslation->save();
 
-        $attribute->entity_id = $request->entity_id;
+        $attribute->type = $request->type;
+        $attribute->value_multiplicity = $request->value_multiplicity;
         $attribute->display_order = $request->display_order;
-        $attribute->isBoolean = $request->isBoolean;
         $attribute->status = $request->status;
         $attribute->save();
     }
@@ -65,11 +65,6 @@ class AttributeRepository implements BasicRepositoryInterface
         return AttributeTranslation::where('attribute_id', $attributeId)
             ->where('language_id', $langId)
             ->first();
-    }
-
-    public function getActiveCategoryAttributes(){
-        $category_entity_id = Entity::where('name','category')->pluck('id');
-        return Attribute::where('status',1)->where('entity_id',$category_entity_id)->get();
     }
 
 }

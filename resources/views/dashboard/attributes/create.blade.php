@@ -58,20 +58,35 @@
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-6">
-                            <label class="form-label" for="entity">{{__('Front-end/pages/attributes.entity')}}</label>
-                            <select name="entity_id" id="entity" class="form-control choices-single" required>
-                                @foreach($entities as $entity)
-                                    <option value="{{$entity->id}}">{{$entity->name}}</option>
+                            <label class="form-label" for="type">{{__('Front-end/pages/attributes.type')}}</label>
+                            <select name="type" id="type" class="form-control choices-single" required>
+                                @foreach(\App\Models\Attribute::getTypes() as $type)
+                                    <option value="{{$type}}">{{$type}}</option>
                                 @endforeach
                             </select>
                             <div class="valid-feedback">
-                                {{__('Front-end/pages/attributes.display_order.valid')}}
+                                {{__('Front-end/pages/attributes.type.valid')}}
                             </div>
                             <div class="invalid-feedback">
-                                {{__('Front-end/pages/attributes.entity.invalid')}}
+                                {{__('Front-end/pages/attributes.type.invalid')}}
                             </div>
-
                         </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" for="value_multiplicity">{{__('Front-end/pages/attributes.value_multiplicity')}}</label>
+                            <select name="value_multiplicity" id="value_multiplicity" class="form-control choices-single" required>
+                                @foreach(\App\Models\Attribute::getMultiplicity() as $name)
+                                    <option value="{{$name}}">{{$name}}</option>
+                                @endforeach
+                            </select>
+                            <div class="valid-feedback">
+                                {{__('Front-end/pages/attributes.value_multiplicity.valid')}}
+                            </div>
+                            <div class="invalid-feedback">
+                                {{__('Front-end/pages/attributes.value_multiplicity.invalid')}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="mb-3 col-md-6">
                             <label for="display_order" class="form-label">{{__('Front-end/pages/attributes.display_order')}}</label>
                             <div class="input-group">
@@ -87,21 +102,6 @@
                                     {{__('Front-end/pages/attributes.display_order.invalid')}}
                                 </div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label" for="isBoolean">{{__('Front-end/pages/attributes.isBoolean')}}</label>
-                            <select name="isBoolean" id="isBoolean" class="form-control choices-single" required>
-                                <option value="1" selected>{{__('Front-end/pages/attributes.yes')}}</option>
-                                <option value="0">{{__('Front-end/pages/attributes.no')}}</option>
-                            </select>
-                            <div class="valid-feedback">
-                                {{__('Front-end/pages/attributes.isBoolean.valid')}}
-                            </div>
-                            <div class="invalid-feedback">
-                                {{__('Front-end/pages/attributes.isBoolean.invalid')}}
                             </div>
                         </div>
                         <div class="mb-3 col-md-6">
@@ -129,30 +129,9 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function () {
-            $('#inputState').on('change', function () {
-                var StateId = $(this).val();
-                if (StateId) {
-                    $.ajax({
-                        url: "{{ URL::to('state-cities') }}/" + StateId,
-                        type: "GET",
-                        dataType: "json",
-                        success: function (data) {
-                            $('select[name="city_id"]').empty();
-                            $.each(data, function (key, value) {
-                                $('select[name="city_id"]').append('<option value="' +
-                                    key + '">' + value + '</option>');
-                            });
-                        },
-                    });
-
-                }
-            });
-
-        });
-
-    </script>
-    <script>
+        new Choices(document.querySelector("#type"));
+        new Choices(document.querySelector("#value_multiplicity"));
+        new Choices(document.querySelector("#status"));
         (function () {
             'use strict';
 

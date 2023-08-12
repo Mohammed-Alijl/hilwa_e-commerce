@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('entity_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('display_order');
-            $table->boolean('isBoolean')->default(0);
+            $table->enum('type',['string', 'integer', 'float', 'boolean', 'image'])->default('string');
+            $table->enum('value_multiplicity', ['single', 'list'])->default('single');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

@@ -13,9 +13,9 @@ return [
     'add.description' => 'أضف السمات من هنا!',
     'name.valid' => 'الاسم صالح',
     'name.invalid' => 'يرجى إدخال الاسم',
-    'isBoolean' => 'هو منطقي',
-    'isBoolean.valid' => 'يبدو جيدا',
-    'isBoolean.invalid' => 'يبدو جيدا',
+    'type' => 'النوع',
+    'type.valid' => 'يبدو جيدا',
+    'type.invalid' => 'الرجاء اختيار نوع السمة',
     'add' => 'إضافة',
     'entity.invalid' => 'يرجى اختيار الكيان',
     'display_order.valid' => 'ترتيب العرض صالح',
@@ -31,4 +31,10 @@ return [
     'edit.attribute' => 'تعديل السمة',
     'edit.description' => 'قم بتعديل السمة من هنا!',
     'edit' => 'تعديل',
+    'value_multiplicity' => 'تعدد القيم',
+    'value_multiplicity.valid' => 'يبدو جيد!',
+    'value_multiplicity.invalid' => 'يرجى اختيار التعدد',
+    'status.invalid' => 'يرجى اختيار الحالة',
+    'status.valid' => 'يبدو جيد!',
+
 ];

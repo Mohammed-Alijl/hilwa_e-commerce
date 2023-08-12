@@ -23,8 +23,8 @@
                 <tr>
                     <th>#</th>
                     <th>{{__('Front-end/pages/attributes.name')}}</th>
-                    <th>{{__('Front-end/pages/attributes.is.boolean')}}</th>
-                    <th>{{__('Front-end/pages/attributes.entity')}}</th>
+                    <th>{{__('Front-end/pages/attributes.type')}}</th>
+                    <th>{{__('Front-end/pages/attributes.value_multiplicity')}}</th>
                     <th>{{__('Front-end/pages/attributes.display_order')}}</th>
                     <th>{{__('Front-end/pages/attributes.status')}}</th>
                     <th>{{__('Front-end/pages/attributes.action')}}</th>
@@ -35,14 +35,8 @@
                     <tr>
                         <td>{{$rowNumber++}}</td>
                         <td>{{$attribute->translations->first()->name}}</td>
-                        <td>
-                            @if($attribute->isBoolean)
-                                {{ __('Front-end/pages/attributes.yes') }}
-                            @else
-                                {{ __('Front-end/pages/attributes.no') }}
-                            @endif
-                        </td>
-                        <td>{{$attribute->entity->name}}</td>
+                        <td>{{$attribute->type}}</td>
+                        <td>{{$attribute->value_multiplicity}}</td>
                         <td>{{$attribute->display_order}}</td>
                         <td>
                             @if($attribute->status)

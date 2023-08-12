@@ -35,8 +35,7 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        $entities = $this->entityRepository->getAll();
-        return view('dashboard.attributes.create', compact('entities'));
+        return view('dashboard.attributes.create');
     }
 
     /**
@@ -63,8 +62,7 @@ class AttributeController extends Controller
     {
         $languages = $this->languageRepository->getAll();
         $attribute = $this->attributeRepository->find($id);
-        $entities = $this->entityRepository->getAll();
-        return view('dashboard.attributes.edit', compact('languages', 'attribute', 'entities'));
+        return view('dashboard.attributes.edit', compact('languages', 'attribute'));
     }
 
     /**

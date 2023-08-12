@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Repositories\AttributeRepository;
 use App\Repositories\CategoryRepository;
-use App\Repositories\StateRepository;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function __construct(private CategoryRepository $categoryRepository,private AttributeRepository $attributeRepository, private StateRepository $stateRepository)
+    public function __construct(private CategoryRepository $categoryRepository)
     {
         $this->middleware('permission:view_category', ['only' => ['index', 'show']]);
         $this->middleware('permission:add_category', ['only' => ['create', 'store']]);
@@ -31,10 +29,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $states = $this->stateRepository->getAll();
         $categories = $this->categoryRepository->getAll();
-        $attributes = $this->attributeRepository->getActiveCategoryAttributes();
-        return view('dashboard.categories.create',compact('states','categories','attributes'));
+        return view('dashboard.categories.create',compact('categories'));
     }
 
     /**
