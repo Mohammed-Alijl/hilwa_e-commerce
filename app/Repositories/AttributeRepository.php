@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\BasicRepositoryInterface;
 use App\Models\Attribute;
 use App\Models\AttributeTranslation;
+use App\Models\Entity;
 
 class AttributeRepository implements BasicRepositoryInterface
 {
@@ -64,6 +65,11 @@ class AttributeRepository implements BasicRepositoryInterface
         return AttributeTranslation::where('attribute_id', $attributeId)
             ->where('language_id', $langId)
             ->first();
+    }
+
+    public function getActiveCategoryAttributes(){
+        $category_entity_id = Entity::where('name','category')->pluck('id');
+        return Attribute::where('status',1)->where('entity_id',$category_entity_id)->get();
     }
 
 }
