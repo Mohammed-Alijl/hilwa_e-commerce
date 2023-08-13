@@ -34,4 +34,5 @@ return [
   'value'=>'Value',
   'true'=>'True',
   'false'=>'False',
+  'icon.invalid'=>'Please Select A Valid Icon For The Category',
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Requests\CategoryRequest;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
@@ -36,9 +37,10 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $this->categoryRepository->create($request);
+        return redirect()->route('categories.index')->with('add-success',__('success_messages.category.add.success'));
     }
 
     /**

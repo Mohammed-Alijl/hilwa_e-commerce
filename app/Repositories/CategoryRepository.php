@@ -4,9 +4,12 @@ namespace App\Repositories;
 
 use App\Interfaces\BasicRepositoryInterface;
 use App\Models\Category;
+use App\Models\CategoryTranslation;
+use App\Traits\AttachmentTrait;
 
 class CategoryRepository implements BasicRepositoryInterface
 {
+    use AttachmentTrait;
     public function getAll()
     {
         return Category::get();
@@ -19,7 +22,20 @@ class CategoryRepository implements BasicRepositoryInterface
 
     public function create($request)
     {
-        // TODO: Implement create() method.
+        $category = new Category();
+        $category->display_order = $request->display_order;
+        $category->color_code = $request->color_code;
+        $category->status = $request->status;
+        $imageName = $this->save_attachment($request->file('image'),'img/categories');
+        $category->image = $imageName;
+        if($request->filled('parent_category'))
+            $category->parent_category = $request->parent_category;
+        $category->save();
+        $categoryTranslation = new CategoryTranslation();
+        $categoryTranslation->name = $request->name;
+        $categoryTranslation->language_id = 1;
+        $categoryTranslation->category_id = $category->id;
+        $categoryTranslation->save();
     }
 
     public function update($request, $id)

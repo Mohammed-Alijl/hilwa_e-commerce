@@ -26,7 +26,7 @@
             </div>
         </div>
     @endif
-    <form action="{{route('categories.store')}}" method="post" id="create_user"
+    <form action="{{route('categories.store')}}" method="post" id="create_user" enctype="multipart/form-data"
           class="needs-validation" novalidate>
         @csrf
         <div class="col-md-12">
@@ -90,7 +90,7 @@
                                 <input type="text" class="form-control" id="color_code"
                                        aria-describedby="inputGroupPrepend" name="color_code" autocomplete="off"
                                        placeholder="{{__('Front-end/pages/categories.color_code')}}"
-
+                                       required
                                 >
                                 <div id="mobile-validation-feedback"></div>
 
@@ -115,8 +115,11 @@
                         <div class="mb-3 col-md-6">
                             <label class="form-label"
                                    for="inputEmail4">{{__('Front-end/pages/categories.icon')}}</label>
-                            <input type="file" class="form-control" id="icon" name="icon" autocomplete="off"
-                                   accept=".jpg, .jpeg, .png, .svg">
+                            <input type="file" class="form-control" id="image" name="image" autocomplete="off"
+                                   accept=".jpg, .jpeg, .png, .svg" required>
+                        </div>
+                        <div class="invalid-feedback">
+                            {{__('Front-end/pages/categories.icon.invalid')}}
                         </div>
                     </div>
                 </div>
@@ -179,7 +182,7 @@
             Array.prototype.slice.call(forms)
                 .forEach(function (form) {
                     form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity() || !checkColorCode()) {
+                        if (!form.checkValidity()) {
                             event.preventDefault();
                             event.stopPropagation();
                         }
@@ -193,10 +196,20 @@
 
         function checkColorCode() {
             let colorInput = document.getElementById('color_code');
+            let colorValue = colorInput.value.trim();
             let colorSyntax = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
-            let isColorValid = colorSyntax.test(colorInput.value);
-            colorInput.classList.toggle("is-valid", isColorValid);
-            colorInput.classList.toggle("is-invalid", !isColorValid);
+            let isColorValid = colorValue !== '' && colorSyntax.test(colorValue);
+
+            if(isColorValid) {
+                colorInput.classList.add("is-valid");
+                colorInput.classList.remove("is-invalid");
+                colorInput.setCustomValidity("");
+            } else {
+                colorInput.classList.remove("is-valid");
+                colorInput.classList.add("is-invalid");
+                colorInput.setCustomValidity("invalid");
+            }
+
             return isColorValid;
         }
     </script>

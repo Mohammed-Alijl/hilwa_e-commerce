@@ -32,7 +32,7 @@
                 @foreach($categories as $category)
                     <tr>
                         <td>
-                            <img src="{{URL::asset('img/categories/' . $category->image ?? 'default.png')}}" width="32" height="32" class="rounded-circle my-n1" alt="{{$driver->name}}">
+                            <img src="{{URL::asset('img/categories/' . $category->image ?? 'default.png')}}" width="32" height="32" class="rounded-circle my-n1" alt="{{$category->name}}">
                         </td>
                         <td>{{$category->translations->first()->name}}</td>
                         <td>{{$category->display_order}}</td>

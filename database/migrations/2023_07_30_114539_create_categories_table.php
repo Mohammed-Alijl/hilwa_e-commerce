@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('color_code');
             $table->boolean('status')->default(1);
             $table->string('image')->default('default.png');
-            $table->foreignId('parent_category_id')->constrained('categories')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('parent_category_id')->nullable()->constrained('categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
