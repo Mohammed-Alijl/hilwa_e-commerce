@@ -74,10 +74,10 @@
                         <div class="mb-3 col-md-6">
                             <label class="form-label"
                                    for="parent_category">{{__('Front-end/pages/categories.parent_category')}}</label>
-                            <select id="parent_category" class="form-control choices-single">
+                            <select id="parent_category" class="form-control choices-single" name="parent_category_id">
                                 <option selected value="">{{__('Front-end/pages/users.choose')}}</option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    <option value="{{$category->id}}">{{$category->translations->first()->name}}</option>
                                 @endforeach
                             </select>
                         </div>

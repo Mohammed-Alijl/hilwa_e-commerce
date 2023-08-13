@@ -28,8 +28,8 @@ class CategoryRepository implements BasicRepositoryInterface
         $category->status = $request->status;
         $imageName = $this->save_attachment($request->file('image'),'img/categories');
         $category->image = $imageName;
-        if($request->filled('parent_category'))
-            $category->parent_category = $request->parent_category;
+        if($request->filled('parent_category_id'))
+            $category->parent_category_id = $request->parent_category_id;
         $category->save();
         $categoryTranslation = new CategoryTranslation();
         $categoryTranslation->name = $request->name;
@@ -46,6 +46,10 @@ class CategoryRepository implements BasicRepositoryInterface
     public function delete($id)
     {
         // TODO: Implement delete() method.
+    }
+
+    public function getParentsCategories(){
+        return Category::where('parent_category_id',null)->get();
     }
 
 }
