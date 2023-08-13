@@ -10,6 +10,7 @@ use App\Traits\AttachmentTrait;
 class CategoryRepository implements BasicRepositoryInterface
 {
     use AttachmentTrait;
+
     public function getAll()
     {
         return Category::get();
@@ -26,9 +27,9 @@ class CategoryRepository implements BasicRepositoryInterface
         $category->display_order = $request->display_order;
         $category->color_code = $request->color_code;
         $category->status = $request->status;
-        $imageName = $this->save_attachment($request->file('image'),'img/categories');
+        $imageName = $this->save_attachment($request->file('image'), 'img/categories');
         $category->image = $imageName;
-        if($request->filled('parent_category_id'))
+        if ($request->filled('parent_category_id'))
             $category->parent_category_id = $request->parent_category_id;
         $category->save();
         $categoryTranslation = new CategoryTranslation();
@@ -40,7 +41,24 @@ class CategoryRepository implements BasicRepositoryInterface
 
     public function update($request, $id)
     {
-        // TODO: Implement update() method.
+        $category = Category::findOrFail($id);
+        $category->display_order = $request->display_order;
+        $category->color_code = $request->color_code;
+        $category->status = $request->status;
+        if ($files = $request->file('image')) {
+            $this->delete_attachment('img/categories/' . $category->image);
+            $imageName = $this->save_attachment($files, 'img/categories');
+            $category->image = $imageName;
+        }
+        if ($request->filled('parent_category_id'))
+            $category->parent_category_id = $request->parent_category_id;
+        $category->save();
+        $categoryTranslation = new CategoryTranslation();
+        $categoryTranslation->name = $request->name;
+        $categoryTranslation->language_id = $request->language_id;
+        $categoryTranslation->category_id = $category->id;
+        $categoryTranslation->save();
+
     }
 
     public function delete($id)
@@ -51,12 +69,26 @@ class CategoryRepository implements BasicRepositoryInterface
         $category->delete();
     }
 
-    public function getParentsCategories(){
-        return Category::where('parent_category_id',null)->get();
+    public function getParentsCategories()
+    {
+        return Category::where('parent_category_id', null)->get();
     }
 
-    public function getChildCategories($id){
-        return Category::where('parent_category_id',$id)->get();
+    public function getChildCategories($id)
+    {
+        return Category::where('parent_category_id', $id)->get();
+    }
+
+    public function getCategoryLanguages($langId, $categoryId)
+    {
+        return CategoryTranslation::where('category_id', $categoryId)
+            ->where('language_id', $langId)
+            ->first();
+    }
+
+    public function getActiveCategories()
+    {
+        return Category::where('status', 1)->get();
     }
 
 }

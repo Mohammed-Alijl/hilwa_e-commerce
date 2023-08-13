@@ -24,9 +24,9 @@ class CategoryRequest extends FormRequest
         return [
             'name'=>'required|max:255|string',
             'display_order'=>'required|numeric',
-            'parent_category'=>'numeric|exists:categories,id,' . $this->route('category'),
+            'parent_category'=>'numeric|exists:categories,id',
             'status'=>'required|boolean',
-            'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'color_code' => ['required', 'regex:/^#([0-9a-f]{3}|[0-9a-f]{6})$/i'],
         ];
     }

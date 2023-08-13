@@ -35,4 +35,7 @@ return [
   'true'=>'True',
   'false'=>'False',
   'icon.invalid'=>'Please Select A Valid Icon For The Category',
+  'edit'=>'Edit',
+  'edit.description'=>'Edit Category From Here!',
+  'edit.category'=>'Edit Category',
 ];
