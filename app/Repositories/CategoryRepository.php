@@ -58,7 +58,9 @@ class CategoryRepository implements BasicRepositoryInterface
         $categoryTranslation->language_id = $request->language_id;
         $categoryTranslation->category_id = $category->id;
         $categoryTranslation->save();
-
+        if(!$request->status){
+            $this->updateNestedCategoriesStatus($category, $request->status);
+        }
     }
 
     public function delete($id)
@@ -89,6 +91,19 @@ class CategoryRepository implements BasicRepositoryInterface
     public function getActiveCategories()
     {
         return Category::where('status', 1)->get();
+    }
+
+
+    public function updateNestedCategoriesStatus($category, $status)
+    {
+        $category->status = $status;
+        $category->save();
+
+        $childCategories = $this->getChildCategories($category->id);
+
+        foreach ($childCategories as $childCategory) {
+            $this->updateNestedCategoriesStatus($childCategory, $status);
+        }
     }
 
 }
