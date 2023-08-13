@@ -117,9 +117,9 @@
                                    for="inputEmail4">{{__('Front-end/pages/categories.icon')}}</label>
                             <input type="file" class="form-control" id="image" name="image" autocomplete="off"
                                    accept=".jpg, .jpeg, .png, .svg" required>
-                        </div>
-                        <div class="invalid-feedback">
-                            {{__('Front-end/pages/categories.icon.invalid')}}
+                            <div class="invalid-feedback">
+                                {{__('Front-end/pages/categories.icon.invalid')}}
+                            </div>
                         </div>
                     </div>
                 </div>

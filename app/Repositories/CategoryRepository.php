@@ -52,4 +52,8 @@ class CategoryRepository implements BasicRepositoryInterface
         return Category::where('parent_category_id',null)->get();
     }
 
+    public function getChildCategories($id){
+        return Category::where('parent_category_id',$id)->get();
+    }
+
 }

@@ -10,7 +10,7 @@
         </div>
         @can('add_category')
             <div class="col-auto ms-auto text-end mt-n1">
-                <a href="{{route('categories.create')}}" class="btn btn-primary">{{__('Front-end/pages/categories.add.category')}}</a>
+                <a href="{{route('categories.child.create',$id)}}" class="btn btn-primary">{{__('Front-end/pages/categories.add.category')}}</a>
             </div>
         @endcan
     </div>

@@ -31,7 +31,7 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = $this->categoryRepository->getAll();
-        return view('dashboard.categories.create',compact('categories'));
+        return view('dashboard.categories.create', compact('categories'));
     }
 
     /**
@@ -40,7 +40,10 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $this->categoryRepository->create($request);
-        return redirect()->route('categories.index')->with('add-success',__('success_messages.category.add.success'));
+        if ($request->parent_category_id != null)
+            return redirect()->route('categories.show', $request->parent_category_id)->with('add-success', __('success_messages.category.add.success'));
+        else
+            return redirect()->route('categories.index')->with('add-success', __('success_messages.category.add.success'));
     }
 
     /**
@@ -48,7 +51,8 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $categories = $this->categoryRepository->getChildCategories($id);
+        return view('dashboard.categories.show', compact('categories','id'));
     }
 
     /**
@@ -73,5 +77,10 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function createChild($id)
+    {
+        return view('dashboard.categories.create_child_category', compact('id'));
     }
 }
