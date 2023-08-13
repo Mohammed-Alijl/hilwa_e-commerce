@@ -95,7 +95,9 @@
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="status">{{__('Front-end/pages/categories.status')}}</label>
                             <select name="status" id="status" class="form-control choices-single" required>
-                                <option value="1">{{__('Front-end/pages/categories.enable')}}</option>
+                                @if(\App\Models\Category::find($id)->status)
+                                    <option value="1">{{__('Front-end/pages/categories.enable')}}</option>
+                                @endif
                                 <option value="0">{{__('Front-end/pages/categories.disable')}}</option>
                             </select>
                         </div>
@@ -148,7 +150,7 @@
             let colorSyntax = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
             let isColorValid = colorValue !== '' && colorSyntax.test(colorValue);
 
-            if(isColorValid) {
+            if (isColorValid) {
                 colorInput.classList.add("is-valid");
                 colorInput.classList.remove("is-invalid");
                 colorInput.setCustomValidity("");
