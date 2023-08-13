@@ -76,7 +76,13 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = $this->categoryRepository->find($id);
+        if ($this->categoryRepository->getChildCategories($category->id)->count() > 0) {
+            return redirect()->route('categories.index')->with('delete-failed', __('failed_messages.category.delete.failed'));
+        } else {
+            $this->categoryRepository->delete($id);
+            return redirect()->route('categories.index')->with('delete-success',__('success_messages.category.delete.success'));
+        }
     }
 
     public function createChild($id)

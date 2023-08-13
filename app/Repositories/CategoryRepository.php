@@ -45,7 +45,10 @@ class CategoryRepository implements BasicRepositoryInterface
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        $category = Category::find($id);
+        // prevent delete if the category has products
+        $this->delete_attachment('img/categories/' . $category->image);
+        $category->delete();
     }
 
     public function getParentsCategories(){
