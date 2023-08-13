@@ -64,7 +64,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/check-mobile', [AdminController::class, 'checkMobile']);
             Route::post('/check-code', [AdminController::class, 'checkCode']);
 
-            Route::get('/create/child/category/{id}',[CategoryController::class,'createChild'])->name('categories.child.create');
+            Route::get('categories/create/child/category/{id}',[CategoryController::class,'createChild'])->name('categories.child.create');
         });
 
     require __DIR__ . '/admin_auth.php';

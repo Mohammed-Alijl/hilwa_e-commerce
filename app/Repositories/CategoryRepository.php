@@ -63,7 +63,7 @@ class CategoryRepository implements BasicRepositoryInterface
 
     public function delete($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
         // prevent delete if the category has products
         $this->delete_attachment('img/categories/' . $category->image);
         $category->delete();

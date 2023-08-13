@@ -52,6 +52,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
+        $this->categoryRepository->find($id);
         $categories = $this->categoryRepository->getChildCategories($id);
         return view('dashboard.categories.show', compact('categories','id'));
     }
@@ -92,6 +93,7 @@ class CategoryController extends Controller
 
     public function createChild($id)
     {
+        $this->categoryRepository->find($id);
         return view('dashboard.categories.create_child_category', compact('id'));
     }
 
