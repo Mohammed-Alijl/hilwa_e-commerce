@@ -31,7 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = $this->categoryRepository->getAll();
+        $categories = $this->categoryRepository->getActiveCategories();
         return view('dashboard.categories.create', compact('categories'));
     }
 
