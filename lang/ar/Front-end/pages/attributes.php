@@ -13,7 +13,7 @@ return [
     'add.description' => 'أضف السمات من هنا!',
     'name.valid' => 'الاسم صالح',
     'name.invalid' => 'يرجى إدخال الاسم',
-    'type' => 'النوع',
+    'frontend.type' => 'نوع الواجهة الأمامية',
     'type.valid' => 'يبدو جيدا',
     'type.invalid' => 'الرجاء اختيار نوع السمة',
     'add' => 'إضافة',
@@ -36,5 +36,9 @@ return [
     'value_multiplicity.invalid' => 'يرجى اختيار التعدد',
     'status.invalid' => 'يرجى اختيار الحالة',
     'status.valid' => 'يبدو جيد!',
-
+    'choose'=>'اختر...',
+    'attribute.value' => 'قيمة السمة',
+    'add.value' => 'إضافة قيمة',
+    'value.add' => 'تمت إضافة القيمة',
+    'edit.value' => 'تعديل القيمة',
 ];

@@ -52,7 +52,8 @@ class AttributeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $values = $this->attributeRepository->getAttributeValues($id);
+        return view('dashboard.attributes.show',compact('values','id'));
     }
 
     /**

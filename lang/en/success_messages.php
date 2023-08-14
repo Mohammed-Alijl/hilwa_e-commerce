@@ -106,4 +106,12 @@ return [
     'category.add.success'=>'Category Was Added Successfully',
     'category.edit.success'=>'Category Was Modified Successfully',
     'category.delete.success'=>'Category Was Deleted Successfully',
+
+
+    //===================================================================================
+    // ATTRIBUTE VALUES==================================================================
+    //===================================================================================
+    'attribute.value.add.success'=>'Value Was Added Successfully',
+    'attribute.value.edit.success'=>'Value Was Modified Successfully',
+    'attribute.value.delete.success'=>'Value Was Deleted Successfully',
 ];

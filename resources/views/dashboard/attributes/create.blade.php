@@ -58,8 +58,8 @@
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-6">
-                            <label class="form-label" for="type">{{__('Front-end/pages/attributes.type')}}</label>
-                            <select name="type" id="type" class="form-control choices-single" required>
+                            <label class="form-label" for="type">{{__('Front-end/pages/attributes.frontend.type')}}</label>
+                            <select name="frontend_type" id="type" class="form-control choices-single" required>
                                 @foreach(\App\Models\Attribute::getTypes() as $type)
                                     <option value="{{$type}}">{{$type}}</option>
                                 @endforeach
@@ -71,22 +71,6 @@
                                 {{__('Front-end/pages/attributes.type.invalid')}}
                             </div>
                         </div>
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label" for="value_multiplicity">{{__('Front-end/pages/attributes.value_multiplicity')}}</label>
-                            <select name="value_multiplicity" id="value_multiplicity" class="form-control choices-single" required>
-                                @foreach(\App\Models\Attribute::getMultiplicity() as $name)
-                                    <option value="{{$name}}">{{$name}}</option>
-                                @endforeach
-                            </select>
-                            <div class="valid-feedback">
-                                {{__('Front-end/pages/attributes.value_multiplicity.valid')}}
-                            </div>
-                            <div class="invalid-feedback">
-                                {{__('Front-end/pages/attributes.value_multiplicity.invalid')}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="mb-3 col-md-6">
                             <label for="display_order" class="form-label">{{__('Front-end/pages/attributes.display_order')}}</label>
                             <div class="input-group">
@@ -104,6 +88,9 @@
 
                             </div>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="status">{{__('Front-end/pages/attributes.status')}}</label>
                             <select name="status" id="status" class="form-control choices-single" required>
@@ -130,7 +117,6 @@
 @section('scripts')
     <script>
         new Choices(document.querySelector("#type"));
-        new Choices(document.querySelector("#value_multiplicity"));
         new Choices(document.querySelector("#status"));
         (function () {
             'use strict';

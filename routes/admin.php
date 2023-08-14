@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\AttributeController;
+use App\Http\Controllers\Dashboard\AttributeValueController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\CustomerAddressController;
@@ -43,6 +44,7 @@ Route::prefix('admin')->group(function () {
                 'units' => UnitController::class,
                 'stores' => StoreController::class,
                 'attributes' => AttributeController::class,
+                'values' => AttributeValueController::class,
                 'categories' => CategoryController::class,
             ]);
 

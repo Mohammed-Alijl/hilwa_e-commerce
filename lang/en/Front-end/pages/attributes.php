@@ -13,7 +13,7 @@ return [
     'add.description'=>'Add Attributes From Here!',
     'name.valid'=>'Name Is Valid',
     'name.invalid'=>'Please Enter The Name',
-    'type'=>'Type',
+    'frontend.type'=>'Frontend Type',
     'type.valid'=>'looks good',
     'type.invalid'=>'Please Select A Type Of Attribute',
     'add'=>'Add',
@@ -36,4 +36,9 @@ return [
     'value_multiplicity.invalid'=>'Please Select The Multiplicity',
     'status.invalid'=>'Please Select The Status',
     'status.valid'=>'looks good!',
+    'choose'=>'choose...',
+    'attribute.value'=>'Attribute Value',
+    'add.value'=>'Add Value',
+    'value.add'=>'Value Added',
+    'edit.value'=>'Edit Value',
 ];

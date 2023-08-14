@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class AttributeRequest extends FormRequest
+class AttributeValueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +14,6 @@ class AttributeRequest extends FormRequest
         return true;
     }
 
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,10 +22,8 @@ class AttributeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'display_order' => 'required|numeric',
-            'frontend_type' => ['required',Rule::in(['menu', 'list', 'color', 'image'])],
-            'status' => 'required|boolean',
+            'name'=>'required|string|max:255',
+            'attribute_id'=>'required|numeric|exists:attributes,id'
         ];
     }
 }

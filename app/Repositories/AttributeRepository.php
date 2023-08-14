@@ -23,8 +23,7 @@ class AttributeRepository implements BasicRepositoryInterface
     {
         $attribute = new Attribute();
         $attribute->display_order = $request->display_order;
-        $attribute->type = $request->type;
-        $attribute->value_multiplicity = $request->value_multiplicity;
+        $attribute->frontend_type = $request->frontend_type;
         $attribute->status = $request->status;
         $attribute->save();
         $attributeTranslation = new AttributeTranslation();
@@ -46,8 +45,7 @@ class AttributeRepository implements BasicRepositoryInterface
         $attributeTranslation->name = $request->name;
         $attributeTranslation->save();
 
-        $attribute->type = $request->type;
-        $attribute->value_multiplicity = $request->value_multiplicity;
+        $attribute->frontend_type = $request->frontend_type;
         $attribute->display_order = $request->display_order;
         $attribute->status = $request->status;
         $attribute->save();
@@ -65,6 +63,11 @@ class AttributeRepository implements BasicRepositoryInterface
         return AttributeTranslation::where('attribute_id', $attributeId)
             ->where('language_id', $langId)
             ->first();
+    }
+
+    public function getAttributeValues($id){
+        $attribute = Attribute::findOrFail($id);
+        return $attribute->values;
     }
 
 }
