@@ -10,14 +10,11 @@ class Attribute extends Model
     use HasFactory;
     protected $fillable = [
         'display_order',
-        'type',
-        'value_multiplicity',
+        'frontend_type',
         'status'
     ];
 
-    protected static $types = ['string', 'integer', 'float', 'boolean', 'image'];
-
-    protected static $value_multiplicity = ['single', 'list'];
+    protected static $types = ['image', 'color', 'list', 'menu'];
 
     //=======================================================
     //==================RELATIONSHIPS========================
@@ -30,8 +27,12 @@ class Attribute extends Model
     {
         return self::$types;
     }
-    public static function getMultiplicity()
-    {
-        return self::$value_multiplicity;
+
+    public function values(){
+        return $this->hasMany(AttributeValue::class,'attribute_id');
+    }
+
+    public function products(){
+        return $this->belongsToMany(Product::class);
     }
 }
