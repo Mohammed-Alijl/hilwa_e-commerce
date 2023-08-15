@@ -55,7 +55,7 @@
 
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="name">{{__('Front-end/pages/categories.name')}}</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{$category->translations->first()->name}}"
+                            <input type="text" class="form-control" id="name" name="name" value="{{$category->getTranslation('name','en')}}"
                                    placeholder="{{__('Front-end/pages/categories.name')}}" autocomplete="off" required>
                             <div class="valid-feedback">
                                 {{__('Front-end/pages/categories.name.valid')}}

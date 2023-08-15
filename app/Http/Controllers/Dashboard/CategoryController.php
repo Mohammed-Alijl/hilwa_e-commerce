@@ -104,7 +104,7 @@ class CategoryController extends Controller
         if (!$storeTranslation) {
             return json_decode('');
         }
-        return response()->json(['category_name' => $storeTranslation->name]);
+        return response()->json(['category_name' => $storeTranslation]);
     }
 
 

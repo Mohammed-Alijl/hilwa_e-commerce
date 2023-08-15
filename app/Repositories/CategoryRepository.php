@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\BasicRepositoryInterface;
 use App\Models\Category;
-use App\Models\CategoryTranslation;
+use App\Models\Language;
 use App\Traits\AttachmentTrait;
 
 class CategoryRepository implements BasicRepositoryInterface
@@ -24,6 +24,7 @@ class CategoryRepository implements BasicRepositoryInterface
     public function create($request)
     {
         $category = new Category();
+        $category->name = ['en'=>$request->name];
         $category->display_order = $request->display_order;
         $category->color_code = $request->color_code;
         $category->status = $request->status;
@@ -32,16 +33,12 @@ class CategoryRepository implements BasicRepositoryInterface
         if ($request->filled('parent_category_id'))
             $category->parent_category_id = $request->parent_category_id;
         $category->save();
-        $categoryTranslation = new CategoryTranslation();
-        $categoryTranslation->name = $request->name;
-        $categoryTranslation->language_id = 1;
-        $categoryTranslation->category_id = $category->id;
-        $categoryTranslation->save();
     }
 
     public function update($request, $id)
     {
         $category = Category::findOrFail($id);
+        $category->setTranslation('name',Language::findOrFail($request->language_id)->code,$request->name);
         $category->display_order = $request->display_order;
         $category->color_code = $request->color_code;
         $category->status = $request->status;
@@ -53,11 +50,6 @@ class CategoryRepository implements BasicRepositoryInterface
         if ($request->filled('parent_category_id'))
             $category->parent_category_id = $request->parent_category_id;
         $category->save();
-        $categoryTranslation = new CategoryTranslation();
-        $categoryTranslation->name = $request->name;
-        $categoryTranslation->language_id = $request->language_id;
-        $categoryTranslation->category_id = $category->id;
-        $categoryTranslation->save();
         if(!$request->status){
             $this->updateNestedCategoriesStatus($category, $request->status);
         }
@@ -83,9 +75,7 @@ class CategoryRepository implements BasicRepositoryInterface
 
     public function getCategoryLanguages($langId, $categoryId)
     {
-        return CategoryTranslation::where('category_id', $categoryId)
-            ->where('language_id', $langId)
-            ->first();
+        return $this->find($categoryId)->getTranslation('name',Language::findOrFail($langId)->code);
     }
 
     public function getActiveCategories()

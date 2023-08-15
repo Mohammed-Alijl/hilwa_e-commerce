@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->integer('display_order');
             $table->string('color_code');
             $table->boolean('status')->default(1);
