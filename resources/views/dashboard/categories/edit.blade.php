@@ -89,7 +89,7 @@
                                     @if($theCategory->id == $category->id)
                                         @continue
                                     @endif
-                                    <option value="{{$theCategory->id}}" {{$theCategory->id === $category->parent_category_id ? 'selected' : ''}}>{{$theCategory->translations->first()->name}}</option>
+                                    <option value="{{$theCategory->id}}" {{$theCategory->id === $category->parent_category_id ? 'selected' : ''}}>{{$theCategory->name}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -36,7 +36,7 @@
                         </td>
                         <td>
                             <a href="{{route('categories.show',$category->id)}}">
-                            {{$category->translations->first()->name}}
+                            {{$category->name}}
                             </a>
                         </td>
                         <td>{{$category->display_order}}</td>
