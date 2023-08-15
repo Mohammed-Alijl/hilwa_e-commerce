@@ -85,6 +85,6 @@ class UnitController extends Controller
         if (!$unitTranslation) {
             return json_decode('');
         }
-        return response()->json(['unit_name' => $unitTranslation->name]);
+        return response()->json(['unit_name' => $unitTranslation]);
     }
 }

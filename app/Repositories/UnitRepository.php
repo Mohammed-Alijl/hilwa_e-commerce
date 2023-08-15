@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Interfaces\BasicRepositoryInterface;
+use App\Models\Language;
 use App\Models\Unit;
-use App\Models\UnitTranlsation;
 
 class UnitRepository implements BasicRepositoryInterface
 {
@@ -21,26 +21,15 @@ class UnitRepository implements BasicRepositoryInterface
     public function create($request)
     {
         $unit = new Unit();
+        $unit->name = $request->name;
         $unit->save();
-        $unitTranslation = new UnitTranlsation();
-        $unitTranslation->unit_id = $unit->id;
-        $unitTranslation->language_id = 1;
-        $unitTranslation->name = $request->name;
-        $unitTranslation->save();
     }
 
     public function update($request, $id)
     {
-        $unitTranslation = UnitTranlsation::where('unit_id', $request->id)
-            ->where('language_id', $request->language_id)
-            ->first();
-        if (!$unitTranslation) {
-            $unitTranslation = new UnitTranlsation();
-            $unitTranslation->language_id = $request->language_id;
-            $unitTranslation->unit_id = $request->id;
-        }
-        $unitTranslation->name = $request->name;
-        $unitTranslation->save();
+        $unit = Unit::findOrFail($request->id);
+        $unit->setTranslation('name',Language::findOrFail($request->language_id)->code,$request->name);
+        $unit->save();
     }
 
     public function delete($id)
@@ -52,9 +41,8 @@ class UnitRepository implements BasicRepositoryInterface
 
     public function getUnitLanguages($langId, $unitId)
     {
-        return UnitTranlsation::where('unit_id', $unitId)
-            ->where('language_id', $langId)
-            ->first();
+        $language = Language::findOrFail($langId);
+        return $this->find($unitId)->getTranslation('name',$language->code);
     }
 
 }

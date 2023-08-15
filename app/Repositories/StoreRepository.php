@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Interfaces\BasicRepositoryInterface;
+use App\Models\Language;
 use App\Models\Store;
-use App\Models\StoreTranslation;
 
 class StoreRepository implements BasicRepositoryInterface
 {
@@ -21,6 +21,7 @@ class StoreRepository implements BasicRepositoryInterface
     public function create($request)
     {
         $store = new Store();
+        $store->name = $request->name;
         $store->email = $request->email;
         $store->mobile_number = $request->mobile_number;
         $store->open_time = $request->open_time;
@@ -31,24 +32,12 @@ class StoreRepository implements BasicRepositoryInterface
         $store->zip_code = $request->zip_code;
         $store->status = $request->status;
         $store->save();
-        $storeTranslation = new StoreTranslation();
-        $storeTranslation->name = $request->name;
-        $storeTranslation->store_id = $store->id;
-        $storeTranslation->language_id = 1;
-        $storeTranslation->save();
     }
 
     public function update($request, $id)
     {
         $store = Store::findOrFail($id);
-        $storeTranslation = StoreTranslation::where('language_id', $request->language_id)->where('store_id', $id)->first();
-        if (!$storeTranslation) {
-            $storeTranslation = new StoreTranslation();
-            $storeTranslation->language_id = $request->language_id;
-            $storeTranslation->store_id = $id;
-        }
-        $storeTranslation->name = $request->name;
-        $storeTranslation->save();
+        $store->setTranslation('name',Language::findOrFail($request->language_id)->code,$request->name);
         $store->email = $request->email;
         $store->mobile_number = $request->mobile_number;
         $store->open_time = $request->open_time;
@@ -69,9 +58,7 @@ class StoreRepository implements BasicRepositoryInterface
 
     public function getStoreLanguages($langId, $storeId)
     {
-        return StoreTranslation::where('store_id', $storeId)
-            ->where('language_id', $langId)
-            ->first();
+        return $this->find($storeId)->getTranslation('name',Language::findOrFail($langId)->code);
     }
 
     public function getActiveStores()

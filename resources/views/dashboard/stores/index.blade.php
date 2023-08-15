@@ -36,7 +36,7 @@
                 @foreach($stores as $store)
                     <tr>
                         <td>{{$rowNumber++}}</td>
-                        <td>{{$store->translations->first()->name}}</td>
+                        <td>{{$store->name}}</td>
                         <td>{{$store->email}}</td>
                         <td>{{$store->mobile_number}}</td>
                         <td>{{$store->city->name}}</td>

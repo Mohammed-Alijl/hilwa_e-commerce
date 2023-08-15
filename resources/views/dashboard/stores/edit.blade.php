@@ -54,7 +54,7 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="name">{{__('Front-end/pages/stores.name')}}</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{$store->translations->first()->name}}"
+                            <input type="text" class="form-control" id="name" name="name" value="{{$store->getTranslation('name','en')}}"
                                    placeholder="{{__('Front-end/pages/stores.name')}}" autocomplete="off" required>
                             <div class="valid-feedback">
                                 {{__('Front-end/pages/stores.name.valid')}}

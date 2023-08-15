@@ -34,12 +34,12 @@
                     <tr>
                         <td>{{$rowNumber++}}</td>
 
-                        <td>{{ $unit->translations->first()->name }}</td>
+                        <td>{{ $unit->name }}</td>
                         <td>
                             @can('edit_unit')
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#edit"
                                    data-id="{{ $unit->id }}"
-                                   data-name="{{ $unit->translations->first()->name }}"
+                                   data-name="{{ $unit->getTranslation('name','en') }}"
                                 >
                                     <i class="align-middle" data-feather="edit-2"></i>
                                 </a>

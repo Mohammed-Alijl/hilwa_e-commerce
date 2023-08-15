@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Store extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
+        'name',
         'email',
         'mobile_number',
         'open_time',
@@ -22,13 +24,11 @@ class Store extends Model
         'status'
     ];
 
+    public $translatable = ['name'];
+
     //=======================================================
     //==================RELATIONSHIPS========================
     //=======================================================
-    public function translations()
-    {
-        return $this->hasMany(StoreTranslation::class,'store_id');
-    }
 
     public function city(){
         return $this->belongsTo(City::class,'city_id');

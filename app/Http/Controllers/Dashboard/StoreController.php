@@ -98,6 +98,6 @@ class StoreController extends Controller
         if (!$storeTranslation) {
             return json_decode('');
         }
-        return response()->json(['store_name' => $storeTranslation->name]);
+        return response()->json(['store_name' => $storeTranslation]);
     }
 }
