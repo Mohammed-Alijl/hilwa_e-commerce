@@ -10,7 +10,6 @@ use App\Repositories\LanguageRepository;
 class AttributeController extends Controller
 {
     function __construct(private AttributeRepository $attributeRepository,
-                         private EntityRepository    $entityRepository,
                          private LanguageRepository  $languageRepository
     )
     {
@@ -52,8 +51,9 @@ class AttributeController extends Controller
      */
     public function show(string $id)
     {
+        $attribute = $this->attributeRepository->find($id);
         $values = $this->attributeRepository->getAttributeValues($id);
-        return view('dashboard.attributes.show',compact('values','id'));
+        return view('dashboard.attributes.show',compact('values','attribute'));
     }
 
     /**

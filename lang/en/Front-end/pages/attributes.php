@@ -41,4 +41,6 @@ return [
     'add.value'=>'Add Value',
     'value.add'=>'Value Added',
     'edit.value'=>'Edit Value',
+    'image'=>'Attribute Value Image',
+    'image.invalid'=>'Attribute Value Image Is Required',
 ];

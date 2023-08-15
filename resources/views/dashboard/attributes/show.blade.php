@@ -6,7 +6,7 @@
 @section('page-header')
     <div class="row mb-2 mb-xl-3">
         <div class="col-auto d-none d-sm-block">
-            <h3>{{__('Front-end/pages/attributes.title')}}</h3>
+            <h3>{{__('Front-end/pages/attributes.attribute.value')}}</h3>
         </div>
         @can('add_attribute')
             <div class="col-auto ms-auto text-end mt-n1">
@@ -46,13 +46,20 @@
                 @endphp
                 @foreach($values as $value)
                     <tr>
-                        <td>{{$rowNumber++}}</td>
+                        <td>
+                            @if($attribute->frontend_type == 'image')
+                                <img src="{{URL::asset('img/attributes/' . $value->frontend_type_value)}}" width="32" height="32" class="rounded-circle my-n1" alt="{{$value->name}}">
+                            @else
+                            {{$rowNumber++}}
+                            @endif
+                        </td>
                         <td>{{$value->name}}</td>
                         <td>
                             @can('edit_attribute')
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#edit"
                                    data-id="{{ $value->id }}"
                                    data-name="{{ $value->name }}"
+                                   data-color="{{ $value->frontend_type_value }}"
                                 >
                                     <i class="align-middle" data-feather="edit-2"></i>
                                 </a>
@@ -69,7 +76,7 @@
         </div>
     </div>
     <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <form action="{{route('values.store')}}" method="post" class="needs-validation" novalidate>
+        <form action="{{route('values.store')}}" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
             @csrf
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -85,8 +92,32 @@
                             <div class="invalid-feedback">
                                 {{__('Front-end/pages/attributes.name.invalid')}}
                             </div>
-                            <input type="hidden" name="attribute_id" value="{{$id}}">
                         </div>
+                        <!-- Image Frontend Type Value -->
+                        @if($attribute->frontend_type == 'image')
+                        <div class="mb-3">
+                            <label class="form-label" for="add_image_value">{{__('Front-end/pages/attributes.image')}}</label>
+                            <input type="file" class="form-control" id="inputEmail4" name="image_value" autocomplete="off"
+                                   accept=".jpg, .jpeg, .png, .svg" required>
+                            <div class="invalid-feedback">
+                                {{__('Front-end/pages/attributes.image.invalid')}}
+                            </div>
+                        </div>
+                    @endif
+                        <!-- Color Frontend Type Value -->
+                        @if($attribute->frontend_type == 'color')
+                        <div class="mb-3">
+                            <label class="form-label" for="add_color_code">{{__('Front-end/pages/categories.color_code')}}</label>
+                            <input id="add_color_code" type="text" class="form-control colorCodeInput" placeholder="{{__('Front-end/pages/categories.color_code')}}" autocomplete="off" name="color_code_value" required maxlength="30">
+                            <div class="valid-feedback">
+                                {{__('Front-end/pages/categories.color_code.valid')}}
+                            </div>
+                            <div class="invalid-feedback">
+                                {{__('Front-end/pages/categories.color_code.invalid')}}
+                            </div>
+                        </div>
+                    @endif
+                        <input type="hidden" name="attribute_id" value="{{$attribute->id}}">
                     </div>
                     <div class="modal-footer">
                         <!-- Submit & Close buttons -->
@@ -99,7 +130,7 @@
 
     </div>
     <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <form action="../values/update" method="post" class="needs-validation" novalidate>
+        <form action="../values/update" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="modal-dialog">
@@ -118,7 +149,31 @@
                                 {{__('Front-end/pages/attributes.name.invalid')}}
                             </div>
                         </div>
-                        <input type="hidden" name="attribute_id" value="{{$id}}">
+                        <!-- Image Frontend Type Value -->
+                        @if($attribute->frontend_type == 'image')
+                            <div class="mb-3">
+                                <label class="form-label" for="add_image_value">{{__('Front-end/pages/attributes.image')}}</label>
+                                <input type="file" class="form-control" id="inputEmail4" name="image_value" autocomplete="off"
+                                       accept=".jpg, .jpeg, .png, .svg" required>
+                                <div class="invalid-feedback">
+                                    {{__('Front-end/pages/attributes.image.invalid')}}
+                                </div>
+                            </div>
+                        @endif
+                        <!-- Color Frontend Type Value -->
+                        @if($attribute->frontend_type == 'color')
+                            <div class="mb-3">
+                                <label class="form-label" for="edit_color_code">{{__('Front-end/pages/categories.color_code')}}</label>
+                                <input id="edit_color_code" type="text" class="form-control colorCodeInput" placeholder="{{__('Front-end/pages/categories.color_code')}}" autocomplete="off" name="color_code_value" required maxlength="30">
+                                <div class="valid-feedback">
+                                    {{__('Front-end/pages/categories.color_code.valid')}}
+                                </div>
+                                <div class="invalid-feedback">
+                                    {{__('Front-end/pages/categories.color_code.invalid')}}
+                                </div>
+                            </div>
+                        @endif
+                        <input type="hidden" name="attribute_id" value="{{$attribute->id}}">
                         <input type="hidden" name="id" value="" id="edit_id">
                     </div>
 
@@ -160,13 +215,43 @@
     </script>
 
     <script>
+        document.querySelector('.colorCodeInput').addEventListener('input', function (){
+            checkColorCode('add_color_code')
+        });
+        document.querySelectorAll('.colorCodeInput')[1].addEventListener('input', function (){
+            checkColorCode('edit_color_code')
+        });
+
+        function checkColorCode(inputId) {
+            let colorInput = document.getElementById(inputId);
+            let colorValue = colorInput.value.trim();
+            let colorSyntax = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
+            let isColorValid = colorValue !== '' && colorSyntax.test(colorValue);
+
+            if(isColorValid) {
+                colorInput.classList.add("is-valid");
+                colorInput.classList.remove("is-invalid");
+                colorInput.setCustomValidity("");
+            } else {
+                colorInput.classList.remove("is-valid");
+                colorInput.classList.add("is-invalid");
+                colorInput.setCustomValidity("invalid");
+            }
+
+            return isColorValid;
+        }
+    </script>
+
+    <script>
         $(document).ready(function() {
             $('#edit').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
                 var name = button.data('name');
+                var color_code = button.data('color');
                 var modal = $(this);
                 modal.find('.modal-body #edit_name').val(name);
+                modal.find('.modal-body #edit_color_code').val(color_code);
                 modal.find('.modal-body #edit_id').val(id);
             });
         });

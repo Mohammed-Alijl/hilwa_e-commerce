@@ -23,7 +23,9 @@ class AttributeValueRequest extends FormRequest
     {
         return [
             'name'=>'required|string|max:255',
-            'attribute_id'=>'required|numeric|exists:attributes,id'
+            'attribute_id'=>'required|numeric|exists:attributes,id',
+            'image_value'=>'nullable|image|mimes:jpeg,jpg,png,svg|max:5000',
+            'color_code_value'=>['regex:/^#([0-9a-f]{3}|[0-9a-f]{6})$/i'],
         ];
     }
 }
