@@ -67,8 +67,11 @@
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="type">{{__('Front-end/pages/attributes.frontend.type')}}</label>
-                            <select name="frontend_type" id="type" class="form-control choices-single" required>
+                            <select name="frontend_type" id="type" class="form-control choices-single" required {{($attribute->frontend_type == 'color' || $attribute->frontend_type == 'image') && $attribute->values->count() > 0 ? 'disabled' : ''}}>
                                 @foreach(\App\Models\Attribute::getTypes() as $type)
+                                    @if(($type == 'image' || $type == 'color') && ($attribute->frontend_type == 'list' || $attribute->frontend_type == 'menu') && $attribute->values->count() > 0)
+                                        @continue
+                                    @endif
                                     <option value="{{$type}}" {{$type == $attribute->frontend_type ? "selected" : ''}}>{{$type}}</option>
                                 @endforeach
                             </select>

@@ -32,9 +32,12 @@ class AttributeRepository implements BasicRepositoryInterface
     {
         $attribute = Attribute::findOrFail($id);
         $attribute->setTranslation('name',Language::findOrFail($request->language_id)->code,$request->name);
-        $attribute->frontend_type = $request->frontend_type;
         $attribute->display_order = $request->display_order;
         $attribute->status = $request->status;
+        if($attribute->frontend_type != $request->frontend_type){
+            if($attribute->values->count() == 0 || ($attribute->frontend_type == 'menu' && $request->frontend_type == 'list') || ($attribute->frontend_type == 'list' && $request->frontend_type == 'menu') )
+                $attribute->frontend_type = $request->frontend_type;
+        }
         $attribute->save();
     }
 
