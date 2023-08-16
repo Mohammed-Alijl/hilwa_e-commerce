@@ -91,6 +91,6 @@ class AttributeController extends Controller
         if (!$attributeTranslation) {
             return json_decode('');
         }
-        return response()->json(['attribute_name' => $attributeTranslation->name]);
+        return response()->json(['attribute_name' => $attributeTranslation]);
     }
 }

@@ -34,7 +34,7 @@
                     <tr>
                         <td>{{$rowNumber++}}</td>
                         <td><a href="{{route('attributes.show',$attribute->id)}}">
-                            {{$attribute->translations->first()->name}}
+                            {{$attribute->name}}
                             </a>
                         </td>
                         <td>{{$attribute->frontend_type}}</td>

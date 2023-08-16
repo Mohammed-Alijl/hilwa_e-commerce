@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Attribute extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
     protected $fillable = [
+        'name',
         'display_order',
         'frontend_type',
         'status'
@@ -16,13 +18,11 @@ class Attribute extends Model
 
     protected static $types = ['image', 'color', 'list', 'menu'];
 
+    public $translatable = ['name'];
+
     //=======================================================
     //==================RELATIONSHIPS========================
     //=======================================================
-    public function translations()
-    {
-        return $this->hasMany(AttributeTranslation::class,'attribute_id');
-    }
     public static function getTypes()
     {
         return self::$types;

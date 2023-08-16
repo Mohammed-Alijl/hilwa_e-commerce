@@ -4,8 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\BasicRepositoryInterface;
 use App\Models\Attribute;
-use App\Models\AttributeTranslation;
-use App\Models\Entity;
+use App\Models\Language;
 
 class AttributeRepository implements BasicRepositoryInterface
 {
@@ -22,29 +21,17 @@ class AttributeRepository implements BasicRepositoryInterface
     public function create($request)
     {
         $attribute = new Attribute();
+        $attribute->setTranslation('name','en',$request->name);
         $attribute->display_order = $request->display_order;
         $attribute->frontend_type = $request->frontend_type;
         $attribute->status = $request->status;
         $attribute->save();
-        $attributeTranslation = new AttributeTranslation();
-        $attributeTranslation->name = $request->name;
-        $attributeTranslation->attribute_id = $attribute->id;
-        $attributeTranslation->language_id = 1;
-        $attributeTranslation->save();
     }
 
     public function update($request, $id)
     {
         $attribute = Attribute::findOrFail($id);
-        $attributeTranslation = AttributeTranslation::where('language_id', $request->language_id)->where('attribute_id', $id)->first();
-        if (!$attributeTranslation) {
-            $attributeTranslation = new AttributeTranslation();
-            $attributeTranslation->language_id = $request->language_id;
-            $attributeTranslation->attribute_id = $id;
-        }
-        $attributeTranslation->name = $request->name;
-        $attributeTranslation->save();
-
+        $attribute->setTranslation('name',Language::findOrFail($request->language_id)->code,$request->name);
         $attribute->frontend_type = $request->frontend_type;
         $attribute->display_order = $request->display_order;
         $attribute->status = $request->status;
@@ -60,9 +47,7 @@ class AttributeRepository implements BasicRepositoryInterface
 
     public function getAttributeLanguages($langId, $attributeId)
     {
-        return AttributeTranslation::where('attribute_id', $attributeId)
-            ->where('language_id', $langId)
-            ->first();
+        return $this->find($attributeId)->getTranslation('name',Language::findOrFail($langId)->code);
     }
 
     public function getAttributeValues($id){

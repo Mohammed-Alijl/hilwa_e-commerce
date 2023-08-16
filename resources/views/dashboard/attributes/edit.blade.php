@@ -54,7 +54,7 @@
                             <label class="form-label" for="name">{{__('Front-end/pages/attributes.name')}}</label>
                             <input type="text" class="form-control" id="name" name="name"
                                    placeholder="{{__('Front-end/pages/attributes.name')}}" autocomplete="off" required
-                                   value="{{$attribute->translations->first()->name}}"
+                                   value="{{$attribute->getTranslation('name','en')}}"
                             >
                             <div class="valid-feedback">
                                 {{__('Front-end/pages/attributes.name.valid')}}

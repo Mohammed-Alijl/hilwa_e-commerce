@@ -3,10 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\BasicRepositoryInterface;
-use App\Models\Attribute;
-use App\Models\AttributeTranslation;
 use App\Models\AttributeValue;
-use App\Models\Entity;
 use App\Traits\AttachmentTrait;
 
 class AttributeValueRepository implements BasicRepositoryInterface
