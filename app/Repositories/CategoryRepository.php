@@ -24,7 +24,7 @@ class CategoryRepository implements BasicRepositoryInterface
     public function create($request)
     {
         $category = new Category();
-        $category->name = ['en'=>$request->name];
+        $category->setTranslation('name','en',$request->name);
         $category->display_order = $request->display_order;
         $category->color_code = $request->color_code;
         $category->status = $request->status;

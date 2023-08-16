@@ -21,7 +21,7 @@ class UnitRepository implements BasicRepositoryInterface
     public function create($request)
     {
         $unit = new Unit();
-        $unit->name = $request->name;
+        $unit->setTranslation('name','en',$request->name);
         $unit->save();
     }
 

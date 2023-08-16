@@ -21,7 +21,7 @@ class StoreRepository implements BasicRepositoryInterface
     public function create($request)
     {
         $store = new Store();
-        $store->name = $request->name;
+        $store->setTranslation('name','en',$request->name);
         $store->email = $request->email;
         $store->mobile_number = $request->mobile_number;
         $store->open_time = $request->open_time;
