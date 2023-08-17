@@ -51,7 +51,7 @@
                                     class="align-middle">{{__('Front-end/sidebar.dashboards')}}</span>
                             </a>
                             <ul id="dashboards"
-                                class="sidebar-dropdown list-unstyled collapse {{ hasActiveChild(['dashboard']) ? ' show' : '' }}"
+                                class="sidebar-dropdown list-unstyled collapse {{ request()->route()->named(["dashboard"]) ? ' show' : '' }}"
                                 data-bs-parent="#sidebar">
                                 <li class="sidebar-item {{ request()->route()->named("dashboard") ? "active" : '' }}"><a
                                         class="sidebar-link" href="#">{{__('Front-end/sidebar.dashboard.1')}}</a></li>
@@ -236,7 +236,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="#">
+                            <a class="sidebar-link {{ request()->route()->named(['products.index','products.create','products.edit','products.show']) ? "active" : '' }}" href="{{route('products.index')}}">
                                 <i class="align-middle me-2 fab fa-fw fa-product-hunt"></i> <span
                                     class="align-middle">{{__('Front-end/sidebar.products')}}</span>
                             </a>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\CustomerAddressController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DriverController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\StateController;
@@ -46,6 +47,7 @@ Route::prefix('admin')->group(function () {
                 'attributes' => AttributeController::class,
                 'values' => AttributeValueController::class,
                 'categories' => CategoryController::class,
+                'products' => ProductController::class,
             ]);
 
             Route::get('/',[\App\Http\Controllers\Dashboard\DashboardController::class,'create']);
