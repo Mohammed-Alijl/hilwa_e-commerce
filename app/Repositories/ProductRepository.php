@@ -3,12 +3,13 @@
 namespace App\Repositories;
 
 use App\Interfaces\BasicRepositoryInterface;
+use App\Models\Product;
 
 class ProductRepository implements BasicRepositoryInterface
 {
   public function getAll()
   {
-      // TODO: Implement getAll() method.
+      return Product::get();
   }
 
   public function find($id)

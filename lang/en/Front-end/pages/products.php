@@ -1,0 +1,25 @@
+<?php
+
+return[
+  'title'=>'Products',
+  'add.product'=>'Add Product',
+  'name'=>'Name',
+  'category'=>'Category',
+  'price'=>'Price',
+  'unit'=>'Unit',
+  'stock_quantity'=>'Stock Quantity',
+  'stock_status'=>'Stock Status',
+  'weight_in_points'=>'Weight In Points',
+  'status'=>'Status',
+  'enable'=>'Enable',
+  'disable'=>'Disable',
+  'action'=>'Action',
+  'in_stock'=>'In Stock',
+  'out_of_stock'=>'Out Of Stock',
+  '2_3_days'=>'2 - 3 Days',
+  '4_7_days'=>'4 - 7 Days',
+  'edited'=>'Edited',
+  'product.add'=>'Product Add',
+  'deleted'=>'Deleted',
+  'can.not.delete'=>'Can Not Delete',
+];
