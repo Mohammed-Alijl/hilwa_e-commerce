@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attribute_product', function (Blueprint $table) {
+        Schema::create('product_discounts', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('product_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('attribute_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->primary(['product_id','attribute_id']);
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->enum('discount_type',['fixed','percent']);
+            $table->double('discount_value');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attribute_product');
+        Schema::dropIfExists('product_discounts');
     }
 };

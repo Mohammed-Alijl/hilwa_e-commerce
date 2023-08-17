@@ -36,4 +36,8 @@ class Category extends Model
     public function cities(){
         return $this->belongsToMany(City::class,'category_city','category_id','city_id');
     }
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }

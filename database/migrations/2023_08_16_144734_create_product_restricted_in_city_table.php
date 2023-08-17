@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attribute_product', function (Blueprint $table) {
+        Schema::create('product_restricted_in_city', function (Blueprint $table) {
+            $table->foreignId('city_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('attribute_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->primary(['product_id','attribute_id']);
+            $table->primary(['city_id','product_id']);
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attribute_product');
+        Schema::dropIfExists('product_restricted_in_city');
     }
 };

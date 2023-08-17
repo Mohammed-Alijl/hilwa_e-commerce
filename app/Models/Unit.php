@@ -19,4 +19,7 @@ class Unit extends Model
     //=======================================================
     //==================RELATIONSHIPS========================
     //=======================================================
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }
