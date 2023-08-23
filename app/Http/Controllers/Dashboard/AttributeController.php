@@ -93,4 +93,8 @@ class AttributeController extends Controller
         }
         return response()->json(['attribute_name' => $attributeTranslation]);
     }
+
+    public function getAttributeValues($id){
+        return json_decode($this->attributeRepository->find($id)->values->pluck('name','id'));
+    }
 }

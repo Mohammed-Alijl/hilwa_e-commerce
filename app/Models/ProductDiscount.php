@@ -16,10 +16,16 @@ class ProductDiscount extends Model
         'discount_value',
     ];
 
+    public static $discountTypes = ['fixed','percent'];
+
     //=======================================================
     //==================RELATIONSHIPS========================
     //=======================================================
     public function prodcut(){
         return $this->belongsTo(Product::class);
+    }
+
+    public static function getDiscountTypes(){
+        return self::$discountTypes;
     }
 }

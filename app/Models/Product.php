@@ -27,7 +27,7 @@ class Product extends Model
         'status'
     ];
 
-    public $translatable = ['name'];
+    public $translatable = ['name','description'];
 
 
     //=======================================================

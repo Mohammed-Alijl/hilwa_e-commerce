@@ -235,8 +235,8 @@
                                     class="align-middle">{{__('Front-end/sidebar.categories')}}</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link {{ request()->route()->named(['products.index','products.create','products.edit','products.show']) ? "active" : '' }}" href="{{route('products.index')}}">
+                        <li class="sidebar-item {{ request()->route()->named(['products.index','products.create','products.edit','products.show']) ? "active" : '' }}">
+                            <a class="sidebar-link" href="{{route('products.index')}}">
                                 <i class="align-middle me-2 fab fa-fw fa-product-hunt"></i> <span
                                     class="align-middle">{{__('Front-end/sidebar.products')}}</span>
                             </a>

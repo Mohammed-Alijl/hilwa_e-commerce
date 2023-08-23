@@ -58,4 +58,8 @@ class AttributeRepository implements BasicRepositoryInterface
         return $attribute->values;
     }
 
+    public function getActiveAttributes(){
+        return Attribute::where('status',1)->get();
+    }
+
 }

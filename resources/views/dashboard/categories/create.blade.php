@@ -77,7 +77,7 @@
                             <select id="parent_category" class="form-control choices-single" name="parent_category_id">
                                 <option selected value="">{{__('Front-end/pages/users.choose')}}</option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->translations->first()->name}}</option>
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
                             </select>
                         </div>

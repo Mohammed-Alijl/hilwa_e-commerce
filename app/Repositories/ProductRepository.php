@@ -31,4 +31,8 @@ class ProductRepository implements BasicRepositoryInterface
   {
       // TODO: Implement delete() method.
   }
+
+  public function getActiveProducts(){
+      return Product::where('status',1)->get();
+  }
 }

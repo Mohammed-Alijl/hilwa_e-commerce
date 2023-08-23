@@ -57,6 +57,7 @@ Route::prefix('admin')->group(function () {
             //==========================================
             Route::get('state-cities/{id}', [StateController::class, 'getStateCities']);
             Route::get('city-zones/{id}', [CityController::class, 'getCityZones']);
+            Route::get('attribute-values/{id}', [AttributeController::class, 'getAttributeValues']);
             Route::get('unit-languages/{langId}/{unitId}', [UnitController::class, 'getUnitLanguages']);
             Route::get('store-languages/{langId}/{storeId}', [StoreController::class, 'getStoreLanguages']);
             Route::get('category-languages/{langId}/{categoryId}', [CategoryController::class, 'getCategoryLanguages']);

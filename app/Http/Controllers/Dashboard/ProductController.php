@@ -2,21 +2,34 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Repositories\AttributeRepository;
+use App\Repositories\CategoryRepository;
+use App\Repositories\CityRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\StateRepository;
+use App\Repositories\UnitRepository;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function __construct(private ProductRepository $productRepository){
+    public function __construct(private ProductRepository   $productRepository,
+                                private CategoryRepository  $categoryRepository,
+                                private UnitRepository      $unitRepository,
+                                private StateRepository     $stateRepository,
+                                private CityRepository      $cityRepository,
+                                private AttributeRepository $attributeRepository
+    )
+    {
 
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $products = $this->productRepository->getAll();
-        return view('dashboard.products.index',compact('products'));
+        return view('dashboard.products.index', compact('products'));
     }
 
     /**
@@ -24,7 +37,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = $this->categoryRepository->getActiveCategories();
+        $units = $this->unitRepository->getAll();
+        $products = $this->productRepository->getActiveProducts();
+        $states = $this->stateRepository->getAll();
+        $cities = $this->cityRepository->getAll();
+        $attributes = $this->attributeRepository->getActiveAttributes();
+        return view('dashboard.products.create', compact('categories', 'units', 'products', 'states', 'cities','attributes'));
     }
 
     /**
@@ -32,7 +51,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->dd();
     }
 
     /**
