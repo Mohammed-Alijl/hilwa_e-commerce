@@ -114,4 +114,11 @@ return [
     'attribute.value.add.success'=>'Value Was Added Successfully',
     'attribute.value.edit.success'=>'Value Was Modified Successfully',
     'attribute.value.delete.success'=>'Value Was Deleted Successfully',
+
+    //===================================================================================
+    // PRODUCTS========================================================================
+    //===================================================================================
+    'product.add.success'=>'Product Was Added Successfully',
+    'product.edit.success'=>'Product Was Modified Successfully',
+    'product.delete.success'=>'Product Was Deleted Successfully',
 ];

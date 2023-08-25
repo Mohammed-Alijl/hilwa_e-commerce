@@ -9,9 +9,14 @@ class ProductFeatured extends Model
 {
     use HasFactory;
     protected $fillable = [
+      'product_id',
       'start_at',
       'end_at',
       'display_order',
       'status',
     ];
+
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }

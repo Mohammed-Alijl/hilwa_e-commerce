@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Requests\ProductRequest;
 use App\Repositories\AttributeRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CityRepository;
@@ -49,9 +50,11 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        return $request->dd();
+//        return $request->dd();
+        $this->productRepository->create($request);
+        return redirect()->route('products.index')->with('add-success',__('success_messages.product.add.success'));
     }
 
     /**

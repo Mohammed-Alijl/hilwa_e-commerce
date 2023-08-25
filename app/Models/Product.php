@@ -12,7 +12,8 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'description',
+        'description_en',
+        'description_ar',
         'sku',
         'price',
         'special_price',
@@ -27,7 +28,7 @@ class Product extends Model
         'status'
     ];
 
-    public $translatable = ['name','description'];
+    public $translatable = ['name'];
 
 
     //=======================================================
@@ -38,7 +39,7 @@ class Product extends Model
     }
 
     public function attributes(){
-        return $this->hasMany(Attribute::class);
+        return $this->belongsToMany(Attribute::class);
     }
 
     public function category(){
@@ -58,6 +59,18 @@ class Product extends Model
     }
 
     public function options(){
-        return $this->hasMany(AttributeValue::class,'attribute_value_product');
+        return $this->belongsToMany(AttributeValue::class,'attribute_value_product');
+    }
+
+    public function cities(){
+        return $this->belongsToMany(City::class,'product_restricted_in_city');
+    }
+
+    public function featured(){
+        return $this->hasOne(ProductFeatured::class);
+    }
+
+    public function relatedProducts(){
+        return $this->belongsToMany(Product::class,'related_products');
     }
 }

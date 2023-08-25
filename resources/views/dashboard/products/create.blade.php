@@ -361,7 +361,7 @@
                                 </h5>
                             </div>
                             <div class="card-body">
-                                <select name="related_products" class="form-control related-products" multiple>
+                                <select name="related_products[]" class="form-control related-products" multiple>
                                     @foreach($products as $product)
                                         <option value="{{$product->id}}">{{$product->name}}</option>
                                     @endforeach
@@ -380,7 +380,7 @@
                                 <div class="row">
                                     <label for="inputState"
                                            class="form-label">{{__('Front-end/pages/products.states')}}</label>
-                                    <select class="form-control states" multiple id="inputState">
+                                    <select class="form-control states" multiple id="inputState" name="states[]">
                                         @foreach($states as $state)
                                             <option value="{{$state->id}}">{{$state->name}}</option>
                                         @endforeach
@@ -389,7 +389,7 @@
                                 <div class="row">
                                     <label for="inputCity"
                                            class="form-label">{{__('Front-end/pages/products.cities')}}</label>
-                                    <select class="form-control cities" multiple id="inputCity">
+                                    <select class="form-control cities" multiple id="inputCity" name="cities[]">
                                     </select>
                                 </div>
                             </div>
@@ -416,7 +416,9 @@
                                                class="form-label">{{__('Front-end/pages/products.display_order')}}</label>
                                         <input id="display-order" type="text" class="form-control"
                                                placeholder="{{__('Front-end/pages/products.display_order')}}"
-                                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                               name="display_order"
+                                        />
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <label class="form-label"
@@ -744,7 +746,7 @@
                     selectedAttributeLabel.setAttribute('for', `${selectedAttributeName}${selectedAttributeId}`)
                     let selectedAttributeBox = document.createElement('select');
                     selectedAttributeBox.classList.add('form-control');
-                    selectedAttributeBox.name = 'attributes_values';
+                    selectedAttributeBox.name = 'attribute_value_id[]';
                     selectedAttributeBox.id = `${selectedAttributeName}${selectedAttributeId}`;
                     selectedAttributeBox.multiple = true;
                     let attributeId = document.createElement('input');
