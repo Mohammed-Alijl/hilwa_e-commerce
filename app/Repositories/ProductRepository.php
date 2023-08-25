@@ -126,7 +126,17 @@ class ProductRepository implements BasicRepositoryInterface
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        $product = Product::findOrFail($id);
+        foreach ($product->images as $image){
+            $this->delete_attachment("img/products/$image->name");
+            $image->delete();
+        }
+        $product->relatedProducts()->detach();
+        $product->cities()->detach();
+        ProductFeatured::where('product_id',$product->id)->delete();
+        $product->attributes()->detach();
+        $product->options()->detach();
+        $product->delete();
     }
 
     public function getActiveProducts()
