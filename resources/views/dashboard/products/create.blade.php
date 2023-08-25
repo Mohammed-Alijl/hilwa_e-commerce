@@ -332,7 +332,6 @@
                                        data-show-upload="false" data-show-caption="true"
                                        data-msg-placeholder="Select images for upload...">
                             </div>
-                            <button type="submit">submit</button>
                         </div>
                     </div>
                     <div class="tab-pane" id="product-discounts" role="tabpanel">
@@ -471,6 +470,7 @@
                             </div>
                         </div>
                     </div>
+                        <button type="submit" class="btn btn-square btn-primary">submit</button>
                 </div>
             </div>
         </div>
