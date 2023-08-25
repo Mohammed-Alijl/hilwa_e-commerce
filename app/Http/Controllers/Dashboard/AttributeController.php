@@ -80,6 +80,9 @@ class AttributeController extends Controller
      */
     public function destroy(string $id)
     {
+        $attribute = $this->attributeRepository->find($id);
+        if ($attribute->products->count() > 0)
+            return redirect()->route('attributes.index')->with('delete-failed', __('failed_messages.attribute.delete.failed'));
         $this->attributeRepository->delete($id);
         return redirect()->route('attributes.index')->with('delete-success', __('success_messages.attribute.delete.success'));
     }

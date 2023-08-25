@@ -9,4 +9,5 @@ return [
   'language'=>'Language',
   'name.invalid'=>'Please Enter The Name',
   'edit.unit'=>'Edit Unit',
+  'unit.cannot.delete'=>"Can't Delete Unit",
 ];

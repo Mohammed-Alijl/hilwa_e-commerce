@@ -75,6 +75,9 @@ class UnitController extends Controller
      */
     public function destroy(string $id)
     {
+        $unit = $this->unitRepository->find($id);
+        if ($unit->products->count() > 0)
+            return redirect()->back()->with('delete-failed', __('failed_messages.unit.delete.failed'));
         $this->unitRepository->delete($id);
         return redirect()->back()->with('delete-success', __('success_messages.unit.delete.success'));
     }

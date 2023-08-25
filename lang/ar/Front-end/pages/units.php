@@ -9,4 +9,5 @@ return [
     'language' => 'اللغة',
     'name.invalid' => 'يرجى إدخال الاسم',
     'edit.unit' => 'تعديل الوحدة',
+    'unit.cannot.delete'=>'لا يمكن حذف الوحدة'
 ];

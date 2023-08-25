@@ -268,4 +268,15 @@
             )
         </script>
     @endif
+    @if(\Illuminate\Support\Facades\Session::has('delete-failed'))
+        <script>
+            Swal.fire({
+                title: '{{__('Front-end/pages/units.unit.cannot.delete')}}',
+                text: '{{\Illuminate\Support\Facades\Session::get('delete-failed')}}',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '{{__('Front-end/pages/stores.ok')}}'
+            })
+        </script>
+    @endif
 @endsection

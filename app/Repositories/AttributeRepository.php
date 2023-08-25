@@ -44,7 +44,6 @@ class AttributeRepository implements BasicRepositoryInterface
     public function delete($id)
     {
         $attribute = Attribute::findOrFail($id);
-        //here should edit it to check if there any category or product use this attribute should prevent delete
         $attribute->delete();
     }
 
