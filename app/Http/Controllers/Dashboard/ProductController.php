@@ -52,7 +52,6 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-//        return $request->dd();
         $this->productRepository->create($request);
         return redirect()->route('products.index')->with('add-success',__('success_messages.product.add.success'));
     }
@@ -62,7 +61,9 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = $this->productRepository->find($id);
+        $isComplex = $product->attributes->count() > 0;
+        return view('dashboard.products.show',compact('product','isComplex'));
     }
 
     /**
