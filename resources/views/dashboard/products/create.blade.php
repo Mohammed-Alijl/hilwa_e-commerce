@@ -669,6 +669,155 @@
                 dateFormat: "d-m-Y"
             });
 
+            var optionsArrays = {};
+            var combinations = [];
+
+            $('.tab-pane#variations').on('change', '.input-group-text', function () {
+                var idCheckbox = $(this).find("input").attr('id');
+                var modifiedStringofID = idCheckbox.replace("_", "");
+
+                var previousTabPane = $(this).closest('.tab-pane').prev('.tab-pane#attributes');
+                var previousTabPane = previousTabPane.find(`#${modifiedStringofID}`);
+
+                if (!optionsArrays[modifiedStringofID]) {
+                    optionsArrays[modifiedStringofID] = [];
+                }
+
+                if ($(this).find("input").prop('checked')) {
+                    $(previousTabPane).each(function () {
+                        var inputId = $(this).attr('id');
+
+                        if (inputId === modifiedStringofID) {
+                            var children = previousTabPane.children();
+
+                            for (var i = 0; i < children.length; i++) {
+                                var option = children[i].textContent;
+                                optionsArrays[modifiedStringofID].push(option);
+                            }
+                        }
+                    });
+                } else {
+                    delete optionsArrays[modifiedStringofID];
+                }
+
+                $('.variations-containers').empty();
+
+                var keys = Object.keys(optionsArrays);
+
+                if (keys.length === 1) {
+                    var arrayValues = optionsArrays[keys[0]];
+                    for (var i = 0; i < arrayValues.length; i++) {
+                        var arrayValue = arrayValues[i];
+                        makeVariantContainer(arrayValue, i)
+                    }
+                }
+
+                if (keys.length >= 2) {
+                    combinations = [];
+                    generateCombinations(0, []);
+                    for (var i = 0; i < combinations.length; i++) {
+                        var combinationText = combinations[i].join(' , ');
+                        makeVariantContainer(combinationText, i)
+
+                    }
+                }
+            });
+
+            function makeVariantContainer(titleText, i) {
+                let attributeCard = document.createElement('div');
+                attributeCard.classList.add('card');
+                let attributeCardHeader = document.createElement('div');
+                attributeCardHeader.classList.add('card-header');
+                let attributeCardHeaderTitle = document.createElement('h5');
+                attributeCardHeaderTitle.classList.add('card-title');
+                attributeCardHeaderTitle.appendChild(document.createTextNode(titleText));
+                attributeCardHeader.appendChild(attributeCardHeaderTitle);
+
+
+                let variantCardBody = document.createElement('div');
+                variantCardBody.classList.add('card-body');
+                let variantCardBody_row1 = document.createElement("div");
+                variantCardBody_row1.className = "row";
+                let variantCardBody_col1 = document.createElement("div");
+                variantCardBody_col1.className = "mb-3 col-md-6";
+                let variantCardBody_col1_label1 = document.createElement("label");
+                variantCardBody_col1_label1.className = "form-label";
+                variantCardBody_col1_label1.textContent = "{{__('Front-end/pages/products.price')}}";
+                let variantCardBody_col1_input1 = document.createElement("input");
+                variantCardBody_col1_input1.type = "text";
+                variantCardBody_col1_input1.className = "form-control";
+                variantCardBody_col1_input1.id = "variant_price";
+                variantCardBody_col1_input1.name = "variant_price[]";
+                variantCardBody_col1.appendChild(variantCardBody_col1_label1);
+                variantCardBody_col1.appendChild(variantCardBody_col1_input1);
+                let variantCardBody_col2 = document.createElement("div");
+                variantCardBody_col2.className = "mb-3 col-md-6";
+                let variantCardBody_col2_label2 = document.createElement("label");
+                variantCardBody_col2_label2.className = "form-label";
+                variantCardBody_col2_label2.textContent = "{{__('Front-end/pages/products.stock_quantity')}}";
+                let variantCardBody_col2_input2 = document.createElement("input");
+                variantCardBody_col2_input2.type = "text";
+                variantCardBody_col2_input2.className = "form-control";
+                variantCardBody_col2_input2.id = "variant_quantity";
+                variantCardBody_col2_input2.name = "variant_quantity[]";
+
+                variantCardBody_col2.appendChild(variantCardBody_col2_label2);
+                variantCardBody_col2.appendChild(variantCardBody_col2_input2);
+
+                variantCardBody_row1.appendChild(variantCardBody_col1);
+                variantCardBody_row1.appendChild(variantCardBody_col2);
+
+                var variantImageInput = document.createElement("input");
+                variantImageInput.id = "variant-input-" + i;
+                variantImageInput.name = "variant_image[]";
+                variantImageInput.type = "file";
+                variantImageInput.className = "file";
+                variantImageInput.required = true;
+                variantImageInput.setAttribute("data-show-upload", "false");
+                variantImageInput.setAttribute("data-show-caption", "true");
+                variantImageInput.setAttribute("data-msg-placeholder", "Select images for upload...");
+
+                variantCardBody.appendChild(variantCardBody_row1);
+                variantCardBody.appendChild(variantImageInput);
+                $(variantImageInput).fileinput({
+                    theme: 'fas', // Set the theme to Font Awesome
+                    showUpload: false,
+                    showCaption: true,
+                    browseOnZoneClick: true,
+                    msgPlaceholder: "Select images for upload...",
+                    allowedFileExtensions: ["jpg", "jpeg", "png", "gif"], // Example list of allowed file extensions
+                    // Other options you want to configure
+                });
+                // variantCardBody.appendChild(variantCardBody_row2);
+
+
+                attributeCard.appendChild(attributeCardHeader);
+                attributeCard.appendChild(variantCardBody);
+                $('.variations-containers').append(attributeCard);
+            }
+
+            function generateCombinations(index, currentCombination) {
+                var keys = Object.keys(optionsArrays);
+
+                if (index === keys.length) {
+                    combinations.push(currentCombination);
+                    return;
+                }
+
+                var currentKey = keys[index];
+                var currentArray = optionsArrays[currentKey];
+
+                if (currentArray.length === 0) {
+                    generateCombinations(index + 1, currentCombination);
+                } else {
+                    for (var i = 0; i < currentArray.length; i++) {
+                        var newCombination = currentCombination.slice();
+                        newCombination.push(currentArray[i]);
+                        generateCombinations(index + 1, newCombination);
+                    }
+                }
+            }
+
 
             async function updateCityOptions(StateId) {
                 if (StateId) {
@@ -809,6 +958,8 @@
                             selectedAttributes.splice(index, 1);
                             row.remove();
                             attributeScript.remove();
+                            attributeVariationCheckbox.remove();
+                            document.querySelector('.variations-containers').innerHTML = '';
                         }
                     });
                     var checkedAttributes = []; // Array to store selected attribute IDs
@@ -1237,6 +1388,34 @@
         });
     </script>
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <!-- buffer.min.js and filetype.min.js are necessary in the order listed for advanced mime type parsing and more correct
+         preview. This is a feature available since v5.5.0 and is needed if you want to ensure file mime type is parsed
+         correctly even if the local file's extension is named incorrectly. This will ensure more correct preview of the
+         selected file (note: this will involve a small processing overhead in scanning of file contents locally). If you
+         do not load these scripts then the mime type parsing will largely be derived using the extension in the filename
+         and some basic file content parsing signatures. -->
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/buffer.min.js"
+            type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/filetype.min.js"
+            type="text/javascript"></script>
+    <!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you
+        wish to resize images before upload. This must be loaded before fileinput.min.js -->
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/piexif.min.js"
+            type="text/javascript"></script>
+    <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+        This must be loaded before fileinput.min.js -->
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/sortable.min.js"
+            type="text/javascript"></script>
+    <!-- bootstrap.bundle.min.js below is needed if you wish to zoom and preview file content in a detail modal
+        dialog. bootstrap 5.x or 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+    <!-- the main fileinput plugin script JS file -->
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/fileinput.min.js"></script>
+    <!-- following theme script is needed to use the Font Awesome 5.x theme (`fa5`). Uncomment if needed. -->
+    <!-- script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/themes/fa5/theme.min.js"></script -->
+    <!-- optionally if you need translation for your language then include the locale file as mentioned below (replace LANG.js with your language locale) -->
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/locales/LANG.js"></script>
 @endsection
 
