@@ -648,7 +648,7 @@
                     showCaption: true,
                     overwriteInitial: true,
                     initialPreview: [
-                        "{{ asset('img/products/' . $variant->image) }}",
+                        "{{ asset('img/variants/' . $variant->image) }}",
                     ],
                     initialPreviewConfig: [
                         {
