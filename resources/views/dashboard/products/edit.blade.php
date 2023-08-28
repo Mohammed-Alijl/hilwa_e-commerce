@@ -577,20 +577,7 @@
                                                     {{--                                                    @foreach($variant->attributes as $variantAttribute)--}}
                                                     {{--                                                        {{\App\Models\AttributeValue::whereIn('id',$variantAttribute->attribute_value_id->pluck('attribute_value_id'))->pluck('name')}}--}}
                                                     {{--                                                    @endforeach--}}
-                                                    @php
-                                                        $attributeValueIds = [];
-
-                                                        foreach($variant->attributes as $variantAttribute) {
-                                                            $attributeValueIds = array_merge(
-                                                                $attributeValueIds,
-                                                                $variantAttribute->attribute_value_id->pluck('attribute_value_id')->toArray()
-                                                            );
-                                                        }
-
-                                                        $attributeValues = \App\Models\AttributeValue::whereIn('id', $attributeValueIds)->pluck('name');
-                                                    @endphp
-
-                                                    {{$attributeValues->implode(', ')}}
+                                                    {{implode(',',\App\Models\AttributeValue::whereIn('id',\Illuminate\Support\Facades\DB::table('attribute_variant')->where('variant_id',$variant->id)->pluck('attribute_value_id'))->pluck('name')->toArray())}}
                                                 </h5>
                                             </div>
                                             <div class="card-body">

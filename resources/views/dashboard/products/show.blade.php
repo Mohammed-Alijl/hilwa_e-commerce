@@ -356,9 +356,10 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="card-title">
-                                        @foreach($variant->attributes as $variantAttribute)
-                                            {{$variantAttribute->name . " "}}
-                                        @endforeach
+{{--                                        @foreach($variant->attributes as $variantAttribute)--}}
+{{--                                            {{$variantAttribute->values->name . " "}}--}}
+{{--                                        @endforeach--}}
+                                        {{implode(',',\App\Models\AttributeValue::whereIn('id',\Illuminate\Support\Facades\DB::table('attribute_variant')->where('variant_id',$variant->id)->pluck('attribute_value_id'))->pluck('name')->toArray())}}
                                     </h5>
                                 </div>
                                 <div class="card-body">
