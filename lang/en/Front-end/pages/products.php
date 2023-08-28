@@ -74,4 +74,5 @@ return[
   'description_ar.invalid'=>'Please Enter The Arabic Description',
   'stock_quantity.valid'=>'Stock Quantity Is Valid',
   'show.product'=>'Show Product',
+  'edit.product'=>'Edit Product',
 ];

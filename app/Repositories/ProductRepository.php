@@ -3,10 +3,13 @@
 namespace App\Repositories;
 
 use App\Interfaces\BasicRepositoryInterface;
+use App\Models\Attribute;
+use App\Models\AttributeValue;
 use App\Models\Product;
 use App\Models\ProductDiscount;
 use App\Models\ProductFeatured;
 use App\Models\ProductImage;
+use App\Models\Variant;
 use App\Traits\AttachmentTrait;
 use Illuminate\Support\Facades\DB;
 
@@ -57,8 +60,8 @@ class ProductRepository implements BasicRepositoryInterface
         }
 
         //create the discount
-        if($request->filled('discount_type')){
-            for($i=0;$i<count($request->discount_type);$i++){
+        if ($request->filled('discount_type')) {
+            for ($i = 0; $i < count($request->discount_type); $i++) {
                 $productDiscount = new ProductDiscount();
                 $productDiscount->product_id = $product->id;
                 $productDiscount->discount_type = $request->discount_type[$i];
@@ -74,7 +77,8 @@ class ProductRepository implements BasicRepositoryInterface
 
 
         //create the restricted in cities
-        $product->cities()->attach($request->cities);
+        if ($request->filled('cities'))
+            $product->cities()->attach($request->cities);
 
 
         //create product featured
@@ -86,8 +90,8 @@ class ProductRepository implements BasicRepositoryInterface
             $featuredDateRange = explode('to', $request->featured_date);
             $featuredStartDate = strtotime(trim($featuredDateRange[0]));
             $featuredEndDate = strtotime(trim($featuredDateRange[1]));
-            $productFeatured->start_at = date('Y-m-d',$featuredStartDate);
-            $productFeatured->end_at = date('Y-m-d',$featuredEndDate);
+            $productFeatured->start_at = date('Y-m-d', $featuredStartDate);
+            $productFeatured->end_at = date('Y-m-d', $featuredEndDate);
             $productFeatured->save();
         }
 
@@ -112,7 +116,7 @@ class ProductRepository implements BasicRepositoryInterface
             if ($request->filled('attribute_id'))
                 $product->attributes()->attach($request->attribute_id);
             //create options attribute products
-            if($request->filled('attribute_value_id'))
+            if ($request->filled('attribute_value_id'))
                 $product->options()->attach($request->attribute_value_id);
 
         }
@@ -121,19 +125,171 @@ class ProductRepository implements BasicRepositoryInterface
 
     public function update($request, $id)
     {
-        // TODO: Implement update() method.
-    }
+        //create the product
+        $product = Product::findOrFail($id);
+        $product->setTranslation('name', 'en', $request->name_en);
+        $product->setTranslation('name', 'ar', $request->name_ar);
+        $product->description_en = $request->description_en;
+        $product->description_ar = $request->description_ar;
+        $product->sku = $request->sku;
+        $product->weight_in_points = $request->weight_in_points;
+        $product->price = $request->price;
+        $product->special_price = $request->spacial_price;
+        $product->min_quantity = $request->min_quantity;
+        $product->max_quantity = $request->max_quantity;
+        $product->category_id = $request->category_id;
+        $product->unit_id = $request->unit_id;
+        $product->status = $request->status;
+        $product->show_customer_app = $request->show_customer_app;
+        $product->stock_quantity = $request->stock_quantity;
+        $product->stock_status = $request->stock_status;
+        $product->save();
 
+
+        //create the product images
+        if ($request->filled('images')) {
+            foreach ($product->images as $image) {
+                $this->delete_attachment('img/products/' . $image->name);
+                $image->delete();
+            }
+            foreach ($request->images as $image) {
+                $imageName = $this->save_attachment($image, 'img/products/');
+                $productImage = new ProductImage();
+                $productImage->product_id = $id;
+                $productImage->name = $imageName;
+                $productImage->save();
+            }
+        }
+
+
+        //create the discount
+        if ($request->filled('discount_type')) {
+            foreach ($product->discounts as $discount)
+                $discount->delete();
+
+            for ($i = 0; $i < count($request->discount_type); $i++) {
+                $productDiscount = new ProductDiscount();
+                $productDiscount->product_id = $product->id;
+                $productDiscount->discount_type = $request->discount_type[$i];
+                $productDiscount->discount_value = $request->discount_value[$i];
+                $discountDateRange = explode(' to ', $request->discount_date[$i]);
+                $discountStartDate = strtotime(trim($discountDateRange[0]));
+                $discountEndDate = strtotime(trim($discountDateRange[1]));
+                $productDiscount->start_date = date('Y-m-d', $discountStartDate);
+                $productDiscount->end_date = date('Y-m-d', $discountEndDate);
+                $productDiscount->save();
+            }
+        }
+
+
+        //create the restricted in cities
+        $product->cities()->detach();
+        if ($request->filled('cities'))
+            $product->cities()->attach($request->cities);
+
+
+        //create product featured
+        if ($request->filled('featured_date')) {
+
+            if (ProductFeatured::where('product_id', $id))
+                ProductFeatured::where('product_id', $id)->delete();
+
+            $productFeatured = new ProductFeatured();
+            $productFeatured->product_id = $id;
+            $productFeatured->display_order = $request->display_order;
+            $productFeatured->status = $request->featured_status;
+            $featuredDateRange = explode('to', $request->featured_date);
+            $featuredStartDate = strtotime(trim($featuredDateRange[0]));
+            $featuredEndDate = strtotime(trim($featuredDateRange[1]));
+            $productFeatured->start_at = date('Y-m-d', $featuredStartDate);
+            $productFeatured->end_at = date('Y-m-d', $featuredEndDate);
+            $productFeatured->save();
+        }
+
+
+        //create related products
+        if ($request->filled('related_products')) {
+            DB::table('related_products')->where('product_id', $id)->delete();
+            $relatedProducts = $request->input('related_products', []);
+
+            $relatedPairs = [];
+            foreach ($relatedProducts as $relatedProduct) {
+                $relatedPairs[] = [
+                    'product_id' => $id,
+                    'related_product_id' => $relatedProduct,
+                ];
+            }
+            DB::table('related_products')->insert($relatedPairs);
+        }
+
+
+        if ($request->product_type === 'complex') {
+            //create attribute products
+            $product->attributes()->detach();
+            if ($request->filled('attribute_id')) {
+                $product->attributes()->attach($request->attribute_id);
+            }
+            //create options attribute products
+            $product->options()->detach();
+            if ($request->filled('attribute_value_id')) {
+                foreach ($request->attribute_value_id as $value)
+                    $product->options()->attach($value);
+            }
+
+
+            foreach ($product->variants as $variant) {
+                $this->delete_attachment('img/variants/' . $variant->image);
+                $variant->delete();
+            }
+            if (isset($request->variant_price)) {
+                foreach ($request->variant_price as $index => $price) {
+                    $imageName = $this->save_attachment($request->variant_image[$index], 'img/variants/');
+
+                    $variant = new Variant();
+                    $variant->price = $price;
+                    $variant->product_id = $id;
+                    $variant->quantity = $request->variant_quantity[$index];
+                    $variant->image = $imageName;
+                    $variant->save();
+
+                    $attributeValueCombinations = [];
+
+                    foreach ($request->variant_attribute as $checkedAttribute) {
+                        $values = Attribute::find($checkedAttribute)->values->whereIn('id', $product->options->pluck('id'));
+
+                        foreach ($values as $value) {
+                            $attributeValueCombinations[] = $checkedAttribute . '-' . $value->id;
+                        }
+                    }
+
+                    $uniqueCombinations = array_unique($attributeValueCombinations);
+
+                    foreach ($uniqueCombinations as $combination) {
+                        [$attributeId, $valueId] = explode('-', $combination);
+                        $variant->attributes()->attach($attributeId, ['attribute_value_id' => $valueId]);
+                    }
+                }
+            }
+ else {
+                $product->attributes()->detach();
+                $product->options()->detach();
+                foreach ($product->variants as $variant) {
+                    $this->delete_attachment('img/variants/' . $variant->image);
+                    $variant->delete();
+                }
+            }
+        }
+    }
     public function delete($id)
     {
         $product = Product::findOrFail($id);
-        foreach ($product->images as $image){
+        foreach ($product->images as $image) {
             $this->delete_attachment("img/products/$image->name");
             $image->delete();
         }
         $product->relatedProducts()->detach();
         $product->cities()->detach();
-        ProductFeatured::where('product_id',$product->id)->delete();
+        ProductFeatured::where('product_id', $product->id)->delete();
         $product->attributes()->detach();
         $product->options()->detach();
         $product->delete();

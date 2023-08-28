@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\Product\UpdateRequest;
 use App\Repositories\AttributeRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CityRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\StateRepository;
 use App\Repositories\UnitRepository;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -50,7 +50,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductRequest $request)
+    public function store(StoreRequest $request)
     {
         $this->productRepository->create($request);
         return redirect()->route('products.index')->with('add-success',__('success_messages.product.add.success'));
@@ -71,15 +71,25 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = $this->productRepository->find($id);
+        $isComplex = $product->attributes->count() > 0;
+        $categories = $this->categoryRepository->getActiveCategories();
+        $units = $this->unitRepository->getAll();
+        $products = $this->productRepository->getActiveProducts();
+        $states = $this->stateRepository->getAll();
+        $cities = $this->cityRepository->getAll();
+        $attributes = $this->attributeRepository->getActiveAttributes();
+        return view('dashboard.products.edit', compact('product','isComplex','categories', 'units', 'products', 'states', 'cities','attributes'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        //
+//        return $request->dd();
+        $this->productRepository->update($request,$id);
+        return redirect()->route('products.index')->with('success_messages',__('success_messages.product.edit.success'));
     }
 
     /**
