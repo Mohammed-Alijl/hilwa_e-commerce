@@ -26,7 +26,7 @@ class AttributeRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'display_order' => 'required|numeric',
-            'frontend_type' => ['required',Rule::in(['menu', 'list', 'color', 'image'])],
+            'frontend_type' => [Rule::in(['menu', 'list', 'color', 'image'])],
             'status' => 'required|boolean',
         ];
     }
