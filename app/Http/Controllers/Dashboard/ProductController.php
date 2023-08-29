@@ -89,7 +89,7 @@ class ProductController extends Controller
     {
 //        return $request->dd();
         $this->productRepository->update($request,$id);
-        return redirect()->route('products.index')->with('success_messages',__('success_messages.product.edit.success'));
+        return redirect()->route('products.index')->with('edit-success',__('success_messages.product.edit.success'));
     }
 
     /**
