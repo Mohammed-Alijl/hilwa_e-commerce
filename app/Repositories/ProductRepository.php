@@ -119,6 +119,30 @@ class ProductRepository implements BasicRepositoryInterface
             if ($request->filled('attribute_value_id'))
                 $product->options()->attach($request->attribute_value_id);
 
+            //create variants products
+            $counter = 0;
+            if (isset($request->variant_price)) {
+                foreach ($request->variant_price as $index => $price) {
+                    $imageName = $this->save_attachment($request->variant_image[$index], 'img/variants/');
+
+                    $variant = new Variant();
+                    $variant->price = $price;
+                    $variant->product_id = $product->id;
+                    $variant->quantity = $request->variant_quantity[$index];
+                    $variant->image = $imageName;
+                    $variant->save();
+
+
+                    for ($i = 0; $i < count($request->AttributeValues)/count($request->variant_quantity);$i++){
+                        DB::table('attribute_variant')->insert([
+                           'attribute_id'=>AttributeValue::find($request->AttributeValues[$counter])->attribute->id,
+                            'variant_id'=>$variant->id,
+                            'attribute_value_id'=>$request->AttributeValues[$counter++]
+                        ]);
+                    }
+                }
+            }
+
         }
 
     }
