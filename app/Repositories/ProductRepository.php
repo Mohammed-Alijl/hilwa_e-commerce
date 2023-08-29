@@ -135,9 +135,9 @@ class ProductRepository implements BasicRepositoryInterface
 
                     for ($i = 0; $i < count($request->AttributeValues)/count($request->variant_quantity);$i++){
                         DB::table('attribute_variant')->insert([
-                           'attribute_id'=>AttributeValue::find($request->AttributeValues[$counter])->attribute->id,
+                           'attribute_id'=>AttributeValue::where('name',$request->AttributeValues[$counter])->first()->attribute->id,
                             'variant_id'=>$variant->id,
-                            'attribute_value_id'=>$request->AttributeValues[$counter++]
+                            'attribute_value_id'=>AttributeValue::where('name',$request->AttributeValues[$counter++])->first()->id
                         ]);
                     }
                 }

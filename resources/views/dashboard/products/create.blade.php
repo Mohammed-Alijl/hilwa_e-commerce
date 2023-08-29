@@ -723,7 +723,8 @@
                     var arrayValues = optionsArrays[keys[0]];
                     for (var i = 0; i < arrayValues.length; i++) {
                         var arrayValue = arrayValues[i];
-                        makeVariantContainer(arrayValue, i)
+                        makeVariantContainer(arrayValue, i);
+                        createHiddenInput(arrayValue);
                     }
                 }
 
@@ -732,11 +733,23 @@
                     generateCombinations(0, []);
                     for (var i = 0; i < combinations.length; i++) {
                         var combinationText = combinations[i].join(' , ');
-                        makeVariantContainer(combinationText, i)
+                        makeVariantContainer(combinationText, i);
 
+                        for (var j = 0; j < combinations[i].length; j++) {
+                            createHiddenInput(combinations[i][j]);
+                        }
                     }
                 }
+
             });
+
+            function createHiddenInput(value) {
+                var hiddenInput = $('<input>')
+                    .attr('type', 'hidden')
+                    .attr('name', 'AttributeValues[]')
+                    .attr('value', value);
+                $('.variations-containers').append(hiddenInput);
+            }
 
             function makeVariantContainer(titleText, i) {
                 let attributeCard = document.createElement('div');
