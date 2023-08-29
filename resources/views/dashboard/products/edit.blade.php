@@ -94,11 +94,11 @@
                                             role="tab"> {{__('Front-end/pages/products.restricted_in')}}</a></li>
                     <li class="nav-item"><a class="nav-link" href="#products-featured" data-bs-toggle="tab"
                                             role="tab"> {{__('Front-end/pages/products.featured')}}</a></li>
-                    <li class="nav-item complex-product" {{!$isComplex ? 'style="display: none"' : ''}} ><a
+                    <li class="nav-item complex-product" @if(!$isComplex) style="display: none" @endif ><a
                             class="nav-link" href="#attributes" data-bs-toggle="tab"
                             role="tab"> {{__('Front-end/pages/products.attributes')}}</a>
                     </li>
-                    <li class="nav-item complex-product" {{!$isComplex ? 'style="display: none"' : ''}}><a
+                    <li class="nav-item complex-product" @if(!$isComplex) style="display: none" @endif><a
                             class="nav-link" href="#variations" data-bs-toggle="tab"
                             role="tab"> {{__('Front-end/pages/products.variations')}}</a>
                     </li>
@@ -501,7 +501,7 @@
                         </div>
                     </div>
                     <div class="tab-pane complex-product" id="attributes"
-                         role="tabpanel" {{!$isComplex ? 'style="display: none"' : ''}}>
+                         role="tabpanel" @if(!$isComplex) style="display: none" @endif>
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title"><i
@@ -545,7 +545,7 @@
                         </div>
                     </div>
                     <div class="tab-pane complex-product" id="variations"
-                         role="tabpanel" {{!$isComplex ? 'style="display: none"' : ''}}>
+                         role="tabpanel" @if(!$isComplex) style="display: none" @endif>
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title"><i
@@ -586,7 +586,7 @@
                                                         <label for=""
                                                                class="form-label">{{__('Front-end/pages/products.price')}}</label>
                                                         <input type="text" class="form-control" id="variant_price"
-                                                               name="variant_price[]"
+                                                               name="old_variant_price[]"
                                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                                value="{{$variant->price}}">
                                                     </div>
@@ -594,13 +594,14 @@
                                                         <label for=""
                                                                class="form-label">{{__('Front-end/pages/products.stock_quantity')}}</label>
                                                         <input type="text" class="form-control" id="variant_quantity"
-                                                               name="variant_quantity[]"
+                                                               name="old_variant_quantity[]"
                                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                                value="{{$variant->quantity}}">
                                                     </div>
                                                     <div class="file-loading">
-                                                        <input id="variant-image" name="variant_image[]" type="file">
+                                                        <input id="variant-image" name="old_variant_image{{$variant->id}}" type="file">
                                                     </div>
+                                                    <input type="hidden" name="old_variant_id[]" value="{{$variant->id}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -909,7 +910,8 @@
                     var arrayValues = optionsArrays[keys[0]];
                     for (var i = 0; i < arrayValues.length; i++) {
                         var arrayValue = arrayValues[i];
-                        makeVariantContainer(arrayValue, i)
+                        makeVariantContainer(arrayValue, i);
+                        createHiddenInput(arrayValue);
                     }
                 }
 
@@ -918,11 +920,23 @@
                     generateCombinations(0, []);
                     for (var i = 0; i < combinations.length; i++) {
                         var combinationText = combinations[i].join(' , ');
-                        makeVariantContainer(combinationText, i)
+                        makeVariantContainer(combinationText, i);
 
+                        for (var j = 0; j < combinations[i].length; j++) {
+                            createHiddenInput(combinations[i][j]);
+                        }
                     }
                 }
+
             });
+
+            function createHiddenInput(value) {
+                var hiddenInput = $('<input>')
+                    .attr('type', 'hidden')
+                    .attr('name', 'AttributeValues[]')
+                    .attr('value', value);
+                $('.variations-containers').append(hiddenInput);
+            }
 
             function makeVariantContainer(titleText, i) {
                 let attributeCard = document.createElement('div');

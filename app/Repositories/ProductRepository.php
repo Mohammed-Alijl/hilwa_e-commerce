@@ -133,11 +133,11 @@ class ProductRepository implements BasicRepositoryInterface
                     $variant->save();
 
 
-                    for ($i = 0; $i < count($request->AttributeValues)/count($request->variant_quantity);$i++){
+                    for ($i = 0; $i < count($request->AttributeValues) / count($request->variant_quantity); $i++) {
                         DB::table('attribute_variant')->insert([
-                           'attribute_id'=>AttributeValue::where('name',$request->AttributeValues[$counter])->first()->attribute->id,
-                            'variant_id'=>$variant->id,
-                            'attribute_value_id'=>AttributeValue::where('name',$request->AttributeValues[$counter++])->first()->id
+                            'attribute_id' => AttributeValue::where('name', $request->AttributeValues[$counter])->first()->attribute->id,
+                            'variant_id' => $variant->id,
+                            'attribute_value_id' => AttributeValue::where('name', $request->AttributeValues[$counter++])->first()->id
                         ]);
                     }
                 }
@@ -261,11 +261,25 @@ class ProductRepository implements BasicRepositoryInterface
             }
 
 
-            foreach ($product->variants as $variant) {
-                $this->delete_attachment('img/variants/' . $variant->image);
-                $variant->delete();
+            if ($request->filled('old_variant_price')) {
+                foreach ($request->old_variant_price as $index => $price) {
+                    $variant = Variant::findOrFail($request->old_variant_id[$index]);
+                    $variant->quantity = $request->old_variant_quantity[$index];
+                    $variant->price = $price;
+                    if ($request->hasFile("old_variant_image$variant->id")) {
+                        $this->delete_attachment('img/variants/' . $variant->image);
+                        $variant->image = $this->save_attachment($request->file('old_variant_image'. $variant->id), 'img/variants/');
+                    }
+                    $variant->save();
+                }
+            } else {
+                foreach ($product->variants as $variant) {
+                    $this->delete_attachment('img/variants/' . $variant->image);
+                    $variant->delete();
+                }
             }
-            if (isset($request->variant_price)) {
+            $counter = 0;
+            if ($request->filled('variant_price')) {
                 foreach ($request->variant_price as $index => $price) {
                     $imageName = $this->save_attachment($request->variant_image[$index], 'img/variants/');
 
@@ -276,34 +290,25 @@ class ProductRepository implements BasicRepositoryInterface
                     $variant->image = $imageName;
                     $variant->save();
 
-                    $attributeValueCombinations = [];
-
-                    foreach ($request->variant_attribute as $checkedAttribute) {
-                        $values = Attribute::find($checkedAttribute)->values->whereIn('id', $product->options->pluck('id'));
-
-                        foreach ($values as $value) {
-                            $attributeValueCombinations[] = $checkedAttribute . '-' . $value->id;
-                        }
-                    }
-
-                    $uniqueCombinations = array_unique($attributeValueCombinations);
-
-                    foreach ($uniqueCombinations as $combination) {
-                        [$attributeId, $valueId] = explode('-', $combination);
-                        $variant->attributes()->attach($attributeId, ['attribute_value_id' => $valueId]);
+                    for ($i = 0; $i < count($request->AttributeValues) / count($request->variant_quantity); $i++) {
+                        DB::table('attribute_variant')->insert([
+                            'attribute_id' => AttributeValue::where('name', $request->AttributeValues[$counter])->first()->attribute->id,
+                            'variant_id' => $variant->id,
+                            'attribute_value_id' => AttributeValue::where('name', $request->AttributeValues[$counter++])->first()->id
+                        ]);
                     }
                 }
             }
- else {
-                $product->attributes()->detach();
-                $product->options()->detach();
-                foreach ($product->variants as $variant) {
-                    $this->delete_attachment('img/variants/' . $variant->image);
-                    $variant->delete();
-                }
+        } else {
+            $product->attributes()->detach();
+            $product->options()->detach();
+            foreach ($product->variants as $variant) {
+                $this->delete_attachment('img/variants/' . $variant->image);
+                $variant->delete();
             }
         }
     }
+
     public function delete($id)
     {
         $product = Product::findOrFail($id);
