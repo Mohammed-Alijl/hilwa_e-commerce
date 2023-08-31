@@ -478,18 +478,6 @@
         $("#input-b3").fileinput({
             minFileCount: 1,
             theme: 'fas',
-            showUpload: false,
-            showCaption: true,
-            initialPreviewConfig: [
-                    @foreach($product->images as $image)
-                {
-                    caption: '{{ $image->name }}',
-                },
-                @endforeach
-            ],
-            initialPreviewAsData: true,
-            initialPreviewFileType: 'image',
-            initialPreviewShowDelete: false,
         });
     </script>
     <script>
